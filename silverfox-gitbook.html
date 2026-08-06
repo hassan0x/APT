@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SilverFox Full Attack Chain</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:   #07090f;
+    --c1:   #E63946;
+    --c2:   #F4845F;
+    --c3:   #F9C74F;
+    --c4:   #4CC9F0;
+    --c5:   #9B5DE5;
+    --c6:   #C77DFF;
+    --c7:   #43D9AD;
+    --c8:   #FF6B9D;
+    --dark: rgba(48,54,61,0.60);
+    --font: 'DejaVu Sans Mono','Courier New',Consolas,monospace;
+  }
+  body {
+    background: var(--bg);
+    color: #e6edf3;
+    font-family: var(--font);
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 0;
+    min-height: 100vh;
+  }
+  .sf-page { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* HEADER */
+  .sf-header {
+    background: rgba(230,57,70,0.08);
+    border: 1.5px solid var(--c1);
+    border-radius: 6px;
+    padding: 1.8rem 2rem;
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .sf-header h1 { font-size: 1.9rem; font-weight: 900; color: #fff; letter-spacing: 0.04em; margin-bottom: 0.4rem; }
+  .sf-header .sub1 { font-size: 0.85rem; color: #adb5bd; margin-bottom: 0.2rem; }
+  .sf-header .sub2 { font-size: 0.75rem; color: rgba(173,181,189,0.6); }
+
+  /* TIMELINE */
+  .sf-timeline { display: flex; flex-direction: column; }
+  .sf-connector { display: flex; flex-direction: column; align-items: center; height: 28px; }
+  .sf-connector::before { content: ''; width: 2px; flex: 1; background: var(--line-color, #555); }
+  .sf-connector::after { content: ''; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 7px solid var(--line-color, #555); }
+
+  /* STAGE CARD */
+  .sf-card { display: flex; gap: 1.1rem; border-radius: 8px; padding: 1.3rem 1.4rem 1.3rem 0; background: var(--card-bg); border-left: 3px solid var(--card-color); }
+  .sf-num { flex-shrink: 0; width: 52px; display: flex; align-items: flex-start; justify-content: center; padding-top: 0.15rem; }
+  .sf-num span { display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 8px; border: 1.5px solid var(--card-color); background: rgba(0,0,0,0.3); color: var(--card-color); font-size: 1rem; font-weight: 900; }
+  .sf-body { flex: 1; min-width: 0; }
+  .sf-meta { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.55rem; flex-wrap: wrap; }
+  .sf-stage-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 8px; border-radius: 3px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); }
+  .sf-mitre-tag { font-size: 0.6rem; font-weight: 700; padding: 2px 7px; border-radius: 3px; opacity: 0.88; }
+  .sf-ring0 { font-size: 0.58rem; font-weight: 700; padding: 2px 7px; border-radius: 3px; background: var(--c1); color: #fff; }
+  .sf-title { font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 0.6rem; line-height: 1.3; }
+
+  /* BULLETS */
+  .sf-list { list-style: none; margin-bottom: 0.8rem; }
+  .sf-list li { display: flex; gap: 0.5rem; align-items: baseline; font-size: 0.78rem; color: #c9d1d9; margin-bottom: 0.22rem; line-height: 1.5; }
+  .sf-list li::before { content: ''; display: inline-block; flex-shrink: 0; width: 4px; height: 4px; border-radius: 1px; background: var(--card-color); margin-top: 0.38em; }
+
+  /* CODE BLOCK */
+  .sf-code { background: var(--dark); border-radius: 5px; padding: 0.6rem 0.9rem; font-size: 0.71rem; color: #8b949e; overflow-x: auto; white-space: pre; line-height: 1.55; margin-top: 0.5rem; }
+  .sf-code .hi { color: var(--card-color); }
+  .sf-code .cm { color: #586069; }
+
+  /* KERNEL DIVIDER */
+  .sf-kernel-div { margin: 0.5rem 0; padding: 0.55rem 1rem; border-top: 2px dashed rgba(155,93,229,0.5); border-bottom: 2px dashed rgba(155,93,229,0.5); background: rgba(155,93,229,0.07); border-radius: 4px; text-align: center; }
+  .sf-kernel-div .kbl { font-size: 0.78rem; font-weight: 700; color: var(--c5); letter-spacing: 0.08em; }
+  .sf-kernel-div .kbs { font-size: 0.67rem; color: rgba(199,125,255,0.7); margin-top: 0.15rem; }
+
+  /* 3-DRIVER GRID */
+  .sf-drivers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin-top: 0.8rem; }
+  .sf-driver { border-radius: 6px; padding: 0.75rem; background: var(--drv-bg); border-top: 3px solid var(--drv-color); }
+  .sf-driver .drv-name { font-size: 0.82rem; font-weight: 700; color: var(--drv-color); margin-bottom: 0.35rem; }
+  .sf-driver .drv-line { font-size: 0.68rem; color: #8b949e; margin-bottom: 0.15rem; line-height: 1.45; }
+  .sf-driver .drv-badge { display: inline-block; margin-top: 0.3rem; font-size: 0.6rem; font-weight: 700; padding: 2px 7px; border-radius: 3px; background: rgba(255,255,255,0.07); border: 1px solid var(--drv-color); color: var(--drv-color); }
+
+  /* WATCHDOG DIAGRAM */
+  .sf-watchdog { background: rgba(255,107,157,0.12); border: 1.5px solid rgba(255,107,157,0.4); border-radius: 6px; padding: 1rem 1.1rem; margin-top: 0.8rem; }
+  .sf-wd-task { background: rgba(244,132,95,0.18); border: 1px solid rgba(244,132,95,0.5); border-radius: 5px; padding: 0.5rem 0.8rem; margin-bottom: 0.6rem; font-size: 0.71rem; font-weight: 700; color: #F4845F; text-align: center; }
+  .sf-wd-task .wd-sub { font-weight: 400; color: #c9d1d9; font-size: 0.67rem; margin-top: 0.15rem; }
+  .sf-wd-boxes { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-bottom: 0.6rem; }
+  .sf-wd-box { background: var(--dark); border-radius: 5px; padding: 0.55rem 0.7rem; border-top: 2px solid var(--wdb-color); }
+  .sf-wd-box .wdb-title { font-size: 0.7rem; font-weight: 700; color: var(--wdb-color); margin-bottom: 0.2rem; }
+  .sf-wd-box .wdb-line { font-size: 0.65rem; color: #8b949e; margin-bottom: 0.1rem; }
+  .sf-wd-center { background: rgba(76,201,240,0.15); border: 1px solid rgba(76,201,240,0.4); border-radius: 5px; padding: 0.4rem 0.8rem; text-align: center; font-size: 0.7rem; font-weight: 700; color: var(--c4); margin-bottom: 0.6rem; }
+  .sf-wd-note { font-size: 0.67rem; color: #8b949e; text-align: center; margin-top: 0.2rem; }
+  .sf-wd-arrow { text-align: center; color: var(--c8); font-size: 0.7rem; margin: 0.2rem 0; }
+
+  /* RESULT */
+  .sf-result { background: rgba(230,57,70,0.10); border: 1.5px solid var(--c1); border-radius: 8px; padding: 1.5rem 1.4rem; margin: 1.8rem 0; text-align: center; }
+  .sf-result .res-title { font-size: 1.15rem; font-weight: 900; color: #fff; letter-spacing: 0.06em; margin-bottom: 1rem; }
+  .sf-result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; max-width: 700px; margin: 0 auto; }
+  .sf-result-badge { padding: 0.55rem 0.4rem; border-radius: 5px; font-size: 0.72rem; font-weight: 700; background: var(--rb-bg); color: var(--rb-color); border: 1px solid var(--rb-color); }
+
+  /* REMEDIATION */
+  .sf-remed { background: rgba(67,217,173,0.07); border: 1.5px solid rgba(67,217,173,0.35); border-radius: 8px; padding: 1.4rem; margin-bottom: 1.8rem; }
+  .sf-remed-title { font-size: 0.9rem; font-weight: 700; color: var(--c7); letter-spacing: 0.08em; margin-bottom: 1rem; text-align: center; }
+  .sf-remed-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+  .sf-remed-item { display: flex; gap: 0.65rem; align-items: flex-start; padding: 0.55rem 0.7rem; border-radius: 5px; background: var(--ri-bg); font-size: 0.71rem; color: #c9d1d9; line-height: 1.5; }
+  .sf-remed-item .ri-num { flex-shrink: 0; width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.68rem; font-weight: 900; color: var(--ri-color); border: 1.5px solid var(--ri-color); background: rgba(0,0,0,0.25); }
+
+  /* MITRE TABLE */
+  .sf-mitre-section { background: rgba(48,54,61,0.12); border: 1.5px solid rgba(48,54,61,0.7); border-radius: 8px; padding: 1.3rem 1.4rem; margin-bottom: 1.5rem; }
+  .sf-mitre-title { font-size: 0.85rem; font-weight: 700; color: #adb5bd; text-align: center; margin-bottom: 0.9rem; letter-spacing: 0.05em; }
+  .sf-mitre-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
+  .sf-mitre-cell { padding: 0.55rem 0.6rem; border-radius: 5px; background: var(--mc-bg); border-top: 3px solid var(--mc-color); }
+  .sf-mitre-cell .mc-code { font-size: 0.72rem; font-weight: 700; color: var(--mc-color); margin-bottom: 0.15rem; }
+  .sf-mitre-cell .mc-name { font-size: 0.63rem; color: #8b949e; line-height: 1.4; }
+
+  /* FOOTER */
+  .sf-footer { text-align: center; font-size: 0.65rem; color: rgba(139,148,158,0.6); margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.06); }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    .sf-drivers { grid-template-columns: 1fr; }
+    .sf-result-grid { grid-template-columns: repeat(2,1fr); }
+    .sf-remed-grid { grid-template-columns: 1fr; }
+    .sf-mitre-grid { grid-template-columns: repeat(2,1fr); }
+    .sf-wd-boxes { grid-template-columns: 1fr; }
+    .sf-header h1 { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+<div class="sf-page">
+
+  <!-- HEADER -->
+  <div class="sf-header">
+    <h1>SilverFox &#8194; Full Attack Chain</h1>
+    <div class="sub1">BYOVD + DLL Sideloading + ValleyRAT &#183; Japanese Manufacturing Target</div>
+    <div class="sub2">Cato CTRL Threat Research &#183; 2026 &#183; All Stages Fully Expanded</div>
+  </div>
+
+  <div class="sf-timeline">
+
+    <!-- 01 INITIAL ACCESS -->
+    <div class="sf-card" style="--card-color:#E63946;--card-bg:rgba(230,57,70,0.10);">
+      <div class="sf-num"><span style="color:#E63946;border-color:#E63946;">01</span></div>
+      <div class="sf-body">
+        <div class="sf-meta">
+          <span class="sf-stage-label" style="color:#E63946;">01 &#183; Initial Access</span>
+          <span class="sf-mitre-tag" style="background:#E63946;color:#fff;">T1566.002</span>
+        </div>
+        <div class="sf-title">Invoice Phishing via Tencent Cloud</div>
+        <ul class="sf-list" style="--card-color:#E63946;">
+          <li>Invoice-themed phishing email sent to Japanese manufacturing employee</li>
+          <li>Payload hosted on QQ / Tencent Cloud legitimate domains, bypasses URL reputation checks</li>
+          <li>No malicious infrastructure present in email headers or sender domain</li>
+          <li>Link delivers a ZIP archive download to victim&#39;s machine</li>
+        </ul>
+        <div class="sf-code" style="--card-color:#E63946;"><span class="cm">Download URL:</span>
+<span class="hi">https://[bucket].cos.ap-[region].myqcloud.com/Invoice.zip</span></div>
+      </div>
+    </div>
+
+    <div class="sf-connector" style="--line-color:#F4845F;"></div>
+
+    <!-- 02 EXECUTION -->
+    <div class="sf-card" style="--card-color:#F4845F;--card-bg:rgba(244,132,95,0.10);">
+      <div class="sf-num"><span style="color:#F4845F;border-color:#F4845F;">02</span></div>
+      <div class="sf-body">
+        <div class="sf-meta">
+          <span class="sf-stage-label" style="color:#F4845F;">02 &#183; Execution</span>
+          <span class="sf-mitre-tag" style="background:#F4845F;color:#111;">T1204.002</span>
+        </div>
+        <div class="sf-title">ZIP Contains Fake PDF (Downloader EXE)</div>
+        <ul class="sf-list" style="--card-color:#F4845F;">
+          <li>ZIP contains: real PDF decoy + EXE with PDF icon injected</li>
+          <li>Windows hides .exe extension by default &#8212; victim sees two PDF files</li>
+          <li>Victim double-clicks the fake PDF thinking it is a document</li>
+          <li>Downloader runs silently in background, no visible window or dialog</li>
+        </ul>
+        <div class="sf-code" style="--card-color:#F4845F;"><span class="hi">Invoice_2026.zip</span>
+  Invoice_Detail.pdf      <span class="cm">&lt;- real decoy, opens normally</span>
+  Invoice_2026.pdf        <span class="cm">&lt;- actually Invoice_2026.pdf.exe</span></div>
+      </div>
+    </div>
+
+    <div class="sf-connector" style="--line-color:#F9C74F;"></div>
+
+    <!-- 03 STAGING -->
+    <div class="sf-card" style="--card-color:#F9C74F;--card-bg:rgba(249,199,79,0.10);">
+      <div class="sf-num"><span style="color:#F9C74F;border-color:#F9C74F;">03</span></div>
+      <div class="sf-body">
+        <div class="sf-meta">
+          <span class="sf-stage-label" style="color:#F9C74F;">03 &#183; Staging</span>
+          <span class="sf-mitre-tag" style="background:#F9C74F;color:#111;">T1105</span>
+        </div>
+        <div class="sf-title">Download ConvertToPDF.exe + PDFCORE8.dll from Tencent Cloud</div>
+        <ul class="sf-list" style="--card-color:#F9C74F;">
+          <li>Downloader contacts attacker-controlled Tencent Cloud bucket</li>
+          <li>Downloads ConvertToPDF.exe &#8212; legitimate binary signed by Zeon Corporation</li>
+          <li>Downloads PDFCORE8.dll &#8212; the malicious DLL payload</li>
+          <li>Both files saved to same folder (AppData\Roaming or ProgramData)</li>
+          <li>Same folder placement is critical for DLL Sideloading to succeed</li>
+        </ul>
+        <div class="sf-code" style="--card-color:#F9C74F;"><span class="cm">Saved to:</span>
+<span class="hi">C:\Users\victim\AppData\Roaming\[random_folder]\</span>
+  ConvertToPDF.exe    <span class="cm">&lt;- legitimate, Microsoft-trusted signature</span>
+  PDFCORE8.dll        <span class="cm">&lt;- malicious, contains embedded drivers</span></div>
+      </div>
+    </div>
+
+    <div class="sf-connector" style="--line-color:#4CC9F0;"></div>
+
+    <!-- 04 DLL SIDELOADING -->
+    <div class="sf-card" style="--card-color:#4CC9F0;--card-bg:rgba(76,201,240,0.10);">
+      <div class="sf-num"><span style="color:#4CC9F0;border-color:#4CC9F0;">04</span></div>
+      <div class="sf-body">
+        <div class="sf-meta">
+          <span class="sf-stage-label" style="color:#4CC9F0;">04 &#183; DLL Sideloading</span>
+          <span class="sf-mitre-tag" style="background:#4CC9F0;color:#111;">T1574.002</span>
+        </div>
+        <div class="sf-title">PDFCORE8.dll Loaded Inside Trusted Process via Sideloading</div>
+        <ul class="sf-list" style="--card-color:#4CC9F0;">
+          <li>Downloader launches ConvertToPDF.exe (the legitimate signed binary)</li>
+          <li>Windows DLL search order: checks same folder as EXE FIRST before System32</li>
+          <li>Finds PDFCORE8.dll in same folder and loads it automatically</li>
+          <li>Malicious code now runs inside a signed, trusted, Microsoft-recognized process</li>
+          <li>EDR sees signed ConvertToPDF.exe loading a DLL &#8212; looks completely normal</li>
+        </ul>
+        <div class="sf-code" style="--card-color:#4CC9F0;">ConvertToPDF.exe asks Windows: "where is PDFCORE8.dll?"
+Windows checks: same folder first <span class="hi">-&gt; FOUND</span>
+Loads PDFCORE8.dll into process memory automatically
+<span class="hi">DllMain()</span> executes <span class="hi">-&gt;</span> attack begins inside trusted process</div>
+      </div>
+    </div>
+
+    <!-- KERNEL BOUNDARY -->
+    <div class="sf-kernel-div">
+      <div class="kbl">&gt;&gt;&gt; KERNEL BOUNDARY &#160;&#160;&#160; RING 3 &#8594; RING 0</div>
+      <div class="kbs">Everything below this line executes with unlimited kernel privileges &#8212; EDR cannot interfere</div>
+    </div>
+
+    <!-- 05 BYOVD -->
+    <div class="sf-card" style="--card-color:#9B5DE5;--card-bg:rgba(155,93,229,0.10);">
+      <div class="sf-num"><span style="color:#9B5DE5;border-color:#9B5DE5;">05</span></div>
+      <div class="sf-body">
+        <div class="sf-meta">
+          <span class="sf-stage-label" style="color:#9B5DE5;">05 &#183; BYOVD &#8212; Bring Your Own Vulnerable Driver</span>
+          <span class="sf-mitre-tag" style="background:#9B5DE5;color:#fff;">T1562.001</span>
+          <span class="sf-ring0">RING 0</span>
+        </div>
+        <div class="sf-title">3-Driver Kernel Attack &#8212; EDR Killed from Ring 0</div>
+        <ul class="sf-list" style="--card-color:#9B5DE5;">
+          <li>DLL extracts 3 .sys drivers from its Resources section as raw embedded bytes</li>
+          <li>Writes each driver to disk: C:\Windows\Temp\ or C:\ProgramData\</li>
+          <li>Loads them into kernel via SCM: CreateService(SERVICE_KERNEL_DRIVER) + StartService()</li>
+          <li>Opens device handle: CreateFile(&#39;\\.\WarsawPM&#39;) &#8594; sends IOCTL with EDR PID</li>
+          <li>Driver calls ZwTerminateProcess(EDR_PID) from Ring 0 &#8212; completely unstoppable</li>
+          <li>3 drivers = modular fallback: if one is on blocklist, try the next one</li>
+        </ul>
+        <div class="sf-code" style="--card-color:#9B5DE5;">DeviceIoControl(
+  hDriver, <span class="hi">IOCTL_KILL_PROCESS</span>,
+  &amp;edr_pid, sizeof(DWORD),
+  NULL, 0, NULL, NULL
+);
+<span class="cm">// ZwTerminateProcess(EDR) from Ring 0 -&gt; cannot be intercepted</span></div>
+        <div class="sf-drivers">
+          <div class="sf-driver" style="--drv-color:#9B5DE5;--drv-bg:rgba(155,93,229,0.22);">
+            <div class="drv-name">BootRepair.sys</div>
+            <div class="drv-line">Boot repair tool (legit vendor)</div>
+            <div class="drv-line">No CVE &#8212; PhantomKiller PoC</div>
+            <div class="drv-line">IOCTL &#8594; ZwTerminateProcess(PID)</div>
+            <div class="drv-line">&#8594; ZwTerminateProcess() from Ring 0</div>
+            <span class="drv-badge">New SilverFox association in this campaign</span>
+          </div>
+          <div class="sf-driver" style="--drv-color:#FF6B9D;--drv-bg:rgba(255,107,157,0.22);">
+            <div class="drv-name">EnPortv.sys</div>
+            <div class="drv-line">EnCase forensic tool</div>
+            <div class="drv-line">Expired/revoked cert &#8212; Windows still loads it</div>
+            <div class="drv-line">Forensic IOCTL abused &#8594; process kill</div>
+            <div class="drv-line">&#8594; ZwTerminateProcess() from Ring 0</div>
+            <span class="drv-badge" style="color:#FF6B9D;border-color:#FF6B9D;">First documented SilverFox use</span>
+          </div>
+          <div class="sf-driver" style="--drv-color:#F9C74F;--drv-bg:rgba(249,199,79,0.22);">
+            <div class="drv-name">wsftprm.sys</div>
+            <div class="drv-line">Topaz Antifraud &#8212; Brazil banking</div>
+            <div class="drv-line">CVE-2023-52271 (CVSSv3: 6.1)</div>
+            <div class="drv-line">IOCTL 0x22201C via \\.\Warsaw_PM</div>
+            <div class="drv-line">&#8594; ZwTerminateProcess() from Ring 0</div>
+            <span class="drv-badge" style="color:#F9C74F;border-color:#F9C74F;">Kills PPL &#183; NOT on MS blocklist!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sf-connector" style="--line-color:#C77DFF;"></div>
+
+    <!-- 06 DEFENSE EVASION -->
+    <div class="sf-card" style="--card-color:#C77DFF;--card-bg:rgba(199,125,255,0.10);">
+      <div class="sf-num"><span style="color:#C77DFF;border-color:#C77DFF;">06</span></div>
+      <div class="sf-body">
+        <div class="sf-meta">
+          <span class="sf-stage-label" style="color:#C77DFF;">06 &#183; Defense Evasion</span>
+          <span class="sf-mitre-tag" style="background:#C77DFF;color:#111;">T1562.001</span>
+        </div>
+        <div class="sf-title">NTDLL Unhooking &#8212; EDR Blind at User-Mode Level Too</div>
+        <ul class="sf-list" style="--card-color:#C77DFF;">
+          <li>EDR places JMP hooks at the start of NTDLL.dll functions to intercept all syscalls</li>
+          <li>DLL reads a fresh, completely unhooked copy of ntdll.dll directly from disk</li>
+          <li>Overwrites the hooked bytes in live memory with the original clean instruction bytes</li>
+          <li>All JMP hooks removed &#8212; syscalls now reach the kernel directly with no interception</li>
+          <li>Combined effect: BYOVD killed EDR at kernel level + Unhooking blinds it at user-mode</li>
+        </ul>
+        <div class="sf-code" style="--card-color:#C77DFF;"><span class="cm">// Before unhooking &#8212; EDR hook intercepts every syscall:</span>
+NtCreateProcess:  <span class="hi">JMP 0x7FFE1234</span>  -&gt; EDR_Inspector -&gt; EDR logs call
+
+<span class="cm">// After unhooking &#8212; original bytes restored:</span>
+NtCreateProcess:  <span class="hi">MOV R10, RCX</span>
+                  <span class="hi">MOV EAX, 0x4C</span>   <span class="cm">&lt;- original syscall stub</span>
+                  <span class="hi">SYSCALL</span>          <span class="cm">&lt;- goes straight to kernel</span>
+                  <span class="hi">RET</span>              <span class="cm">&lt;- EDR sees nothing</span></div>
+      </div>
+    </div>
+
+    <div class="sf-connector" style="--line-color:#43D9AD;"></div>
+
+    <!-- 07 C2 + INJECTION -->
+    <div class="sf-card" style="--card-color:#43D9AD;--card-bg:rgba(67,217,173,0.10);">
+      <div class="sf-num"><span style="color:#43D9AD;border-color:#43D9AD;">07</span></div>
+      <div class="sf-body">
+        <div class="sf-meta">
+          <span class="sf-stage-label" style="color:#43D9AD;">07 &#183; C2 Communication + Process Injection</span>
+          <span class="sf-mitre-tag" style="background:#43D9AD;color:#111;">T1055.003</span>
+        </div>
+        <div class="sf-title">Thread-Context Hijacking &#8594; ValleyRAT Lives Inside svchost.exe</div>
+        <ul class="sf-list" style="--card-color:#43D9AD;">
+          <li>DLL fetches shellcode from C2 server: 43.128.26[.]132 &#8212; shellcode never touches disk</li>
+          <li>Finds an existing svchost.exe instance (trusted Windows system process)</li>
+          <li>Allocates RWX memory region inside svchost.exe via VirtualAllocEx()</li>
+          <li>Writes the ValleyRAT shellcode into allocated region via WriteProcessMemory()</li>
+          <li>Finds an existing thread inside svchost, suspends it via SuspendThread()</li>
+          <li>Reads thread context, redirects RIP to shellcode, resumes &#8212; no new thread created</li>
+        </ul>
+        <div class="sf-code" style="--card-color:#43D9AD;"><span class="hi">OpenProcess</span>(PROCESS_ALL_ACCESS, svchost_PID)
+<span class="hi">VirtualAllocEx</span>(hProc, NULL, size, MEM_COMMIT, PAGE_EXECUTE_READWRITE)
+<span class="hi">WriteProcessMemory</span>(hProc, pRemote, shellcode, size)
+<span class="hi">OpenThread</span>(THREAD_ALL_ACCESS, thread_id)
+<span class="hi">SuspendThread</span>(hThread)
+<span class="hi">GetThreadContext</span>(hThread, &amp;ctx)
+ctx.Rip = (DWORD64)pRemoteMemory  <span class="cm">// redirect to shellcode</span>
+<span class="hi">SetThreadContext</span>(hThread, &amp;ctx)
+<span class="hi">ResumeThread</span>(hThread)  <span class="cm">// ValleyRAT is now executing</span></div>
+      </div>
+    </div>
+
+    <div class="sf-connector" style="--line-color:#FF6B9D;"></div>
+
+    <!-- 08 PERSISTENCE -->
+    <div class="sf-card" style="--card-color:#FF6B9D;--card-bg:rgba(255,107,157,0.10);">
+      <div class="sf-num"><span style="color:#FF6B9D;border-color:#FF6B9D;">08</span></div>
+      <div class="sf-body">
+        <div class="sf-meta">
+          <span class="sf-stage-label" style="color:#FF6B9D;">08 &#183; Persistence &#8212; Dual Watchdog Survival Architecture</span>
+          <span class="sf-mitre-tag" style="background:#FF6B9D;color:#111;">T1053.005</span>
+        </div>
+        <div class="sf-title">Two Independent Recovery Layers Ensure Malware Stays Alive</div>
+        <ul class="sf-list" style="--card-color:#FF6B9D;">
+          <li>Watchdog 1 (internal): DLL background thread monitors ValleyRAT memory address in svchost</li>
+          <li>If ValleyRAT disappears &#8594; re-fetches shellcode from C2 server and re-injects</li>
+          <li>Watchdog 2 (external): batch script runs tasklist every 10s to check ConvertToPDF.exe</li>
+          <li>If ConvertToPDF.exe is dead &#8594; immediately relaunches it</li>
+          <li>Scheduled Task monitors batch script itself &#8594; fires on boot + every X minutes</li>
+          <li>Deleting the DLL from disk does NOT evict it from memory until next reboot</li>
+        </ul>
+        <div class="sf-watchdog">
+          <div class="sf-wd-task">
+            [SCHEDULED TASK] &#160; fires on every boot + every X minutes
+            <div class="wd-sub">survives reboots &#8212; if batch script stops, task relaunches it</div>
+          </div>
+          <div class="sf-wd-arrow">&#8595; &#160; monitors</div>
+          <div class="sf-wd-boxes">
+            <div class="sf-wd-box" style="--wdb-color:#FF6B9D;">
+              <div class="wdb-title">WATCHDOG 2 &#8212; External (batch .bat script)</div>
+              <div class="wdb-line">runs tasklist every ~10 seconds</div>
+              <div class="wdb-line">if ConvertToPDF.exe not found &#8594; relaunches it immediately</div>
+              <div class="wdb-line">if batch script is deleted &#8594; Scheduled Task recreates it on next boot</div>
+            </div>
+            <div class="sf-wd-box" style="--wdb-color:#43D9AD;">
+              <div class="wdb-title">WATCHDOG 1 &#8212; Internal (background thread inside DLL)</div>
+              <div class="wdb-line">monitors ValleyRAT shellcode memory address every 500ms</div>
+              <div class="wdb-line">if memory freed or svchost.exe died &#8594; re-fetch shellcode from C2 + re-inject</div>
+            </div>
+          </div>
+          <div class="sf-wd-arrow">&#8595; &#160; relaunches &#160;&#160;&#160;&#160; &#8595; &#160; monitors</div>
+          <div class="sf-wd-center">ConvertToPDF.exe + PDFCORE8.dll (the loader)</div>
+          <div class="sf-wd-arrow">&#8595; &#160; monitors</div>
+          <div class="sf-wd-center" style="border-color:rgba(67,217,173,0.4);color:#43D9AD;background:rgba(67,217,173,0.15);">ValleyRAT shellcode running inside svchost.exe</div>
+          <div class="sf-wd-note">Kill ALL layers simultaneously + delete Scheduled Task to fully remediate</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sf-connector" style="--line-color:#E63946;"></div>
+
+    <!-- 09 REMOTE ACCESS -->
+    <div class="sf-card" style="--card-color:#E63946;--card-bg:rgba(230,57,70,0.10);">
+      <div class="sf-num"><span style="color:#E63946;border-color:#E63946;">09</span></div>
+      <div class="sf-body">
+        <div class="sf-meta">
+          <span class="sf-stage-label" style="color:#E63946;">09 &#183; Remote Access &#8212; Final Payload</span>
+          <span class="sf-mitre-tag" style="background:#E63946;color:#fff;">Gh0st RAT variant</span>
+          <span class="sf-mitre-tag" style="background:#F4845F;color:#111;">Winos 4.0</span>
+        </div>
+        <div class="sf-title">ValleyRAT Active &#8212; Full Persistent C2 Control</div>
+        <ul class="sf-list" style="--card-color:#E63946;">
+          <li>Runs as raw shellcode inside svchost.exe &#8212; no file on disk, no dedicated process</li>
+          <li>Network traffic blends seamlessly with legitimate svchost.exe communications</li>
+          <li>Full remote shell: execute arbitrary commands, read output, control system</li>
+          <li>File operations: upload additional tools to victim / exfiltrate documents and data</li>
+          <li>System recon: whoami, ipconfig, net user, net group, tasklist, systeminfo</li>
+          <li>Modular architecture: loads additional payloads on demand from C2 (keylogger, screenshots, creds)</li>
+        </ul>
+        <div class="sf-code" style="--card-color:#E63946;"><span class="cm">C2 Server:</span>  <span class="hi">43.128.26[.]132</span>
+<span class="cm">Traffic:   </span>  encrypted, mimics legitimate svchost network behavior
+<span class="cm">Capability:</span>  full persistent remote access with kernel-level persistence</div>
+      </div>
+    </div>
+
+  </div><!-- end sf-timeline -->
+
+  <!-- RESULT -->
+  <div class="sf-result">
+    <div class="res-title">RESULT &#8212; Attacker has full, persistent, undetected access</div>
+    <div class="sf-result-grid">
+      <div class="sf-result-badge" style="--rb-bg:rgba(155,93,229,0.25);--rb-color:#9B5DE5;">EDR Dead (Ring 0)</div>
+      <div class="sf-result-badge" style="--rb-bg:rgba(199,125,255,0.25);--rb-color:#C77DFF;">User Hooks Removed</div>
+      <div class="sf-result-badge" style="--rb-bg:rgba(67,217,173,0.25);--rb-color:#43D9AD;">Shellcode in svchost</div>
+      <div class="sf-result-badge" style="--rb-bg:rgba(255,107,157,0.25);--rb-color:#FF6B9D;">Dual Recovery Active</div>
+      <div class="sf-result-badge" style="--rb-bg:rgba(230,57,70,0.25);--rb-color:#E63946;">C2 Connected</div>
+      <div class="sf-result-badge" style="--rb-bg:rgba(244,132,95,0.25);--rb-color:#F4845F;">No Files on Disk</div>
+    </div>
+  </div>
+
+  <!-- REMEDIATION -->
+  <div class="sf-remed">
+    <div class="sf-remed-title">&gt;&gt; CORRECT REMEDIATION ORDER</div>
+    <div class="sf-remed-grid">
+      <div class="sf-remed-item" style="--ri-bg:rgba(230,57,70,0.18);--ri-color:#E63946;">
+        <span class="ri-num">1</span>Block 43.128.26[.]132 + all Tencent Cloud endpoints at the network firewall first
+      </div>
+      <div class="sf-remed-item" style="--ri-bg:rgba(244,132,95,0.18);--ri-color:#F4845F;">
+        <span class="ri-num">2</span>Delete the Scheduled Task to prevent script re-launch on next boot/trigger
+      </div>
+      <div class="sf-remed-item" style="--ri-bg:rgba(249,199,79,0.18);--ri-color:#F9C74F;">
+        <span class="ri-num">3</span>Delete the batch watchdog script from disk
+      </div>
+      <div class="sf-remed-item" style="--ri-bg:rgba(76,201,240,0.18);--ri-color:#4CC9F0;">
+        <span class="ri-num">4</span>Kill ConvertToPDF.exe process &#8594; this evicts PDFCORE8.dll from memory
+      </div>
+      <div class="sf-remed-item" style="--ri-bg:rgba(155,93,229,0.18);--ri-color:#9B5DE5;">
+        <span class="ri-num">5</span>Delete all dropped files: .sys drivers, .dll, .exe from disk
+      </div>
+      <div class="sf-remed-item" style="--ri-bg:rgba(67,217,173,0.18);--ri-color:#43D9AD;">
+        <span class="ri-num">6</span>Reboot the system to fully unload any remaining kernel drivers
+      </div>
+    </div>
+  </div>
+
+  <!-- MITRE ATT&CK -->
+  <div class="sf-mitre-section">
+    <div class="sf-mitre-title">MITRE ATT&amp;CK Techniques Observed</div>
+    <div class="sf-mitre-grid">
+      <div class="sf-mitre-cell" style="--mc-bg:rgba(230,57,70,0.20);--mc-color:#E63946;">
+        <div class="mc-code">T1566.002</div>
+        <div class="mc-name">Phishing: Spearphishing Link</div>
+      </div>
+      <div class="sf-mitre-cell" style="--mc-bg:rgba(244,132,95,0.20);--mc-color:#F4845F;">
+        <div class="mc-code">T1204.002</div>
+        <div class="mc-name">User Execution: Malicious File</div>
+      </div>
+      <div class="sf-mitre-cell" style="--mc-bg:rgba(249,199,79,0.20);--mc-color:#F9C74F;">
+        <div class="mc-code">T1105</div>
+        <div class="mc-name">Ingress Tool Transfer</div>
+      </div>
+      <div class="sf-mitre-cell" style="--mc-bg:rgba(76,201,240,0.20);--mc-color:#4CC9F0;">
+        <div class="mc-code">T1574.002</div>
+        <div class="mc-name">DLL Side-Loading</div>
+      </div>
+      <div class="sf-mitre-cell" style="--mc-bg:rgba(155,93,229,0.20);--mc-color:#9B5DE5;">
+        <div class="mc-code">T1562.001</div>
+        <div class="mc-name">Disable Security Tools (BYOVD)</div>
+      </div>
+      <div class="sf-mitre-cell" style="--mc-bg:rgba(199,125,255,0.20);--mc-color:#C77DFF;">
+        <div class="mc-code">T1562.001</div>
+        <div class="mc-name">NTDLL Unhooking / Hook Removal</div>
+      </div>
+      <div class="sf-mitre-cell" style="--mc-bg:rgba(67,217,173,0.20);--mc-color:#43D9AD;">
+        <div class="mc-code">T1055.003</div>
+        <div class="mc-name">Thread Execution Hijacking</div>
+      </div>
+      <div class="sf-mitre-cell" style="--mc-bg:rgba(255,107,157,0.20);--mc-color:#FF6B9D;">
+        <div class="mc-code">T1053.005</div>
+        <div class="mc-name">Scheduled Task Persistence</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sf-footer">
+    Source: Cato CTRL Threat Research &#183; SilverFox Campaign 2026 &#183; For Red Team &amp; Threat Intelligence Purposes
+  </div>
+
+</div>
+</body>
+</html>
