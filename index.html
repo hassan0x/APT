@@ -1,1 +1,87 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Blog</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0a0a0f;
+      color: #e2e2f0;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .card {
+      max-width: 560px;
+      width: 100%;
+    }
+
+    .label {
+      font-family: 'Consolas', monospace;
+      font-size: 0.78rem;
+      color: #00f0ff;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1.2rem;
+    }
+
+    p {
+      color: #6b6b8a;
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .links a {
+      font-size: 0.88rem;
+      color: #6b6b8a;
+      text-decoration: none;
+      border-bottom: 1px solid #1e1e2e;
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .links a:hover {
+      color: #00f0ff;
+      border-color: #00f0ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="label">// hello</div>
+    <h1>Name.<br />I write about things.</h1>
+    <p>
+      Welcome to my corner of the internet. I post about code, systems,
+      and whatever I find interesting. No schedule, no algorithm — just writing.
+    </p>
+    <div class="links">
+      <a href="#">Posts</a>
+      <a href="#">About</a>
+      <a href="#">GitHub</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</body>
+</html>
