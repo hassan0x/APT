@@ -142,11 +142,8 @@ permalink: /methodology/
         </div>
         <div class="sf-title">Spearphishing via Trusted Cloud Storage</div>
         <ul class="sf-list" style="--card-color:#E63946;">
-          <li>Themed phishing email sent to a targeted employee — invoice, shipment, or HR lure</li>
-          <li>Payload hosted on a legitimate cloud storage provider to bypass URL reputation checks</li>
-          <li>No attacker infrastructure in email headers — sender domain is clean</li>
-          <li>Link delivers a ZIP or compressed archive to the victim machine</li>
-          <li>Legitimate domain hosting defeats most email gateway and proxy blocklists</li>
+          <li>Themed lure (invoice, HR, shipment) delivered via legitimate cloud storage — bypasses URL reputation checks</li>
+          <li>No attacker infrastructure in headers — sender domain is clean, link goes to trusted provider</li>
         </ul>
         <div class="sf-code" style="--card-color:#E63946;"><span class="cm">Delivery vector:</span>
 <span class="hi">https://[legitimate-cloud-storage]/[lure-filename].zip</span>
@@ -166,11 +163,8 @@ permalink: /methodology/
         </div>
         <div class="sf-title">Masqueraded EXE — Icon Spoofing + Extension Hiding</div>
         <ul class="sf-list" style="--card-color:#F4845F;">
-          <li>Archive contains a real decoy document + an EXE disguised with a document icon</li>
-          <li>Windows hides known extensions by default — victim sees two identical-looking files</li>
-          <li>Victim double-clicks the fake document thinking it is legitimate</li>
-          <li>Downloader runs silently in background — no visible window or UAC prompt</li>
-          <li>Decoy document may open simultaneously to avoid suspicion</li>
+          <li>ZIP contains a real decoy + EXE with document icon — Windows hides .exe extension by default</li>
+          <li>Victim double-clicks fake document; downloader runs silently, opens decoy to avoid suspicion</li>
         </ul>
         <div class="sf-code" style="--card-color:#F4845F;"><span class="hi">Lure.zip</span>
   Document.pdf          <span class="cm">&lt;- real decoy, opens normally</span>
@@ -191,12 +185,8 @@ permalink: /methodology/
         </div>
         <div class="sf-title">Download Signed Legitimate Binary + Malicious DLL</div>
         <ul class="sf-list" style="--card-color:#F9C74F;">
-          <li>Downloader contacts attacker-controlled cloud bucket for second-stage payload</li>
-          <li>Downloads a legitimate binary signed by a trusted vendor — used as the sideload host</li>
-          <li>Downloads the malicious DLL that uses the same name the signed binary imports</li>
-          <li>Both files saved to the same directory (AppData, ProgramData, or Temp)</li>
-          <li>Same-folder placement is a prerequisite for DLL sideloading to succeed</li>
-          <li>Malicious DLL often embeds additional resources (drivers, shellcode) in its .rsrc section</li>
+          <li>Downloader fetches a trusted-vendor-signed EXE + malicious DLL from attacker cloud bucket</li>
+          <li>Both saved to the same folder — prerequisite for sideloading; DLL embeds drivers + shellcode in .rsrc</li>
         </ul>
         <div class="sf-code" style="--card-color:#F9C74F;"><span class="cm">Staged to:</span>
 <span class="hi">%APPDATA%\[random_folder]\</span>
@@ -217,12 +207,8 @@ permalink: /methodology/
         </div>
         <div class="sf-title">Malicious Code Runs Inside a Signed Trusted Process</div>
         <ul class="sf-list" style="--card-color:#4CC9F0;">
-          <li>Downloader launches the legitimate signed binary</li>
-          <li>Windows DLL search order: application directory is searched BEFORE System32</li>
-          <li>Signed binary loads the attacker-placed DLL automatically from the same folder</li>
-          <li>Malicious DllMain() executes — the attack now runs inside a trusted signed process</li>
-          <li>EDR sees a signed binary loading a DLL from its own folder — low suspicion</li>
-          <li>Process parent/child chain, code signing, and module provenance all appear legitimate</li>
+          <li>Windows DLL search order checks the application directory before System32 — malicious DLL wins</li>
+          <li>Attack runs inside a signed trusted process; EDR sees clean binary loading its own DLL — low suspicion</li>
         </ul>
         <div class="sf-code" style="--card-color:#4CC9F0;">LegitApp.exe asks Windows: "where is TargetDLL.dll?"
 Windows checks: application directory first <span class="hi">-&gt; FOUND</span>
@@ -248,13 +234,9 @@ Loads TargetDLL.dll into process memory automatically
         </div>
         <div class="sf-title">EDR Killed from Ring 0 via Vulnerable Signed Driver</div>
         <ul class="sf-list" style="--card-color:#9B5DE5;">
-          <li>Malicious DLL extracts one or more .sys drivers embedded in its resources section</li>
-          <li>Writes each driver to disk (Temp, ProgramData, or System32\drivers)</li>
-          <li>Loads driver via SCM: CreateService(SERVICE_KERNEL_DRIVER) + StartService()</li>
-          <li>Opens a device handle to the driver and sends an IOCTL with the EDR process PID</li>
-          <li>Vulnerable driver executes ZwTerminateProcess(EDR_PID) from Ring 0 — cannot be blocked</li>
-          <li>Multiple drivers act as fallback chain — if one is on the blocklist, try the next</li>
-          <li>Target: any security process running as PPL — kernel call bypasses PPL protection entirely</li>
+          <li>DLL drops embedded .sys drivers, loads via SCM, sends IOCTL with EDR PID</li>
+          <li>Driver calls ZwTerminateProcess(EDR) from Ring 0 — PPL, self-protection callbacks all bypassed</li>
+          <li>Multiple drivers = fallback chain if one hits the blocklist</li>
         </ul>
         <div class="sf-code" style="--card-color:#9B5DE5;">DeviceIoControl(
   hVulnDriver, <span class="hi">IOCTL_KILL_PROCESS</span>,
@@ -278,11 +260,8 @@ Loads TargetDLL.dll into process memory automatically
         </div>
         <div class="sf-title">NTDLL Unhooking — Removing EDR's User-Mode Visibility</div>
         <ul class="sf-list" style="--card-color:#C77DFF;">
-          <li>EDR injects JMP hooks at the entry of NTDLL.dll syscall stubs to intercept all calls</li>
-          <li>Attacker reads a clean, unmodified copy of ntdll.dll directly from disk</li>
-          <li>Overwrites the hooked in-memory bytes with the original instruction bytes from the disk copy</li>
-          <li>All JMP hooks removed — subsequent syscalls reach the kernel with no EDR interception</li>
-          <li>Combined with BYOVD: kernel-level EDR dead + user-mode hooks stripped = full blind spot</li>
+          <li>Read a clean ntdll.dll from disk, overwrite hooked in-memory bytes — JMP hooks gone</li>
+          <li>Syscalls now reach kernel directly; combined with BYOVD = complete EDR blind spot</li>
         </ul>
         <div class="sf-code" style="--card-color:#C77DFF;"><span class="cm">// Before unhooking — EDR intercepts every syscall:</span>
 NtCreateProcess:  <span class="hi">JMP edr_hook</span>  -&gt; EDR inspects + logs
@@ -307,13 +286,8 @@ NtCreateProcess:  <span class="hi">MOV R10, RCX</span>
         </div>
         <div class="sf-title">Thread-Context Hijacking into a Trusted System Process</div>
         <ul class="sf-list" style="--card-color:#43D9AD;">
-          <li>DLL fetches final shellcode payload from C2 server over encrypted channel</li>
-          <li>Shellcode is never written to disk — lives entirely in memory</li>
-          <li>Locates a long-running trusted system process (e.g. svchost.exe) as injection target</li>
-          <li>Allocates RWX memory region inside target via VirtualAllocEx()</li>
-          <li>Writes shellcode into the allocated region via WriteProcessMemory()</li>
-          <li>Suspends an existing thread, redirects its RIP to the shellcode, then resumes it</li>
-          <li>No new thread created — execution flows through an existing thread with a legitimate call stack origin</li>
+          <li>Shellcode fetched from C2 over encrypted channel — never touches disk</li>
+          <li>Injected into a trusted system process; existing thread RIP hijacked — no new thread created</li>
         </ul>
         <div class="sf-code" style="--card-color:#43D9AD;"><span class="hi">OpenProcess</span>(PROCESS_ALL_ACCESS, target_pid)
 <span class="hi">VirtualAllocEx</span>(hProc, NULL, size, MEM_COMMIT, PAGE_EXECUTE_READWRITE)
@@ -339,12 +313,8 @@ ctx.Rip = (DWORD64)pRemote  <span class="cm">// hijack RIP to shellcode</span>
         </div>
         <div class="sf-title">Two Independent Recovery Layers Keep the Implant Alive</div>
         <ul class="sf-list" style="--card-color:#FF6B9D;">
-          <li>Watchdog 1 (internal): background thread monitors the injected shellcode's memory address</li>
-          <li>If shellcode is evicted or target process dies &#8594; re-fetches from C2 and re-injects</li>
-          <li>Watchdog 2 (external): script polls for the loader process every few seconds</li>
-          <li>If loader process is killed &#8594; immediately relaunches it</li>
-          <li>Scheduled Task monitors the script itself &#8594; fires on boot + periodic trigger</li>
-          <li>Killing the loader evicts the DLL from memory, but the task respawns it on next boot</li>
+          <li>Internal watchdog thread: if shellcode evicted &#8594; re-fetch from C2 + re-inject</li>
+          <li>External script: if loader killed &#8594; relaunch; Scheduled Task ensures script survives reboots</li>
         </ul>
         <div class="sf-watchdog">
           <div class="sf-wd-task">
@@ -386,12 +356,8 @@ ctx.Rip = (DWORD64)pRemote  <span class="cm">// hijack RIP to shellcode</span>
         </div>
         <div class="sf-title">Persistent C2 — Full Control, No File on Disk</div>
         <ul class="sf-list" style="--card-color:#E63946;">
-          <li>Shellcode runs inside a trusted system process — no dedicated malware process visible</li>
-          <li>Network traffic blends with legitimate traffic from the host process</li>
-          <li>Full remote shell: execute arbitrary commands, read output, control the system</li>
-          <li>File operations: upload additional tooling, exfiltrate documents and credentials</li>
-          <li>Recon: user, groups, network config, running processes, installed software</li>
-          <li>Modular: operator can push additional capabilities on demand (keylogger, screenshots, pivoting)</li>
+          <li>Shellcode lives inside trusted system process — no dedicated malware process, traffic blends in</li>
+          <li>Full shell, file ops, recon; modular — operator pushes capabilities on demand</li>
         </ul>
         <div class="sf-code" style="--card-color:#E63946;"><span class="cm">Implant location:</span>  shellcode inside legitimate system process
 <span class="cm">Network traffic:  </span>  encrypted C2 protocol, blends with host process
