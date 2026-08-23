@@ -1,3 +1,3 @@
 source "https://rubygems.org"
-
-gem "jekyll-theme-chirpy", "~> 7.2"
+gem "minima", "~> 2.5"
+gem "github-pages", group: :jekyll_plugins

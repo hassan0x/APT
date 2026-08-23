@@ -1,6 +1,7 @@
 ---
-icon: fas fa-info-circle
-order: 4
+layout: page
+title: About
+permalink: /about/
 ---
 
 Security researcher focusing on Windows kernel internals, offensive tooling, and malware analysis.
