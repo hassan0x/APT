@@ -381,31 +381,6 @@ ctx.Rip = (DWORD64)pRemote  <span class="cm">// hijack RIP to shellcode</span>
     </div>
   </div>
 
-  <!-- REMEDIATION -->
-  <div class="sf-remed">
-    <div class="sf-remed-title">&gt;&gt; CORRECT INCIDENT RESPONSE ORDER</div>
-    <div class="sf-remed-grid">
-      <div class="sf-remed-item" style="--ri-bg:rgba(230,57,70,0.18);--ri-color:#E63946;">
-        <span class="ri-num">1</span>Block the C2 IP/domain at the network firewall first — cuts off operator control and re-fetch capability
-      </div>
-      <div class="sf-remed-item" style="--ri-bg:rgba(244,132,95,0.18);--ri-color:#F4845F;">
-        <span class="ri-num">2</span>Delete the Scheduled Task — prevents the watchdog from being recreated on next boot/trigger
-      </div>
-      <div class="sf-remed-item" style="--ri-bg:rgba(249,199,79,0.18);--ri-color:#F9C74F;">
-        <span class="ri-num">3</span>Kill the watchdog script process and delete the script file from disk
-      </div>
-      <div class="sf-remed-item" style="--ri-bg:rgba(76,201,240,0.18);--ri-color:#4CC9F0;">
-        <span class="ri-num">4</span>Kill the loader process — this evicts the sideloaded DLL and watchdog thread from memory
-      </div>
-      <div class="sf-remed-item" style="--ri-bg:rgba(155,93,229,0.18);--ri-color:#9B5DE5;">
-        <span class="ri-num">5</span>Delete all dropped files from disk: vulnerable drivers (.sys), the DLL, the signed loader binary
-      </div>
-      <div class="sf-remed-item" style="--ri-bg:rgba(67,217,173,0.18);--ri-color:#43D9AD;">
-        <span class="ri-num">6</span>Reboot — fully unloads any remaining kernel drivers, clears all in-memory shellcode
-      </div>
-    </div>
-  </div>
-
   <!-- MITRE ATT&CK -->
   <div class="sf-mitre-section">
     <div class="sf-mitre-title">MITRE ATT&amp;CK Techniques</div>
