@@ -132,55 +132,36 @@ permalink: /methodology/
 
   <div class="sf-timeline">
 
-    <!-- 01 INITIAL ACCESS -->
+    <!-- 01 INITIAL ACCESS + EXECUTION -->
     <div class="sf-card" style="--card-color:#E63946;--card-bg:rgba(230,57,70,0.10);">
       <div class="sf-num"><span style="color:#E63946;border-color:#E63946;">01</span></div>
       <div class="sf-body">
         <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#E63946;">01 &#183; Initial Access</span>
+          <span class="sf-stage-label" style="color:#E63946;">01 &#183; Initial Access + Execution</span>
           <span class="sf-mitre-tag" style="background:#E63946;color:#fff;">T1566.002</span>
-        </div>
-        <div class="sf-title">Spearphishing via Trusted Cloud Storage</div>
-        <ul class="sf-list" style="--card-color:#E63946;">
-          <li>Themed lure (invoice, HR, shipment) delivered via legitimate cloud storage — bypasses URL reputation checks</li>
-          <li>No attacker infrastructure in headers — sender domain is clean, link goes to trusted provider</li>
-        </ul>
-        <div class="sf-code" style="--card-color:#E63946;"><span class="cm">Delivery vector:</span>
-<span class="hi">https://[legitimate-cloud-storage]/[lure-filename].zip</span>
-<span class="cm">→ no malicious infrastructure in delivery path</span></div>
-      </div>
-    </div>
-
-    <div class="sf-connector" style="--line-color:#F4845F;"></div>
-
-    <!-- 02 EXECUTION -->
-    <div class="sf-card" style="--card-color:#F4845F;--card-bg:rgba(244,132,95,0.10);">
-      <div class="sf-num"><span style="color:#F4845F;border-color:#F4845F;">02</span></div>
-      <div class="sf-body">
-        <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#F4845F;">02 &#183; Execution</span>
           <span class="sf-mitre-tag" style="background:#F4845F;color:#111;">T1204.002</span>
         </div>
-        <div class="sf-title">Masqueraded EXE — Icon Spoofing + Extension Hiding</div>
-        <ul class="sf-list" style="--card-color:#F4845F;">
+        <div class="sf-title">Spearphishing via Trusted Cloud → Masqueraded EXE</div>
+        <ul class="sf-list" style="--card-color:#E63946;">
+          <li>Themed lure (invoice, HR, shipment) delivered via legitimate cloud storage — bypasses URL reputation checks</li>
           <li>ZIP contains a real decoy + EXE with document icon — Windows hides .exe extension by default</li>
           <li>Victim double-clicks fake document; downloader runs silently, opens decoy to avoid suspicion</li>
         </ul>
-        <div class="sf-code" style="--card-color:#F4845F;"><span class="hi">Lure.zip</span>
+        <div class="sf-code" style="--card-color:#E63946;"><span class="hi">Lure.zip</span>
   Document.pdf          <span class="cm">&lt;- real decoy, opens normally</span>
   Document_v2.pdf       <span class="cm">&lt;- actually Document_v2.pdf.exe</span>
-<span class="cm">// Windows shows both as "PDF Document" — victim cannot tell them apart</span></div>
+<span class="cm">// delivered via: https://[legitimate-cloud-storage]/Lure.zip</span></div>
       </div>
     </div>
 
     <div class="sf-connector" style="--line-color:#F9C74F;"></div>
 
-    <!-- 03 STAGING -->
+    <!-- 02 STAGING -->
     <div class="sf-card" style="--card-color:#F9C74F;--card-bg:rgba(249,199,79,0.10);">
-      <div class="sf-num"><span style="color:#F9C74F;border-color:#F9C74F;">03</span></div>
+      <div class="sf-num"><span style="color:#F9C74F;border-color:#F9C74F;">02</span></div>
       <div class="sf-body">
         <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#F9C74F;">03 &#183; Staging</span>
+          <span class="sf-stage-label" style="color:#F9C74F;">02 02 &#183; Staging#183; Staging</span>
           <span class="sf-mitre-tag" style="background:#F9C74F;color:#111;">T1105</span>
         </div>
         <div class="sf-title">Download Signed Legitimate Binary + Malicious DLL</div>
@@ -199,10 +180,10 @@ permalink: /methodology/
 
     <!-- 04 DLL SIDELOADING -->
     <div class="sf-card" style="--card-color:#4CC9F0;--card-bg:rgba(76,201,240,0.10);">
-      <div class="sf-num"><span style="color:#4CC9F0;border-color:#4CC9F0;">04</span></div>
+      <div class="sf-num"><span style="color:#4CC9F0;border-color:#4CC9F0;">03</span></div>
       <div class="sf-body">
         <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#4CC9F0;">04 &#183; DLL Sideloading</span>
+          <span class="sf-stage-label" style="color:#4CC9F0;">03 03 &#183; DLL Sideloading#183; DLL Sideloading</span>
           <span class="sf-mitre-tag" style="background:#4CC9F0;color:#111;">T1574.002</span>
         </div>
         <div class="sf-title">Malicious Code Runs Inside a Signed Trusted Process</div>
@@ -225,10 +206,10 @@ Loads TargetDLL.dll into process memory automatically
 
     <!-- 05 BYOVD -->
     <div class="sf-card" style="--card-color:#9B5DE5;--card-bg:rgba(155,93,229,0.10);">
-      <div class="sf-num"><span style="color:#9B5DE5;border-color:#9B5DE5;">05</span></div>
+      <div class="sf-num"><span style="color:#9B5DE5;border-color:#9B5DE5;">04</span></div>
       <div class="sf-body">
         <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#9B5DE5;">05 &#183; BYOVD — Bring Your Own Vulnerable Driver</span>
+          <span class="sf-stage-label" style="color:#9B5DE5;">04 04 &#183; BYOVD#183; BYOVD — Bring Your Own Vulnerable Driver</span>
           <span class="sf-mitre-tag" style="background:#9B5DE5;color:#fff;">T1562.001</span>
           <span class="sf-ring0">RING 0</span>
         </div>
@@ -252,10 +233,10 @@ Loads TargetDLL.dll into process memory automatically
 
     <!-- 06 DEFENSE EVASION -->
     <div class="sf-card" style="--card-color:#C77DFF;--card-bg:rgba(199,125,255,0.10);">
-      <div class="sf-num"><span style="color:#C77DFF;border-color:#C77DFF;">06</span></div>
+      <div class="sf-num"><span style="color:#C77DFF;border-color:#C77DFF;">05</span></div>
       <div class="sf-body">
         <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#C77DFF;">06 &#183; Defense Evasion</span>
+          <span class="sf-stage-label" style="color:#C77DFF;">05 05 &#183; Defense Evasion#183; Defense Evasion</span>
           <span class="sf-mitre-tag" style="background:#C77DFF;color:#111;">T1562.001</span>
         </div>
         <div class="sf-title">NTDLL Unhooking — Removing EDR's User-Mode Visibility</div>
@@ -278,10 +259,10 @@ NtCreateProcess:  <span class="hi">MOV R10, RCX</span>
 
     <!-- 07 C2 + INJECTION -->
     <div class="sf-card" style="--card-color:#43D9AD;--card-bg:rgba(67,217,173,0.10);">
-      <div class="sf-num"><span style="color:#43D9AD;border-color:#43D9AD;">07</span></div>
+      <div class="sf-num"><span style="color:#43D9AD;border-color:#43D9AD;">06</span></div>
       <div class="sf-body">
         <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#43D9AD;">07 &#183; C2 Communication + Process Injection</span>
+          <span class="sf-stage-label" style="color:#43D9AD;">06 06 &#183; C2 Communication#183; C2 Communication + Process Injection</span>
           <span class="sf-mitre-tag" style="background:#43D9AD;color:#111;">T1055.003</span>
         </div>
         <div class="sf-title">Thread-Context Hijacking into a Trusted System Process</div>
@@ -305,10 +286,10 @@ ctx.Rip = (DWORD64)pRemote  <span class="cm">// hijack RIP to shellcode</span>
 
     <!-- 08 PERSISTENCE -->
     <div class="sf-card" style="--card-color:#FF6B9D;--card-bg:rgba(255,107,157,0.10);">
-      <div class="sf-num"><span style="color:#FF6B9D;border-color:#FF6B9D;">08</span></div>
+      <div class="sf-num"><span style="color:#FF6B9D;border-color:#FF6B9D;">07</span></div>
       <div class="sf-body">
         <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#FF6B9D;">08 &#183; Persistence — Dual Watchdog Architecture</span>
+          <span class="sf-stage-label" style="color:#FF6B9D;">07 07 &#183; Persistence#183; Persistence — Dual Watchdog Architecture</span>
           <span class="sf-mitre-tag" style="background:#FF6B9D;color:#111;">T1053.005</span>
         </div>
         <div class="sf-title">Two Independent Recovery Layers Keep the Implant Alive</div>
@@ -348,10 +329,10 @@ ctx.Rip = (DWORD64)pRemote  <span class="cm">// hijack RIP to shellcode</span>
 
     <!-- 09 REMOTE ACCESS -->
     <div class="sf-card" style="--card-color:#E63946;--card-bg:rgba(230,57,70,0.10);">
-      <div class="sf-num"><span style="color:#E63946;border-color:#E63946;">09</span></div>
+      <div class="sf-num"><span style="color:#E63946;border-color:#E63946;">08</span></div>
       <div class="sf-body">
         <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#E63946;">09 &#183; Remote Access — Final Payload</span>
+          <span class="sf-stage-label" style="color:#E63946;">08 08 &#183; Remote Access#183; Remote Access — Final Payload</span>
           <span class="sf-mitre-tag" style="background:#E63946;color:#fff;">RAT / Implant</span>
         </div>
         <div class="sf-title">Persistent C2 — Full Control, No File on Disk</div>
