@@ -1,10 +1,18 @@
 ---
-layout: page
+layout: null
 title: APT Attack Methodology
 permalink: /methodology/
 ---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APT Attack Methodology — 9Hackers</title>
 <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
+    --bg:   #07090f;
     --c1:   #E63946;
     --c2:   #F4845F;
     --c3:   #F9C74F;
@@ -16,16 +24,40 @@ permalink: /methodology/
     --dark: rgba(48,54,61,0.60);
     --font: 'DejaVu Sans Mono','Courier New',Consolas,monospace;
   }
-
-  .sf-page {
-    display: flex; flex-direction: column;
-    height: calc(100vh - 140px);
-    overflow: hidden;
+  body {
+    background: var(--bg);
+    color: #e6edf3;
     font-family: var(--font);
     font-size: 14px;
     line-height: 1.6;
-    color: #e6edf3;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
+
+  /* SITE NAV BAR */
+  .site-nav-bar {
+    background: #0d1117;
+    border-bottom: 1px solid #21262d;
+    padding: 0.55rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-shrink: 0;
+  }
+  .site-nav-bar .site-title {
+    font-size: 0.92rem; font-weight: 700; color: #58a6ff;
+    text-decoration: none; margin-right: auto;
+  }
+  .site-nav-bar a {
+    font-size: 0.8rem; color: #8b949e; text-decoration: none;
+  }
+  .site-nav-bar a:hover { color: #e6edf3; }
+  .site-nav-bar a.active { color: #e6edf3; font-weight: 600; }
+
+  .sf-page { flex: 1; display: flex; flex-direction: column; padding: 0.8rem 1rem; overflow: hidden; }
 
   .sf-header {
     background: rgba(230,57,70,0.08);
@@ -175,6 +207,14 @@ permalink: /methodology/
     .sf-header h1 { font-size: 1.3rem; }
   }
 </style>
+</head>
+<body>
+
+<nav class="site-nav-bar">
+  <a href="/" class="site-title">9Hackers</a>
+  <a href="/about/">About</a>
+  <a href="/methodology/" class="active">APT Attack Methodology</a>
+</nav>
 
 <div class="sf-page">
 
@@ -330,3 +370,5 @@ ctx.Rip = (DWORD64)pRemote  <span class="cm">// redirect to shellcode</span>
   </div>
 
 </div>
+</body>
+</html>
