@@ -225,41 +225,25 @@ permalink: /methodology/
       <div class="sf-arr"></div>
 
       <div class="sf-grid-card" style="--card-color:#F9C74F;--card-bg:rgba(249,199,79,0.08);">
-        <div class="sf-grid-num">02 · STAGING</div>
-        <div class="sf-grid-title">Download Signed Binary + Malicious DLL</div>
+        <div class="sf-grid-num">02 · STAGING + DLL SIDELOADING</div>
+        <div class="sf-grid-title">Signed Binary Hijack via Search Order</div>
         <div class="sf-grid-tags">
           <span class="sf-mitre-tag" style="background:#F9C74F;color:#111;">T1105</span>
-        </div>
-        <ul class="sf-grid-list">
-          <li>Fetches trusted-signed EXE + malicious DLL from attacker bucket</li>
-          <li>Same folder — prerequisite for sideloading; DLL embeds .sys + shellcode</li>
-        </ul>
-        <div class="sf-grid-code"><span class="hi">%APPDATA%\[folder]\</span>
-  LegitApp.exe    <span class="cm">&lt;- signed, clean</span>
-  TargetDLL.dll   <span class="cm">&lt;- malicious</span></div>
-      </div>
-
-      <div class="sf-arr"></div>
-
-      <div class="sf-grid-card" style="--card-color:#4CC9F0;--card-bg:rgba(76,201,240,0.08);">
-        <div class="sf-grid-num">03 · DLL SIDELOADING</div>
-        <div class="sf-grid-title">Malicious Code Inside Trusted Process</div>
-        <div class="sf-grid-tags">
           <span class="sf-mitre-tag" style="background:#4CC9F0;color:#111;">T1574.002</span>
         </div>
         <ul class="sf-grid-list">
-          <li>DLL search order: app dir before System32 → attacker DLL wins</li>
-          <li>EDR sees signed binary loading its own DLL — low suspicion</li>
+          <li>Fetches signed EXE + malicious DLL into same folder; DLL embeds .sys + shellcode</li>
+          <li>App dir checked before System32 → attacker DLL wins; EDR sees trusted process</li>
         </ul>
-        <div class="sf-grid-code">LegitApp.exe loads TargetDLL.dll
-app dir checked first <span class="hi">-&gt; FOUND</span>
-<span class="hi">DllMain()</span> <span class="hi">-&gt;</span> attack begins</div>
+        <div class="sf-grid-code"><span class="hi">%APPDATA%\[folder]\</span>
+  LegitApp.exe   <span class="cm">&lt;- signed, clean</span>
+  TargetDLL.dll  <span class="cm">&lt;- malicious; DllMain() -&gt; attack begins</span></div>
       </div>
 
       <div class="sf-kernel-inline"><span>RING 3 → RING 0</span></div>
 
       <div class="sf-grid-card" style="--card-color:#9B5DE5;--card-bg:rgba(155,93,229,0.08);">
-        <div class="sf-grid-num">04 · BYOVD <span class="sf-ring0" style="vertical-align:middle;">RING 0</span></div>
+        <div class="sf-grid-num">03 · BYOVD <span class="sf-ring0" style="vertical-align:middle;">RING 0</span></div>
         <div class="sf-grid-title">EDR Killed from Ring 0</div>
         <div class="sf-grid-tags">
           <span class="sf-mitre-tag" style="background:#9B5DE5;color:#fff;">T1562.001</span>
@@ -277,11 +261,11 @@ app dir checked first <span class="hi">-&gt; FOUND</span>
 
     <div class="sf-down">↓</div>
 
-    <!-- ROW 2: phases 05 06 07 -->
+    <!-- ROW 2: phases 04 05 06 -->
     <div class="sf-row">
 
       <div class="sf-grid-card" style="--card-color:#C77DFF;--card-bg:rgba(199,125,255,0.08);">
-        <div class="sf-grid-num">05 · DEFENSE EVASION</div>
+        <div class="sf-grid-num">04 · DEFENSE EVASION</div>
         <div class="sf-grid-title">NTDLL Unhooking</div>
         <div class="sf-grid-tags">
           <span class="sf-mitre-tag" style="background:#C77DFF;color:#111;">T1562.001</span>
@@ -298,7 +282,7 @@ app dir checked first <span class="hi">-&gt; FOUND</span>
       <div class="sf-arr"></div>
 
       <div class="sf-grid-card" style="--card-color:#43D9AD;--card-bg:rgba(67,217,173,0.08);">
-        <div class="sf-grid-num">06 · C2 + PROCESS INJECTION</div>
+        <div class="sf-grid-num">05 · C2 + PROCESS INJECTION</div>
         <div class="sf-grid-title">Thread Hijacking → Trusted Process</div>
         <div class="sf-grid-tags">
           <span class="sf-mitre-tag" style="background:#43D9AD;color:#111;">T1055.003</span>
@@ -315,7 +299,7 @@ app dir checked first <span class="hi">-&gt; FOUND</span>
       <div class="sf-arr"></div>
 
       <div class="sf-grid-card" style="--card-color:#FF6B9D;--card-bg:rgba(255,107,157,0.08);">
-        <div class="sf-grid-num">07 · PERSISTENCE + REMOTE ACCESS</div>
+        <div class="sf-grid-num">06 · PERSISTENCE + REMOTE ACCESS</div>
         <div class="sf-grid-title">Dual Watchdog + Persistent C2</div>
         <div class="sf-grid-tags">
           <span class="sf-mitre-tag" style="background:#FF6B9D;color:#111;">T1053.005</span>
