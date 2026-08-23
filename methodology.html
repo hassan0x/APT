@@ -52,9 +52,75 @@ permalink: /methodology/
   .sf-header .sub2 { font-size: 0.75rem; color: rgba(173,181,189,0.6); }
 
   .sf-timeline { display: flex; flex-direction: column; }
-  .sf-connector { display: flex; flex-direction: column; align-items: center; height: 28px; }
-  .sf-connector::before { content: ''; width: 2px; flex: 1; background: var(--line-color, #555); }
-  .sf-connector::after { content: ''; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 7px solid var(--line-color, #555); }
+  .sf-connector { display: none; }
+
+  /* GRID LAYOUT */
+  .sf-grid { display: flex; flex-direction: column; gap: 0.6rem; }
+  .sf-row { display: flex; align-items: stretch; gap: 0; }
+  .sf-grid-card {
+    flex: 1;
+    border-radius: 8px;
+    padding: 0.9rem 1rem;
+    background: var(--card-bg);
+    border-top: 3px solid var(--card-color);
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .sf-grid-num {
+    font-size: 0.6rem; font-weight: 900; color: var(--card-color);
+    letter-spacing: 0.08em; margin-bottom: 0.3rem; opacity: 0.8;
+  }
+  .sf-grid-title {
+    font-size: 0.78rem; font-weight: 700; color: #fff;
+    line-height: 1.35; margin-bottom: 0.4rem;
+  }
+  .sf-grid-tags { display: flex; gap: 0.3rem; flex-wrap: wrap; margin-bottom: 0.45rem; }
+  .sf-grid-list { list-style: none; margin-bottom: 0.5rem; flex: 1; }
+  .sf-grid-list li {
+    display: flex; gap: 0.4rem; align-items: baseline;
+    font-size: 0.67rem; color: #8b949e; margin-bottom: 0.18rem; line-height: 1.45;
+  }
+  .sf-grid-list li::before {
+    content: ''; display: inline-block; flex-shrink: 0;
+    width: 3px; height: 3px; border-radius: 1px;
+    background: var(--card-color); margin-top: 0.4em;
+  }
+  .sf-grid-code {
+    background: rgba(0,0,0,0.35); border-radius: 4px;
+    padding: 0.45rem 0.6rem; font-size: 0.63rem; color: #8b949e;
+    overflow-x: auto; white-space: pre; line-height: 1.5;
+  }
+  .sf-grid-code .hi { color: var(--card-color); }
+  .sf-grid-code .cm { color: #444d56; }
+
+  /* ARROW between cards */
+  .sf-arr {
+    display: flex; align-items: center; justify-content: center;
+    width: 28px; flex-shrink: 0; color: #444d56; font-size: 1rem;
+    position: relative;
+  }
+  .sf-arr::before {
+    content: '→'; font-size: 1.1rem;
+  }
+
+  /* DOWN ARROW between rows */
+  .sf-down {
+    text-align: center; color: #444d56; font-size: 1rem;
+    padding: 0.1rem 0; line-height: 1;
+  }
+
+  /* KERNEL DIVIDER inside row */
+  .sf-kernel-inline {
+    display: flex; align-items: center; justify-content: center;
+    width: 34px; flex-shrink: 0;
+  }
+  .sf-kernel-inline span {
+    writing-mode: vertical-rl; text-orientation: mixed;
+    font-size: 0.52rem; font-weight: 700; color: var(--c5);
+    letter-spacing: 0.1em; border-left: 2px dashed rgba(155,93,229,0.5);
+    padding-left: 4px;
+  }
 
   .sf-card { display: flex; gap: 1.1rem; border-radius: 8px; padding: 1.3rem 1.4rem 1.3rem 0; background: var(--card-bg); border-left: 3px solid var(--card-color); }
   .sf-num { flex-shrink: 0; width: 52px; display: flex; align-items: flex-start; justify-content: center; padding-top: 0.15rem; }
@@ -130,209 +196,139 @@ permalink: /methodology/
     <div class="sub2">Generic technique reference &#183; Offensive Security Research &#183; 9Hackers</div>
   </div>
 
-  <div class="sf-timeline">
+  <div class="sf-grid">
 
-    <!-- 01 INITIAL ACCESS + EXECUTION -->
-    <div class="sf-card" style="--card-color:#E63946;--card-bg:rgba(230,57,70,0.10);">
-      <div class="sf-num"><span style="color:#E63946;border-color:#E63946;">01</span></div>
-      <div class="sf-body">
-        <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#E63946;">01 &#183; Initial Access + Execution</span>
+    <!-- ROW 1: phases 01 02 03 04 -->
+    <div class="sf-row">
+
+      <div class="sf-grid-card" style="--card-color:#E63946;--card-bg:rgba(230,57,70,0.08);">
+        <div class="sf-grid-num">01 · INITIAL ACCESS + EXECUTION</div>
+        <div class="sf-grid-title">Spearphishing → Masqueraded EXE</div>
+        <div class="sf-grid-tags">
           <span class="sf-mitre-tag" style="background:#E63946;color:#fff;">T1566.002</span>
           <span class="sf-mitre-tag" style="background:#F4845F;color:#111;">T1204.002</span>
         </div>
-        <div class="sf-title">Spearphishing via Trusted Cloud → Masqueraded EXE</div>
-        <ul class="sf-list" style="--card-color:#E63946;">
-          <li>Themed lure (invoice, HR, shipment) delivered via legitimate cloud storage — bypasses URL reputation checks</li>
-          <li>ZIP contains a real decoy + EXE with document icon — Windows hides .exe extension by default</li>
-          <li>Victim double-clicks fake document; downloader runs silently, opens decoy to avoid suspicion</li>
+        <ul class="sf-grid-list">
+          <li>Lure delivered via legitimate cloud storage — URL reputation bypassed</li>
+          <li>ZIP: real decoy + EXE with doc icon; Windows hides .exe extension</li>
         </ul>
-        <div class="sf-code" style="--card-color:#E63946;"><span class="hi">Lure.zip</span>
-  Document.pdf          <span class="cm">&lt;- real decoy, opens normally</span>
-  Document_v2.pdf       <span class="cm">&lt;- actually Document_v2.pdf.exe</span>
-<span class="cm">// delivered via: https://[legitimate-cloud-storage]/Lure.zip</span></div>
+        <div class="sf-grid-code"><span class="hi">Lure.zip</span>
+  Document.pdf      <span class="cm">&lt;- real decoy</span>
+  Document_v2.pdf   <span class="cm">&lt;- .pdf.exe</span></div>
       </div>
-    </div>
 
-    <div class="sf-connector" style="--line-color:#F9C74F;"></div>
+      <div class="sf-arr"></div>
 
-    <!-- 02 STAGING -->
-    <div class="sf-card" style="--card-color:#F9C74F;--card-bg:rgba(249,199,79,0.10);">
-      <div class="sf-num"><span style="color:#F9C74F;border-color:#F9C74F;">02</span></div>
-      <div class="sf-body">
-        <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#F9C74F;">02 02 &#183; Staging</span>
+      <div class="sf-grid-card" style="--card-color:#F9C74F;--card-bg:rgba(249,199,79,0.08);">
+        <div class="sf-grid-num">02 · STAGING</div>
+        <div class="sf-grid-title">Download Signed Binary + Malicious DLL</div>
+        <div class="sf-grid-tags">
           <span class="sf-mitre-tag" style="background:#F9C74F;color:#111;">T1105</span>
         </div>
-        <div class="sf-title">Download Signed Legitimate Binary + Malicious DLL</div>
-        <ul class="sf-list" style="--card-color:#F9C74F;">
-          <li>Downloader fetches a trusted-vendor-signed EXE + malicious DLL from attacker cloud bucket</li>
-          <li>Both saved to the same folder — prerequisite for sideloading; DLL embeds drivers + shellcode in .rsrc</li>
+        <ul class="sf-grid-list">
+          <li>Fetches trusted-signed EXE + malicious DLL from attacker bucket</li>
+          <li>Same folder — prerequisite for sideloading; DLL embeds .sys + shellcode</li>
         </ul>
-        <div class="sf-code" style="--card-color:#F9C74F;"><span class="cm">Staged to:</span>
-<span class="hi">%APPDATA%\[random_folder]\</span>
-  LegitApp.exe        <span class="cm">&lt;- signed by trusted vendor, clean</span>
-  TargetDLL.dll       <span class="cm">&lt;- malicious, embeds drivers + shellcode</span></div>
+        <div class="sf-grid-code"><span class="hi">%APPDATA%\[folder]\</span>
+  LegitApp.exe    <span class="cm">&lt;- signed, clean</span>
+  TargetDLL.dll   <span class="cm">&lt;- malicious</span></div>
       </div>
-    </div>
 
-    <div class="sf-connector" style="--line-color:#4CC9F0;"></div>
+      <div class="sf-arr"></div>
 
-    <!-- 04 DLL SIDELOADING -->
-    <div class="sf-card" style="--card-color:#4CC9F0;--card-bg:rgba(76,201,240,0.10);">
-      <div class="sf-num"><span style="color:#4CC9F0;border-color:#4CC9F0;">03</span></div>
-      <div class="sf-body">
-        <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#4CC9F0;">03 03 &#183; DLL Sideloading</span>
+      <div class="sf-grid-card" style="--card-color:#4CC9F0;--card-bg:rgba(76,201,240,0.08);">
+        <div class="sf-grid-num">03 · DLL SIDELOADING</div>
+        <div class="sf-grid-title">Malicious Code Inside Trusted Process</div>
+        <div class="sf-grid-tags">
           <span class="sf-mitre-tag" style="background:#4CC9F0;color:#111;">T1574.002</span>
         </div>
-        <div class="sf-title">Malicious Code Runs Inside a Signed Trusted Process</div>
-        <ul class="sf-list" style="--card-color:#4CC9F0;">
-          <li>Windows DLL search order checks the application directory before System32 — malicious DLL wins</li>
-          <li>Attack runs inside a signed trusted process; EDR sees clean binary loading its own DLL — low suspicion</li>
+        <ul class="sf-grid-list">
+          <li>DLL search order: app dir before System32 → attacker DLL wins</li>
+          <li>EDR sees signed binary loading its own DLL — low suspicion</li>
         </ul>
-        <div class="sf-code" style="--card-color:#4CC9F0;">LegitApp.exe asks Windows: "where is TargetDLL.dll?"
-Windows checks: application directory first <span class="hi">-&gt; FOUND</span>
-Loads TargetDLL.dll into process memory automatically
-<span class="hi">DllMain()</span> executes <span class="hi">-&gt;</span> attack begins inside trusted process</div>
+        <div class="sf-grid-code">LegitApp.exe loads TargetDLL.dll
+app dir checked first <span class="hi">-&gt; FOUND</span>
+<span class="hi">DllMain()</span> <span class="hi">-&gt;</span> attack begins</div>
       </div>
-    </div>
 
-    <!-- KERNEL BOUNDARY -->
-    <div class="sf-kernel-div">
-      <div class="kbl">&gt;&gt;&gt; KERNEL BOUNDARY &#160;&#160;&#160; RING 3 &#8594; RING 0</div>
-      <div class="kbs">Everything below this line executes with kernel-level privileges — EDR user-mode hooks cannot interfere</div>
-    </div>
+      <div class="sf-kernel-inline"><span>RING 3 → RING 0</span></div>
 
-    <!-- 05 BYOVD -->
-    <div class="sf-card" style="--card-color:#9B5DE5;--card-bg:rgba(155,93,229,0.10);">
-      <div class="sf-num"><span style="color:#9B5DE5;border-color:#9B5DE5;">04</span></div>
-      <div class="sf-body">
-        <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#9B5DE5;">04 04 &#183; BYOVD — Bring Your Own Vulnerable Driver</span>
+      <div class="sf-grid-card" style="--card-color:#9B5DE5;--card-bg:rgba(155,93,229,0.08);">
+        <div class="sf-grid-num">04 · BYOVD <span class="sf-ring0" style="vertical-align:middle;">RING 0</span></div>
+        <div class="sf-grid-title">EDR Killed from Ring 0</div>
+        <div class="sf-grid-tags">
           <span class="sf-mitre-tag" style="background:#9B5DE5;color:#fff;">T1562.001</span>
-          <span class="sf-ring0">RING 0</span>
         </div>
-        <div class="sf-title">EDR Killed from Ring 0 via Vulnerable Signed Driver</div>
-        <ul class="sf-list" style="--card-color:#9B5DE5;">
-          <li>DLL drops embedded .sys drivers, loads via SCM, sends IOCTL with EDR PID</li>
-          <li>Driver calls ZwTerminateProcess(EDR) from Ring 0 — PPL, self-protection callbacks all bypassed</li>
-          <li>Multiple drivers = fallback chain if one hits the blocklist</li>
+        <ul class="sf-grid-list">
+          <li>Drops embedded .sys, loads via SCM, sends IOCTL with EDR PID</li>
+          <li>ZwTerminateProcess(EDR) from Ring 0 — PPL bypassed</li>
         </ul>
-        <div class="sf-code" style="--card-color:#9B5DE5;">DeviceIoControl(
-  hVulnDriver, <span class="hi">IOCTL_KILL_PROCESS</span>,
-  &amp;edr_pid, sizeof(DWORD),
-  NULL, 0, NULL, NULL
-);
-<span class="cm">// ZwTerminateProcess(EDR) executes from Ring 0</span>
-<span class="cm">// PPL protection, self-protection callbacks — all bypassed</span></div>
+        <div class="sf-grid-code">DeviceIoControl(hDrv,
+  <span class="hi">IOCTL_KILL</span>, &amp;edr_pid, 4,
+  NULL, 0, NULL, NULL);</div>
       </div>
-    </div>
 
-    <div class="sf-connector" style="--line-color:#C77DFF;"></div>
+    </div><!-- end row 1 -->
 
-    <!-- 06 DEFENSE EVASION -->
-    <div class="sf-card" style="--card-color:#C77DFF;--card-bg:rgba(199,125,255,0.10);">
-      <div class="sf-num"><span style="color:#C77DFF;border-color:#C77DFF;">05</span></div>
-      <div class="sf-body">
-        <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#C77DFF;">05 05 &#183; Defense Evasion</span>
+    <div class="sf-down">↓</div>
+
+    <!-- ROW 2: phases 05 06 07 -->
+    <div class="sf-row">
+
+      <div class="sf-grid-card" style="--card-color:#C77DFF;--card-bg:rgba(199,125,255,0.08);">
+        <div class="sf-grid-num">05 · DEFENSE EVASION</div>
+        <div class="sf-grid-title">NTDLL Unhooking</div>
+        <div class="sf-grid-tags">
           <span class="sf-mitre-tag" style="background:#C77DFF;color:#111;">T1562.001</span>
         </div>
-        <div class="sf-title">NTDLL Unhooking — Removing EDR's User-Mode Visibility</div>
-        <ul class="sf-list" style="--card-color:#C77DFF;">
-          <li>Read a clean ntdll.dll from disk, overwrite hooked in-memory bytes — JMP hooks gone</li>
-          <li>Syscalls now reach kernel directly; combined with BYOVD = complete EDR blind spot</li>
+        <ul class="sf-grid-list">
+          <li>Read clean ntdll.dll from disk, overwrite hooked bytes in memory</li>
+          <li>Syscalls reach kernel directly — EDR blind at user-mode level</li>
         </ul>
-        <div class="sf-code" style="--card-color:#C77DFF;"><span class="cm">// Before unhooking — EDR intercepts every syscall:</span>
-NtCreateProcess:  <span class="hi">JMP edr_hook</span>  -&gt; EDR inspects + logs
-
-<span class="cm">// After unhooking — original bytes restored from disk:</span>
-NtCreateProcess:  <span class="hi">MOV R10, RCX</span>
-                  <span class="hi">MOV EAX, syscall_num</span>
-                  <span class="hi">SYSCALL</span>          <span class="cm">&lt;- goes direct to kernel</span>
-                  <span class="hi">RET</span>              <span class="cm">&lt;- EDR sees nothing</span></div>
+        <div class="sf-grid-code"><span class="cm">// before:</span> NtCreateProcess: <span class="hi">JMP edr_hook</span>
+<span class="cm">// after: </span> NtCreateProcess: <span class="hi">MOV R10,RCX</span>
+                           <span class="hi">SYSCALL</span></div>
       </div>
-    </div>
 
-    <div class="sf-connector" style="--line-color:#43D9AD;"></div>
+      <div class="sf-arr"></div>
 
-    <!-- 07 C2 + INJECTION -->
-    <div class="sf-card" style="--card-color:#43D9AD;--card-bg:rgba(67,217,173,0.10);">
-      <div class="sf-num"><span style="color:#43D9AD;border-color:#43D9AD;">06</span></div>
-      <div class="sf-body">
-        <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#43D9AD;">06 06 &#183; C2 Communication + Process Injection</span>
+      <div class="sf-grid-card" style="--card-color:#43D9AD;--card-bg:rgba(67,217,173,0.08);">
+        <div class="sf-grid-num">06 · C2 + PROCESS INJECTION</div>
+        <div class="sf-grid-title">Thread Hijacking → Trusted Process</div>
+        <div class="sf-grid-tags">
           <span class="sf-mitre-tag" style="background:#43D9AD;color:#111;">T1055.003</span>
         </div>
-        <div class="sf-title">Thread-Context Hijacking into a Trusted System Process</div>
-        <ul class="sf-list" style="--card-color:#43D9AD;">
-          <li>Shellcode fetched from C2 over encrypted channel — never touches disk</li>
-          <li>Injected into a trusted system process; existing thread RIP hijacked — no new thread created</li>
+        <ul class="sf-grid-list">
+          <li>Shellcode fetched from C2 — never touches disk</li>
+          <li>Injected into trusted system process via thread RIP hijack</li>
         </ul>
-        <div class="sf-code" style="--card-color:#43D9AD;"><span class="hi">OpenProcess</span>(PROCESS_ALL_ACCESS, target_pid)
-<span class="hi">VirtualAllocEx</span>(hProc, NULL, size, MEM_COMMIT, PAGE_EXECUTE_READWRITE)
-<span class="hi">WriteProcessMemory</span>(hProc, pRemote, shellcode, size)
-<span class="hi">OpenThread</span>(THREAD_ALL_ACCESS, thread_id)
-<span class="hi">SuspendThread</span>(hThread)
-<span class="hi">GetThreadContext</span>(hThread, &amp;ctx)
-ctx.Rip = (DWORD64)pRemote  <span class="cm">// hijack RIP to shellcode</span>
-<span class="hi">SetThreadContext</span>(hThread, &amp;ctx)
-<span class="hi">ResumeThread</span>(hThread)     <span class="cm">// payload now executing</span></div>
+        <div class="sf-grid-code"><span class="hi">VirtualAllocEx</span> + <span class="hi">WriteProcessMemory</span>
+<span class="hi">SuspendThread</span> → ctx.Rip = shellcode
+<span class="hi">ResumeThread</span>  <span class="cm">// executing</span></div>
       </div>
-    </div>
 
-    <div class="sf-connector" style="--line-color:#FF6B9D;"></div>
+      <div class="sf-arr"></div>
 
-    <!-- 08 PERSISTENCE -->
-    <div class="sf-card" style="--card-color:#FF6B9D;--card-bg:rgba(255,107,157,0.10);">
-      <div class="sf-num"><span style="color:#FF6B9D;border-color:#FF6B9D;">07</span></div>
-      <div class="sf-body">
-        <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#FF6B9D;">07 &#183; Persistence + Remote Access</span>
+      <div class="sf-grid-card" style="--card-color:#FF6B9D;--card-bg:rgba(255,107,157,0.08);">
+        <div class="sf-grid-num">07 · PERSISTENCE + REMOTE ACCESS</div>
+        <div class="sf-grid-title">Dual Watchdog + Persistent C2</div>
+        <div class="sf-grid-tags">
           <span class="sf-mitre-tag" style="background:#FF6B9D;color:#111;">T1053.005</span>
-          <span class="sf-mitre-tag" style="background:#E63946;color:#fff;">RAT / Implant</span>
+          <span class="sf-mitre-tag" style="background:#E63946;color:#fff;">RAT</span>
         </div>
-        <div class="sf-title">Dual Watchdog Persistence → Persistent C2 Full Control</div>
-        <ul class="sf-list" style="--card-color:#FF6B9D;">
-          <li>Internal watchdog thread: if shellcode evicted &#8594; re-fetch from C2 + re-inject</li>
-          <li>External script: if loader killed &#8594; relaunch; Scheduled Task ensures script survives reboots</li>
-          <li>Shellcode lives inside trusted system process — no dedicated malware process, traffic blends in</li>
-          <li>Full shell, file ops, recon; modular — operator pushes capabilities on demand</li>
+        <ul class="sf-grid-list">
+          <li>Internal thread: shellcode evicted → re-fetch + re-inject</li>
+          <li>External script: loader killed → relaunch; Scheduled Task survives reboots</li>
+          <li>Full shell, file ops, recon; modular payload on demand</li>
         </ul>
-        <div class="sf-watchdog">
-          <div class="sf-wd-task">
-            [SCHEDULED TASK] &#160; fires on every boot + periodic trigger
-            <div class="wd-sub">if watchdog script is gone &#8594; recreated on next trigger</div>
-          </div>
-          <div class="sf-wd-arrow">&#8595; &#160; monitors</div>
-          <div class="sf-wd-boxes">
-            <div class="sf-wd-box" style="--wdb-color:#FF6B9D;">
-              <div class="wdb-title">WATCHDOG 2 — External Script</div>
-              <div class="wdb-line">polls process list every ~10 seconds</div>
-              <div class="wdb-line">if loader not found &#8594; relaunches it</div>
-              <div class="wdb-line">if script deleted &#8594; Scheduled Task recreates on next boot</div>
-            </div>
-            <div class="sf-wd-box" style="--wdb-color:#43D9AD;">
-              <div class="wdb-title">WATCHDOG 1 — Internal Thread (inside DLL)</div>
-              <div class="wdb-line">polls shellcode memory address every 500ms</div>
-              <div class="wdb-line">if shellcode gone &#8594; re-fetch from C2 + re-inject</div>
-            </div>
-          </div>
-          <div class="sf-wd-arrow">&#8595; relaunches &#160;&#160;&#160;&#160; &#8595; monitors</div>
-          <div class="sf-wd-center">Loader Process (signed binary + sideloaded DLL)</div>
-          <div class="sf-wd-arrow">&#8595; monitors</div>
-          <div class="sf-wd-center" style="border-color:rgba(67,217,173,0.4);color:#43D9AD;background:rgba(67,217,173,0.15);">Shellcode running inside trusted system process</div>
-          <div class="sf-wd-note">All three layers must be removed simultaneously to fully evict the implant</div>
-        </div>
-        <div class="sf-code" style="--card-color:#E63946;margin-top:0.8rem;"><span class="cm">Implant location:</span>  shellcode inside legitimate system process
-<span class="cm">Network traffic:  </span>  encrypted C2 protocol, blends with host process
-<span class="cm">Disk footprint:   </span>  loader binary + DLL only (shellcode is fileless)
-<span class="cm">Persistence:      </span>  dual watchdog + scheduled task survives reboot</div>
+        <div class="sf-grid-code"><span class="cm">location:</span>  shellcode in svchost.exe
+<span class="cm">footprint:</span> loader + DLL only
+<span class="cm">recovery: </span> watchdog × 2 + sched task</div>
       </div>
-    </div>
 
-  </div><!-- end sf-timeline -->
+    </div><!-- end row 2 -->
+
+  </div><!-- end sf-grid -->
 
   <!-- RESULT -->
   <div class="sf-result">
