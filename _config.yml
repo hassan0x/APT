@@ -10,7 +10,7 @@ minima:
 
 author: hassan0x
 
-show_excerpts: true
+show_excerpts: false
 paginate: 10
 
 plugins:
