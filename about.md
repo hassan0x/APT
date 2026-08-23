@@ -11,3 +11,7 @@ Topics covered here:
 - ETW Threat Intelligence bypass
 - Protected Process Light (PPL) stripping
 - Malware analysis and APT research
+
+---
+
+**[→ APT Attack Chain Methodology](/methodology/)** — full technique reference: BYOVD, DLL sideloading, process injection, fileless persistence, and incident response order.
