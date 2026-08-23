@@ -161,7 +161,7 @@ permalink: /methodology/
       <div class="sf-num"><span style="color:#F9C74F;border-color:#F9C74F;">02</span></div>
       <div class="sf-body">
         <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#F9C74F;">02 02 &#183; Staging#183; Staging</span>
+          <span class="sf-stage-label" style="color:#F9C74F;">02 02 &#183; Staging</span>
           <span class="sf-mitre-tag" style="background:#F9C74F;color:#111;">T1105</span>
         </div>
         <div class="sf-title">Download Signed Legitimate Binary + Malicious DLL</div>
@@ -183,7 +183,7 @@ permalink: /methodology/
       <div class="sf-num"><span style="color:#4CC9F0;border-color:#4CC9F0;">03</span></div>
       <div class="sf-body">
         <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#4CC9F0;">03 03 &#183; DLL Sideloading#183; DLL Sideloading</span>
+          <span class="sf-stage-label" style="color:#4CC9F0;">03 03 &#183; DLL Sideloading</span>
           <span class="sf-mitre-tag" style="background:#4CC9F0;color:#111;">T1574.002</span>
         </div>
         <div class="sf-title">Malicious Code Runs Inside a Signed Trusted Process</div>
@@ -209,7 +209,7 @@ Loads TargetDLL.dll into process memory automatically
       <div class="sf-num"><span style="color:#9B5DE5;border-color:#9B5DE5;">04</span></div>
       <div class="sf-body">
         <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#9B5DE5;">04 04 &#183; BYOVD#183; BYOVD — Bring Your Own Vulnerable Driver</span>
+          <span class="sf-stage-label" style="color:#9B5DE5;">04 04 &#183; BYOVD — Bring Your Own Vulnerable Driver</span>
           <span class="sf-mitre-tag" style="background:#9B5DE5;color:#fff;">T1562.001</span>
           <span class="sf-ring0">RING 0</span>
         </div>
@@ -236,7 +236,7 @@ Loads TargetDLL.dll into process memory automatically
       <div class="sf-num"><span style="color:#C77DFF;border-color:#C77DFF;">05</span></div>
       <div class="sf-body">
         <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#C77DFF;">05 05 &#183; Defense Evasion#183; Defense Evasion</span>
+          <span class="sf-stage-label" style="color:#C77DFF;">05 05 &#183; Defense Evasion</span>
           <span class="sf-mitre-tag" style="background:#C77DFF;color:#111;">T1562.001</span>
         </div>
         <div class="sf-title">NTDLL Unhooking — Removing EDR's User-Mode Visibility</div>
@@ -262,7 +262,7 @@ NtCreateProcess:  <span class="hi">MOV R10, RCX</span>
       <div class="sf-num"><span style="color:#43D9AD;border-color:#43D9AD;">06</span></div>
       <div class="sf-body">
         <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#43D9AD;">06 06 &#183; C2 Communication#183; C2 Communication + Process Injection</span>
+          <span class="sf-stage-label" style="color:#43D9AD;">06 06 &#183; C2 Communication + Process Injection</span>
           <span class="sf-mitre-tag" style="background:#43D9AD;color:#111;">T1055.003</span>
         </div>
         <div class="sf-title">Thread-Context Hijacking into a Trusted System Process</div>
@@ -289,13 +289,16 @@ ctx.Rip = (DWORD64)pRemote  <span class="cm">// hijack RIP to shellcode</span>
       <div class="sf-num"><span style="color:#FF6B9D;border-color:#FF6B9D;">07</span></div>
       <div class="sf-body">
         <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#FF6B9D;">07 07 &#183; Persistence#183; Persistence — Dual Watchdog Architecture</span>
+          <span class="sf-stage-label" style="color:#FF6B9D;">07 &#183; Persistence + Remote Access</span>
           <span class="sf-mitre-tag" style="background:#FF6B9D;color:#111;">T1053.005</span>
+          <span class="sf-mitre-tag" style="background:#E63946;color:#fff;">RAT / Implant</span>
         </div>
-        <div class="sf-title">Two Independent Recovery Layers Keep the Implant Alive</div>
+        <div class="sf-title">Dual Watchdog Persistence → Persistent C2 Full Control</div>
         <ul class="sf-list" style="--card-color:#FF6B9D;">
           <li>Internal watchdog thread: if shellcode evicted &#8594; re-fetch from C2 + re-inject</li>
           <li>External script: if loader killed &#8594; relaunch; Scheduled Task ensures script survives reboots</li>
+          <li>Shellcode lives inside trusted system process — no dedicated malware process, traffic blends in</li>
+          <li>Full shell, file ops, recon; modular — operator pushes capabilities on demand</li>
         </ul>
         <div class="sf-watchdog">
           <div class="sf-wd-task">
@@ -322,25 +325,7 @@ ctx.Rip = (DWORD64)pRemote  <span class="cm">// hijack RIP to shellcode</span>
           <div class="sf-wd-center" style="border-color:rgba(67,217,173,0.4);color:#43D9AD;background:rgba(67,217,173,0.15);">Shellcode running inside trusted system process</div>
           <div class="sf-wd-note">All three layers must be removed simultaneously to fully evict the implant</div>
         </div>
-      </div>
-    </div>
-
-    <div class="sf-connector" style="--line-color:#E63946;"></div>
-
-    <!-- 09 REMOTE ACCESS -->
-    <div class="sf-card" style="--card-color:#E63946;--card-bg:rgba(230,57,70,0.10);">
-      <div class="sf-num"><span style="color:#E63946;border-color:#E63946;">08</span></div>
-      <div class="sf-body">
-        <div class="sf-meta">
-          <span class="sf-stage-label" style="color:#E63946;">08 08 &#183; Remote Access#183; Remote Access — Final Payload</span>
-          <span class="sf-mitre-tag" style="background:#E63946;color:#fff;">RAT / Implant</span>
-        </div>
-        <div class="sf-title">Persistent C2 — Full Control, No File on Disk</div>
-        <ul class="sf-list" style="--card-color:#E63946;">
-          <li>Shellcode lives inside trusted system process — no dedicated malware process, traffic blends in</li>
-          <li>Full shell, file ops, recon; modular — operator pushes capabilities on demand</li>
-        </ul>
-        <div class="sf-code" style="--card-color:#E63946;"><span class="cm">Implant location:</span>  shellcode inside legitimate system process
+        <div class="sf-code" style="--card-color:#E63946;margin-top:0.8rem;"><span class="cm">Implant location:</span>  shellcode inside legitimate system process
 <span class="cm">Network traffic:  </span>  encrypted C2 protocol, blends with host process
 <span class="cm">Disk footprint:   </span>  loader binary + DLL only (shellcode is fileless)
 <span class="cm">Persistence:      </span>  dual watchdog + scheduled task survives reboot</div>
