@@ -1,0 +1,92 @@
+theme: jekyll-theme-chirpy
+
+lang: en
+timezone: Asia/Riyadh
+
+title: 9Hackers
+tagline: Offensive Security Research
+description: Kernel internals, offensive tooling, and malware analysis.
+url: "https://9hackers.com"
+
+github:
+  username: hassan0x
+
+social:
+  name: hassan0x
+  email: ""
+  links:
+    - https://github.com/hassan0x
+
+theme_mode: dark
+
+avatar: ""
+
+toc: true
+
+comments:
+  provider: ""
+
+pwa:
+  enabled: false
+
+paginate: 10
+
+kramdown:
+  footnote_backlink: "&#8617;&#xfe0e;"
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: highlight
+    span:
+      line_numbers: false
+    block:
+      line_numbers: false
+      start_line: 1
+
+collections:
+  tabs:
+    output: true
+    sort_by: order
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      comments: false
+      toc: true
+      math: false
+      mermaid: false
+      pin: false
+  - scope:
+      path: ""
+      type: tabs
+    values:
+      layout: page
+      permalink: /:title/
+  - scope:
+      path: assets/js/dist
+    values:
+      swcache: true
+
+sass:
+  style: compressed
+
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  profile: false
+  blanklines: false
+  ignore:
+    envs: [development]
+
+exclude:
+  - "*.gem"
+  - "*.gemspec"
+  - README.md
+  - LICENSE
+  - "*.config.js"
+  - package*.json
+  - index.html
+  - silverfox.html
