@@ -1,18 +1,10 @@
 ---
-layout: null
+layout: page
 title: APT Attack Methodology
 permalink: /methodology/
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>APT Attack Methodology — 9Hackers</title>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --bg:   #07090f;
     --c1:   #E63946;
     --c2:   #F4845F;
     --c3:   #F9C74F;
@@ -24,23 +16,16 @@ permalink: /methodology/
     --dark: rgba(48,54,61,0.60);
     --font: 'DejaVu Sans Mono','Courier New',Consolas,monospace;
   }
-  body {
-    background: var(--bg);
-    color: #e6edf3;
+
+  .sf-page {
+    display: flex; flex-direction: column;
+    height: calc(100vh - 140px);
+    overflow: hidden;
     font-family: var(--font);
     font-size: 14px;
     line-height: 1.6;
-    padding: 0;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    color: #e6edf3;
   }
-  .sf-page { flex: 1; display: flex; flex-direction: column; padding: 0.8rem 1rem; overflow: hidden; }
-
-  .sf-nav { margin-bottom: 1.5rem; }
-  .sf-nav a { color: #58a6ff; font-size: 0.75rem; text-decoration: none; }
-  .sf-nav a:hover { text-decoration: underline; }
 
   .sf-header {
     background: rgba(230,57,70,0.08);
@@ -190,11 +175,8 @@ permalink: /methodology/
     .sf-header h1 { font-size: 1.3rem; }
   }
 </style>
-</head>
-<body>
-<div class="sf-page">
 
-  <div class="sf-nav">&#8592; <a href="/">9Hackers</a></div>
+<div class="sf-page">
 
   <!-- HEADER -->
   <div class="sf-header">
@@ -348,5 +330,3 @@ ctx.Rip = (DWORD64)pRemote  <span class="cm">// redirect to shellcode</span>
   </div>
 
 </div>
-</body>
-</html>
