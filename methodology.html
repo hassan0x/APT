@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: fullscreen
 title: APT Attack Methodology
 permalink: /methodology/
 ---
@@ -57,14 +57,9 @@ permalink: /methodology/
   .site-nav-bar .page-link:hover { color: #e6edf3; }
   .site-nav-bar .page-link.active { color: #e6edf3; }
 
-  /* Break out of Minima's wrapper to fill full viewport */
-  .page-content { padding: 0 !important; overflow: hidden !important; flex: 1; display: flex; flex-direction: column; }
-  .page-content > .wrapper { max-width: 100% !important; padding: 0 !important; margin: 0 !important; flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-  body { overflow: hidden !important; height: 100vh !important; }
-
   .sf-page {
     display: flex; flex-direction: column;
-    flex: 1;
+    height: calc(100vh - 56px);
     overflow: hidden;
     font-family: var(--font);
     font-size: 14px;
