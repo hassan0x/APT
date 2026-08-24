@@ -4,7 +4,6 @@ title: APT Attack Methodology
 permalink: /methodology/
 ---
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --bg:   #07090f;
     --c1:   #E63946;
@@ -18,18 +17,7 @@ permalink: /methodology/
     --dark: rgba(48,54,61,0.60);
     --font: 'DejaVu Sans Mono','Courier New',Consolas,monospace;
   }
-  body {
-    background: var(--bg);
-    color: #e6edf3;
-    font-family: var(--font);
-    font-size: 14px;
-    line-height: 1.6;
-    padding: 0;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
+  *, *::before, *::after { box-sizing: border-box; }
 
   /* SITE NAV BAR — matches Minima dark theme exactly */
   .site-nav-bar {
@@ -69,14 +57,18 @@ permalink: /methodology/
   .site-nav-bar .page-link:hover { color: #e6edf3; }
   .site-nav-bar .page-link.active { color: #e6edf3; }
 
+  /* Break out of Minima's wrapper to fill full viewport */
+  .page-content { padding: 0 !important; overflow: hidden !important; flex: 1; display: flex; flex-direction: column; }
+  .page-content > .wrapper { max-width: 100% !important; padding: 0 !important; margin: 0 !important; flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  body { overflow: hidden !important; height: 100vh !important; }
+
   .sf-page {
     display: flex; flex-direction: column;
-    height: calc(100vh - 56px);
+    flex: 1;
     overflow: hidden;
     font-family: var(--font);
     font-size: 14px;
     line-height: 1.6;
-    margin: 0 -30px;
     padding: 0.8rem 1rem;
   }
 
