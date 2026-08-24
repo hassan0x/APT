@@ -1,14 +1,8 @@
 ---
-layout: null
+layout: default
 title: APT Attack Methodology
 permalink: /methodology/
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>APT Attack Methodology — 9Hackers</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -75,7 +69,16 @@ permalink: /methodology/
   .site-nav-bar .page-link:hover { color: #e6edf3; }
   .site-nav-bar .page-link.active { color: #e6edf3; }
 
-  .sf-page { flex: 1; display: flex; flex-direction: column; padding: 0.8rem 1rem; overflow: hidden; }
+  .sf-page {
+    display: flex; flex-direction: column;
+    height: calc(100vh - 56px);
+    overflow: hidden;
+    font-family: var(--font);
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0 -30px;
+    padding: 0.8rem 1rem;
+  }
 
   .sf-header {
     background: rgba(230,57,70,0.08);
@@ -214,27 +217,7 @@ permalink: /methodology/
   .sf-mitre-cell .mc-code { font-size: 0.72rem; font-weight: 700; color: var(--mc-color); margin-bottom: 0.15rem; }
   .sf-mitre-cell .mc-name { font-size: 0.63rem; color: #8b949e; line-height: 1.4; }
 
-  .sf-nav { margin-bottom: 0.4rem; flex-shrink: 0; }
-  .sf-footer { display: none; }
-
-  @media (max-width: 700px) {
-    .sf-result-grid { grid-template-columns: repeat(2,1fr); }
-    .sf-remed-grid { grid-template-columns: 1fr; }
-    .sf-mitre-grid { grid-template-columns: repeat(2,1fr); }
-    .sf-wd-boxes { grid-template-columns: 1fr; }
-    .sf-header h1 { font-size: 1.3rem; }
-  }
 </style>
-</head>
-<body>
-
-<nav class="site-nav-bar">
-  <div class="wrapper">
-    <a href="/" class="site-title">9Hackers</a>
-    <a href="/about/" class="page-link">About</a>
-    <a href="/methodology/" class="page-link active">APT Attack Methodology</a>
-  </div>
-</nav>
 
 <div class="sf-page">
 
@@ -390,5 +373,3 @@ ctx.Rip = (DWORD64)pRemote  <span class="cm">// redirect to shellcode</span>
   </div>
 
 </div>
-</body>
-</html>
