@@ -181,6 +181,32 @@ The callback receives the requested `ACCESS_MASK` and can **strip rights from it
 
 Callbacks are stored per object type in a **linked list** inside `_OBJECT_TYPE`. Unlike the array-based callbacks above, this is a true doubly-linked list with no fixed size.
 
+### How Windows Doubly-Linked Lists Work
+
+Windows uses a **circular doubly-linked list** (`LIST_ENTRY`) throughout the kernel. Every node has two pointers:
+
+- **Flink** ("Forward Link") — points to the **next** node
+- **Blink** ("Back Link") — points to the **previous** node
+
+The list is circular: the last node's Flink points back to the head, and the first node's Blink points back to the head. This means the head is always in the loop.
+
+```
+HEAD (at type_addr + 0xC8)
+  Flink → node1       Blink → node2 (last)
+
+node1:
+  Flink → node2       Blink → HEAD
+
+node2 (last):
+  Flink → HEAD        Blink → node1
+```
+
+**Empty list:** HEAD.Flink == HEAD.Blink == address of HEAD itself — it loops to itself.
+
+**Single node:** node.Flink == node.Blink == address of HEAD — the one node points back to the head in both directions.
+
+**Walking the list:** start at HEAD.Flink, follow Flink at each node, stop when Flink equals the HEAD address again.
+
 ### Key Structure Offsets
 
 `_OBJECT_TYPE` (the kernel's type object for "Process" or "Thread"):
