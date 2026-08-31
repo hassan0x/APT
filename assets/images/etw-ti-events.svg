@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="310" viewBox="0 0 720 310">
+<rect x="0" y="0" width="720" height="310" fill="#0d1117" stroke="none" stroke-width="0" rx="8"/>
+<text x="360" y="26" fill="#e6edf3" font-size="13" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">ETW-TI Events — What Defender Watches</text>
+<rect x="16" y="44" width="210" height="28" fill="rgba(88,166,255,0.18)" stroke="#58a6ff" stroke-width="1" rx="4"/>
+<text x="121" y="62" fill="#58a6ff" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">Event Constant (KERNEL_THREATINT_...)</text>
+<rect x="230" y="44" width="250" height="28" fill="rgba(240,136,62,0.18)" stroke="#f0883e" stroke-width="1" rx="4"/>
+<text x="355" y="62" fill="#f0883e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">Kernel API Triggered</text>
+<rect x="484" y="44" width="220" height="28" fill="rgba(63,185,80,0.18)" stroke="#3fb950" stroke-width="1" rx="4"/>
+<text x="594" y="62" fill="#3fb950" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">Why Malware Uses This</text>
+<rect x="16" y="72" width="210" height="30" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="121" y="91" fill="#58a6ff" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">ALLOCVM_LOCAL</text>
+<rect x="230" y="72" width="250" height="30" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="355" y="91" fill="#e6edf3" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">NtAllocateVirtualMemory  (local, exec)</text>
+<rect x="484" y="72" width="220" height="30" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="594" y="91" fill="#8b949e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Shellcode staging in own process</text>
+<rect x="16" y="102" width="210" height="30" fill="rgba(255,255,255,0.02)" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="121" y="121" fill="#58a6ff" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">ALLOCVM_REMOTE</text>
+<rect x="230" y="102" width="250" height="30" fill="rgba(255,255,255,0.02)" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="355" y="121" fill="#e6edf3" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">NtAllocateVirtualMemory  (remote, exec)</text>
+<rect x="484" y="102" width="220" height="30" fill="rgba(255,255,255,0.02)" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="594" y="121" fill="#8b949e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Process injection — allocate RWX</text>
+<rect x="16" y="132" width="210" height="30" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="121" y="151" fill="#58a6ff" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">MAPVIEW_LOCAL</text>
+<rect x="230" y="132" width="250" height="30" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="355" y="151" fill="#e6edf3" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">NtMapViewOfSection  (own process)</text>
+<rect x="484" y="132" width="220" height="30" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="594" y="151" fill="#8b949e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Reflective DLL mapping</text>
+<rect x="16" y="162" width="210" height="30" fill="rgba(255,255,255,0.02)" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="121" y="181" fill="#58a6ff" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">MAPVIEW_REMOTE</text>
+<rect x="230" y="162" width="250" height="30" fill="rgba(255,255,255,0.02)" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="355" y="181" fill="#e6edf3" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">NtMapViewOfSection  (into target)</text>
+<rect x="484" y="162" width="220" height="30" fill="rgba(255,255,255,0.02)" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="594" y="181" fill="#8b949e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Section-based injection</text>
+<rect x="16" y="192" width="210" height="30" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="121" y="211" fill="#58a6ff" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">WRITEVM_REMOTE</text>
+<rect x="230" y="192" width="250" height="30" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="355" y="211" fill="#e6edf3" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">NtWriteVirtualMemory  (target process)</text>
+<rect x="484" y="192" width="220" height="30" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="594" y="211" fill="#8b949e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Classic WriteProcessMemory injection</text>
+<rect x="16" y="222" width="210" height="30" fill="rgba(255,255,255,0.02)" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="121" y="241" fill="#58a6ff" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">QUEUEUSERAPC_REMOTE</text>
+<rect x="230" y="222" width="250" height="30" fill="rgba(255,255,255,0.02)" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="355" y="241" fill="#e6edf3" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">NtQueueApcThread  (remote APC)</text>
+<rect x="484" y="222" width="220" height="30" fill="rgba(255,255,255,0.02)" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="594" y="241" fill="#8b949e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Early bird / APC injection</text>
+<rect x="16" y="252" width="210" height="30" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="121" y="271" fill="#58a6ff" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">SETTHREADCONTEXT</text>
+<rect x="230" y="252" width="250" height="30" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="355" y="271" fill="#e6edf3" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">NtSetContextThread  (remote thread)</text>
+<rect x="484" y="252" width="220" height="30" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="594" y="271" fill="#8b949e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Thread context hijacking</text>
+<text x="360" y="300" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">All events fire inside the kernel instrumentation — fires before any user-mode hook sees the operation</text>
+</svg>

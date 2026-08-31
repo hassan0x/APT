@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="260" viewBox="0 0 720 260">
+<rect x="0" y="0" width="720" height="260" fill="#0d1117" stroke="none" stroke-width="0" rx="8"/>
+<text x="360" y="26" fill="#e6edf3" font-size="13" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">ObRegisterCallbacks — Linked List Structure</text>
+<defs><marker id="ob" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8b949e"/></marker></defs>
+<rect x="35" y="54" width="190" height="110" fill="#161b22" stroke="#58a6ff" stroke-width="1.5" rx="4"/>
+<rect x="35" y="54" width="190" height="22" fill="rgba(88,166,255,0.18)" stroke="#58a6ff" stroke-width="0" rx="4"/>
+<text x="130" y="69" fill="#58a6ff" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">_OBJECT_TYPE.CallbackList</text>
+<text x="45" y="90" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace">(head — LIST_ENTRY)</text>
+<text x="45" y="110" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace">+0xC8 CallbackList</text>
+<text x="45" y="130" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace">Flink → first node</text>
+<line x1="227" y1="84" x2="263" y2="84" stroke="#8b949e" stroke-width="1.5" marker-end="url(#ob)"/>
+<rect x="265" y="54" width="190" height="110" fill="#161b22" stroke="#d2a8ff" stroke-width="1.5" rx="4"/>
+<rect x="265" y="54" width="190" height="22" fill="rgba(210,168,255,0.18)" stroke="#d2a8ff" stroke-width="0" rx="4"/>
+<text x="360" y="69" fill="#d2a8ff" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">CALLBACK_ENTRY_ITEM  [1]</text>
+<text x="360" y="89" fill="#f0883e" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">(WdFilter)</text>
+<text x="275" y="96" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace">+0x000  Flink  →  node 2</text>
+<rect x="269" y="103" width="182" height="18" fill="rgba(63,185,80,0.18)" stroke="#3fb950" stroke-width="1" rx="2"/>
+<text x="275" y="116" fill="#3fb950" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">+0x014  Active = 1</text>
+<text x="275" y="136" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace">+0x028  PreOperation →</text>
+<line x1="457" y1="84" x2="493" y2="84" stroke="#8b949e" stroke-width="1.5" marker-end="url(#ob)"/>
+<line x1="360" y1="164" x2="360" y2="178" stroke="#8b949e" stroke-width="1"/>
+<line x1="360" y1="178" x2="130" y2="178" stroke="#8b949e" stroke-width="1"/>
+<line x1="130" y1="178" x2="130" y2="164" stroke="#8b949e" stroke-width="1"/>
+<rect x="495" y="54" width="190" height="110" fill="#161b22" stroke="#d2a8ff" stroke-width="1.5" rx="4"/>
+<rect x="495" y="54" width="190" height="22" fill="rgba(210,168,255,0.18)" stroke="#d2a8ff" stroke-width="0" rx="4"/>
+<text x="590" y="69" fill="#d2a8ff" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">CALLBACK_ENTRY_ITEM  [2]</text>
+<text x="590" y="89" fill="#f0883e" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">(CrowdStrike)</text>
+<text x="505" y="96" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace">+0x000  Flink  →  head</text>
+<rect x="499" y="103" width="182" height="18" fill="rgba(63,185,80,0.18)" stroke="#3fb950" stroke-width="1" rx="2"/>
+<text x="505" y="116" fill="#3fb950" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">+0x014  Active = 1</text>
+<text x="505" y="136" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace">+0x028  PreOperation →</text>
+<line x1="590" y1="164" x2="590" y2="178" stroke="#8b949e" stroke-width="1"/>
+<line x1="590" y1="178" x2="360" y2="178" stroke="#8b949e" stroke-width="1"/>
+<line x1="360" y1="178" x2="360" y2="164" stroke="#8b949e" stroke-width="1"/>
+<text x="360" y="204" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Disable:  eb  (node_addr + 0x14)  0   →   Active=0, kernel skips this callback without unlinking</text>
+<text x="360" y="222" fill="#8b949e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Walk list: follow Flink at +0x000 of each node; stop when Flink == _OBJECT_TYPE.CallbackList address</text>
+<text x="360" y="248" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Ob callbacks require two separate passes: once for Process type (index 7), once for Thread type (index 8)</text>
+</svg>

@@ -1,55 +1,40 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="680" height="220" viewBox="0 0 680 220">
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="240" viewBox="0 0 700 240">
+<rect x="0" y="0" width="700" height="240" fill="#0d1117" stroke="none" stroke-width="0" rx="8"/>
+<text x="350" y="26" fill="#e6edf3" font-size="13" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">PspCreateProcessNotifyRoutine — Array to Function</text>
 <defs><marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8b949e"/></marker></defs>
-<rect width="680" height="220" fill="#0d1117" rx="8"/>
-<text x="340" y="22" fill="#e6edf3" font-family="JetBrains Mono,Consolas,monospace" font-size="13" font-weight="bold" text-anchor="middle">PspCreateProcessNotifyRoutine — Array to Function</text>
-
-<!-- Array box -->
-<rect x="20" y="38" width="100" height="150" fill="#161b22" stroke="#21262d" rx="4"/>
-<rect x="20" y="38" width="100" height="22" fill="rgba(88,166,255,0.2)" stroke="#21262d" rx="4 4 0 0"/>
-<text x="70" y="53" fill="#58a6ff" font-family="JetBrains Mono,Consolas,monospace" font-size="10" text-anchor="middle" font-weight="bold">Array[64]</text>
-<text x="70" y="74" fill="#e6edf3" font-family="JetBrains Mono,Consolas,monospace" font-size="9" text-anchor="middle">slot[0]  e4dfb52f</text>
-<rect x="30" y="80" width="80" height="14" fill="rgba(240,136,62,0.2)" stroke="#f0883e" rx="2"/>
-<text x="70" y="91" fill="#f0883e" font-family="JetBrains Mono,Consolas,monospace" font-size="9" text-anchor="middle">slot[1]  e823bb5f  ←</text>
-<text x="70" y="108" fill="#e6edf3" font-family="JetBrains Mono,Consolas,monospace" font-size="9" text-anchor="middle">slot[2]  e823b82f</text>
-<text x="70" y="122" fill="#e6edf3" font-family="JetBrains Mono,Consolas,monospace" font-size="9" text-anchor="middle">slot[3]  e823b8ef</text>
-<text x="70" y="136" fill="#8b949e" font-family="JetBrains Mono,Consolas,monospace" font-size="9" text-anchor="middle">...  (64 slots)</text>
-<text x="70" y="158" fill="#8b949e" font-family="JetBrains Mono,Consolas,monospace" font-size="9" text-anchor="middle">slot[N]  00000000</text>
-<text x="70" y="174" fill="#8b949e" font-family="JetBrains Mono,Consolas,monospace" font-size="9" text-anchor="middle">  ← empty, stop</text>
-
-<!-- Arrow 1 -->
-<line x1="122" x2="155" y1="88" y2="88" stroke="#f0883e" stroke-width="1.5" marker-end="url(#ar3)"/>
-<text x="138" y="82" fill="#8b949e" font-family="JetBrains Mono,Consolas,monospace" font-size="8" text-anchor="middle">&amp; ~0xF</text>
-
-<!-- EX_FAST_REF / RoutineBlock -->
-<rect x="157" y="60" width="165" height="82" fill="#161b22" stroke="#f0883e" stroke-width="1.5" rx="4"/>
-<rect x="157" y="60" width="165" height="20" fill="rgba(240,136,62,0.2)" stroke="#f0883e" rx="4 4 0 0"/>
-<text x="239" y="74" fill="#f0883e" font-family="JetBrains Mono,Consolas,monospace" font-size="10" text-anchor="middle" font-weight="bold">_EX_CALLBACK_ROUTINE_BLOCK</text>
-<text x="175" y="96" fill="#8b949e" font-family="JetBrains Mono,Consolas,monospace" font-size="10">+0x00  RundownProtect</text>
-<rect x="166" y="102" width="147" height="18" fill="rgba(63,185,80,0.15)" stroke="#3fb950" rx="2"/>
-<text x="175" y="115" fill="#3fb950" font-family="JetBrains Mono,Consolas,monospace" font-size="10">+0x08  Function  ← </text>
-<text x="175" y="131" fill="#8b949e" font-family="JetBrains Mono,Consolas,monospace" font-size="10">+0x10  Context</text>
-
-<!-- Arrow 2 -->
-<line x1="324" x2="357" y1="111" y2="111" stroke="#3fb950" stroke-width="1.5" marker-end="url(#ar3)"/>
-
-<!-- Function address box -->
-<rect x="359" y="88" width="155" height="46" fill="#161b22" stroke="#3fb950" stroke-width="1.5" rx="4"/>
-<rect x="359" y="88" width="155" height="20" fill="rgba(63,185,80,0.2)" stroke="#3fb950" rx="4 4 0 0"/>
-<text x="436" y="102" fill="#3fb950" font-family="JetBrains Mono,Consolas,monospace" font-size="10" text-anchor="middle" font-weight="bold">Function Address</text>
-<text x="436" y="122" fill="#e6edf3" font-family="JetBrains Mono,Consolas,monospace" font-size="10" text-anchor="middle">fffff804`42fdaa60</text>
-
-<!-- Arrow 3 -->
-<line x1="516" x2="549" y1="111" y2="111" stroke="#8b949e" stroke-width="1.5" marker-end="url(#ar3)"/>
-<text x="532" y="105" fill="#8b949e" font-family="JetBrains Mono,Consolas,monospace" font-size="8" text-anchor="middle">lm a</text>
-
-<!-- Driver box -->
-<rect x="551" y="80" width="110" height="62" fill="#161b22" stroke="#58a6ff" stroke-width="1.5" rx="4"/>
-<rect x="551" y="80" width="110" height="20" fill="rgba(88,166,255,0.2)" stroke="#58a6ff" rx="4 4 0 0"/>
-<text x="606" y="94" fill="#58a6ff" font-family="JetBrains Mono,Consolas,monospace" font-size="10" text-anchor="middle" font-weight="bold">Driver</text>
-<text x="606" y="114" fill="#e6edf3" font-family="JetBrains Mono,Consolas,monospace" font-size="11" text-anchor="middle">WdFilter</text>
-<text x="606" y="130" fill="#8b949e" font-family="JetBrains Mono,Consolas,monospace" font-size="9" text-anchor="middle">Windows Defender</text>
-
-<!-- Disable note -->
-<text x="340" y="175" fill="#8b949e" font-family="JetBrains Mono,Consolas,monospace" font-size="10" text-anchor="middle">To disable:  ep  (array_base + slot_index × 8)  0   →   kernel skips null slots</text>
-<text x="340" y="192" fill="#8b949e" font-family="JetBrains Mono,Consolas,monospace" font-size="10" text-anchor="middle">Example:   ep fffff804`b0b04b88 0   →   slot[1] zeroed, callback never fires</text>
+<rect x="16" y="50" width="110" height="160" fill="#161b22" stroke="#21262d" stroke-width="1.5" rx="4"/>
+<rect x="16" y="50" width="110" height="24" fill="rgba(88,166,255,0.18)" stroke="#21262d" stroke-width="1.5" rx="4"/>
+<text x="71" y="66" fill="#58a6ff" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">Array[64]</text>
+<text x="71" y="92" fill="#e6edf3" font-size="9" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">slot[0]  e4dfb52f</text>
+<rect x="24" y="99" width="94" height="16" fill="rgba(240,136,62,0.18)" stroke="#f0883e" stroke-width="1" rx="2"/>
+<text x="71" y="111" fill="#f0883e" font-size="9" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">slot[1]  e823bb5f</text>
+<text x="71" y="130" fill="#e6edf3" font-size="9" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">slot[2]  e823b82f</text>
+<text x="71" y="146" fill="#e6edf3" font-size="9" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">slot[3]  e823b8ef</text>
+<text x="71" y="162" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">...  (64 slots)</text>
+<text x="71" y="180" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">slot[N]  00000000</text>
+<text x="71" y="194" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">← null = stop</text>
+<text x="134" y="122" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">& ~0xF</text>
+<line x1="130" y1="130" x2="176" y2="130" stroke="#f0883e" stroke-width="1.5" marker-end="url(#ar3)"/>
+<rect x="178" y="70" width="170" height="86" fill="#161b22" stroke="#f0883e" stroke-width="1.5" rx="4"/>
+<rect x="178" y="70" width="170" height="22" fill="rgba(240,136,62,0.18)" stroke="#f0883e" stroke-width="0" rx="4"/>
+<text x="263" y="85" fill="#f0883e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">_EX_CALLBACK_ROUTINE_BLOCK</text>
+<text x="188" y="108" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace">+0x00  RundownProtect</text>
+<rect x="184" y="114" width="158" height="20" fill="rgba(63,185,80,0.18)" stroke="#3fb950" stroke-width="1" rx="2"/>
+<text x="188" y="128" fill="#3fb950" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">+0x08  Function  ←</text>
+<text x="188" y="146" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace">+0x10  Context</text>
+<line x1="352" y1="113" x2="398" y2="113" stroke="#3fb950" stroke-width="1.5" marker-end="url(#ar3)"/>
+<rect x="400" y="80" width="150" height="60" fill="#161b22" stroke="#3fb950" stroke-width="1.5" rx="4"/>
+<rect x="400" y="80" width="150" height="22" fill="rgba(63,185,80,0.18)" stroke="#3fb950" stroke-width="0" rx="4"/>
+<text x="475" y="95" fill="#3fb950" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">Function Address</text>
+<text x="475" y="118" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">fffff804`42fdaa60</text>
+<text x="475" y="132" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">(in WdFilter range)</text>
+<text x="556" y="102" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">lm a</text>
+<line x1="554" y1="110" x2="600" y2="110" stroke="#8b949e" stroke-width="1.5" marker-end="url(#ar3)"/>
+<rect x="602" y="80" width="122" height="60" fill="#161b22" stroke="#58a6ff" stroke-width="1.5" rx="4"/>
+<rect x="602" y="80" width="122" height="22" fill="rgba(88,166,255,0.18)" stroke="#58a6ff" stroke-width="0" rx="4"/>
+<text x="663" y="95" fill="#58a6ff" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">Driver</text>
+<text x="663" y="118" fill="#e6edf3" font-size="11" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">WdFilter.sys</text>
+<text x="663" y="132" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Windows Defender</text>
+<text x="350" y="208" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Disable:   ep  (array_base + slot_index × 8)  0   →  kernel skips null slots</text>
+<text x="350" y="224" fill="#8b949e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Example:   ep fffff804`b0b04b88 0    →   slot[1] zeroed, Process callback never fires</text>
 </svg>

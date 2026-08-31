@@ -185,6 +185,8 @@ MsMpEng is now a completely ordinary process. Any usermode code running as SYSTE
 
 ## Protection Level Reference
 
+![PS_PROTECTED_SIGNER all values and example processes](/assets/images/ppl-signer-values.svg)
+
 | Process | Type | Signer | Byte | Notes |
 |---------|------|--------|------|-------|
 | MsMpEng.exe | PPL (1) | Antimalware (3) | `0x31` | Windows Defender scanner |

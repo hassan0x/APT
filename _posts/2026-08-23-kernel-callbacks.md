@@ -199,6 +199,8 @@ Callbacks are stored per object type in a **linked list** inside `_OBJECT_TYPE`.
 +0x030  PostOperation   — callback function address (or NULL)
 ```
 
+![ObRegisterCallbacks linked list — CALLBACK_ENTRY_ITEM chain with Active field](/assets/images/callbacks-ob-linked-list.svg)
+
 ## Step 1 — Find the Object Type
 
 ```
@@ -318,6 +320,8 @@ lm a fffff806`2526aec0
 ```
 
 ## Step 4 — Unlink the Node
+
+![Cm callback node unlinking — before and after](/assets/images/callbacks-cm-unlink.svg)
 
 To remove the node `ffff8f88086c8d50` (whose Blink is the head and Flink is `ffff8f880bce3bf0`):
 

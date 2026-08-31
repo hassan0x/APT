@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="660" height="300" viewBox="0 0 660 300">
+<rect x="0" y="0" width="660" height="300" fill="#0d1117" stroke="none" stroke-width="0" rx="8"/>
+<text x="330" y="26" fill="#e6edf3" font-size="13" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">PS_PROTECTED_SIGNER Values — All Levels</text>
+<rect x="14" y="44" width="40" height="26" fill="rgba(88,166,255,0.18)" stroke="#21262d" stroke-width="1" rx="4"/>
+<text x="34" y="61" fill="#58a6ff" font-size="11" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">Val</text>
+<rect x="58" y="44" width="120" height="26" fill="rgba(88,166,255,0.18)" stroke="#21262d" stroke-width="1" rx="4"/>
+<text x="118" y="61" fill="#58a6ff" font-size="11" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">Signer Name</text>
+<rect x="182" y="44" width="70" height="26" fill="rgba(88,166,255,0.18)" stroke="#21262d" stroke-width="1" rx="4"/>
+<text x="217" y="61" fill="#58a6ff" font-size="11" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">Type</text>
+<rect x="256" y="44" width="320" height="26" fill="rgba(88,166,255,0.18)" stroke="#21262d" stroke-width="1" rx="4"/>
+<text x="416" y="61" fill="#58a6ff" font-size="11" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">Example Processes</text>
+<rect x="580" y="44" width="60" height="26" fill="rgba(88,166,255,0.18)" stroke="#21262d" stroke-width="1" rx="4"/>
+<text x="610" y="61" fill="#58a6ff" font-size="11" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">Byte</text>
+<rect x="14" y="70" width="40" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="34" y="87" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">7</text>
+<rect x="58" y="70" width="120" height="26" fill="rgba(227,179,65,0.18)" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="118" y="87" fill="#e3b341" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">WinSystem</text>
+<rect x="182" y="70" width="70" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="217" y="87" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">PP/PPL</text>
+<rect x="256" y="70" width="320" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="416" y="87" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">SMSS.exe, Registry hive driver</text>
+<rect x="580" y="70" width="60" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="610" y="87" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">0x72</text>
+<rect x="14" y="96" width="40" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="34" y="113" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">6</text>
+<rect x="58" y="96" width="120" height="26" fill="rgba(88,166,255,0.18)" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="118" y="113" fill="#58a6ff" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">WinTcb</text>
+<rect x="182" y="96" width="70" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="217" y="113" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">PP/PPL</text>
+<rect x="256" y="96" width="320" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="416" y="113" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">csrss.exe, smss.exe, services.exe</text>
+<rect x="580" y="96" width="60" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="610" y="113" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">0x62</text>
+<rect x="14" y="122" width="40" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="34" y="139" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">5</text>
+<rect x="58" y="122" width="120" height="26" fill="rgba(210,168,255,0.18)" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="118" y="139" fill="#d2a8ff" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">Windows</text>
+<rect x="182" y="122" width="70" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="217" y="139" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">PP/PPL</text>
+<rect x="256" y="122" width="320" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="416" y="139" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">wermgr.exe, audiodg.exe</text>
+<rect x="580" y="122" width="60" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="610" y="139" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">0x52</text>
+<rect x="14" y="148" width="40" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="34" y="165" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">4</text>
+<rect x="58" y="148" width="120" height="26" fill="rgba(63,185,80,0.18)" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="118" y="165" fill="#3fb950" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">Lsa</text>
+<rect x="182" y="148" width="70" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="217" y="165" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">PP/PPL</text>
+<rect x="256" y="148" width="320" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="416" y="165" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">lsass.exe (if RunAsPPL=1 in registry)</text>
+<rect x="580" y="148" width="60" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="610" y="165" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">0x41</text>
+<rect x="14" y="174" width="40" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="34" y="191" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">3</text>
+<rect x="58" y="174" width="120" height="26" fill="rgba(240,136,62,0.18)" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="118" y="191" fill="#f0883e" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">Antimalware</text>
+<rect x="182" y="174" width="70" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="217" y="191" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">PP/PPL</text>
+<rect x="256" y="174" width="320" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="416" y="191" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">MsMpEng.exe, MpDefenderCore</text>
+<rect x="580" y="174" width="60" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="610" y="191" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">0x31</text>
+<rect x="14" y="200" width="40" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="34" y="217" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">2</text>
+<rect x="58" y="200" width="120" height="26" fill="rgba(139,148,158,0.18)" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="118" y="217" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">Authenticode</text>
+<rect x="182" y="200" width="70" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="217" y="217" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">PP/PPL</text>
+<rect x="256" y="200" width="320" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="416" y="217" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Signed binaries (signing infrastructure)</text>
+<rect x="580" y="200" width="60" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="610" y="217" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">0x21</text>
+<rect x="14" y="226" width="40" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="34" y="243" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">1</text>
+<rect x="58" y="226" width="120" height="26" fill="rgba(139,148,158,0.18)" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="118" y="243" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">CodeGen</text>
+<rect x="182" y="226" width="70" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="217" y="243" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">PP/PPL</text>
+<rect x="256" y="226" width="320" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="416" y="243" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">.NET JIT compiler artifacts</text>
+<rect x="580" y="226" width="60" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="610" y="243" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">0x11</text>
+<rect x="14" y="252" width="40" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="34" y="269" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">0</text>
+<rect x="58" y="252" width="120" height="26" fill="rgba(139,148,158,0.18)" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="118" y="269" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">None</text>
+<rect x="182" y="252" width="70" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="217" y="269" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">PP/PPL</text>
+<rect x="256" y="252" width="320" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="416" y="269" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Unprotected — any SYSTEM process can open</text>
+<rect x="580" y="252" width="60" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
+<text x="610" y="269" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">0x00</text>
+<text x="330" y="286" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Higher Signer value = stronger trust rank — kernel requires caller to have equal or higher Signer to open target</text>
+</svg>
