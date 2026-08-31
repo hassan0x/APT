@@ -13,6 +13,8 @@ Before an EDR can block anything, it has to know something happened. In user-mod
 
 The Windows kernel exposes several registration APIs that let drivers subscribe to system-wide events:
 
+![Kernel callback types overview](/assets/images/callbacks-types-overview.svg)
+
 | API | Events received |
 |-----|----------------|
 | `PsSetCreateProcessNotifyRoutineEx` | Every process creation and exit |
@@ -28,6 +30,8 @@ Understanding how these callbacks are stored makes it possible to enumerate exac
 ---
 
 ## The EX_FAST_REF Encoding
+
+![EX_FAST_REF pointer encoding](/assets/images/callbacks-exfastref.svg)
 
 Before diving into each callback type, there is one concept that appears everywhere: **EX_FAST_REF**.
 
@@ -55,6 +59,8 @@ The callback function is always at `+0x008`. Once you have the function address,
 Every driver that wants notification of process creation/exit calls `PsSetCreateProcessNotifyRoutineEx`. The kernel stores all registered callbacks in `PspCreateProcessNotifyRoutine` — a **64-slot array** inside `ntoskrnl`. Each slot is an `EX_FAST_REF` pointer as described above.
 
 When a new process is created, the kernel walks this array, dereferences each non-null slot, strips the low nibble, and calls the `Function` at `+0x008`. The callback receives a pointer to the `_EPROCESS` of the new process and can inspect or block it.
+
+![Callback array to function resolution chain](/assets/images/callbacks-array-chain.svg)
 
 ## Step 1 — Dump the Array
 

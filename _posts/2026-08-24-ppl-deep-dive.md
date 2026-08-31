@@ -19,6 +19,8 @@ This gate lives in `PsGrantedAccess` inside `NtOpenProcess`. It reads a single b
 
 ## The `_EPROCESS` Structure
 
+![_EPROCESS key fields layout](/assets/images/ppl-eprocess-layout.svg)
+
 Every running process is represented in the kernel by an `_EPROCESS` structure. It's a large (~0x900 byte) object that holds everything about a process: its PID, its token, its handle table, its virtual address space, its image name, and its protection level.
 
 WinDbg can show you the layout of any kernel structure without needing a live address. Passing `0` as the address just queries the type:
@@ -42,6 +44,8 @@ nt!_EPROCESS
 ---
 
 ## The Protection Byte — `_PS_PROTECTION`
+
+![_PS_PROTECTION bitfield layout](/assets/images/ppl-protection-byte.svg)
 
 `_PS_PROTECTION` is a one-byte bitfield. You can inspect its layout the same way:
 
