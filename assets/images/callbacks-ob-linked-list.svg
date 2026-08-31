@@ -1,61 +1,62 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="740" height="400" viewBox="0 0 740 400">
-<rect x="0" y="0" width="740" height="400" fill="#0d1117" stroke="none" stroke-width="0" rx="8"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="436" viewBox="0 0 820 436">
+<rect x="0" y="0" width="820" height="436" fill="#0d1117" stroke="none" stroke-width="0" rx="8"/>
+<text x="410" y="26" fill="#e6edf3" font-size="13" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">ObRegisterCallbacks — Linked List Layout</text>
 <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8b949e"/></marker></defs>
-<text x="370" y="26" fill="#e6edf3" font-size="13" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">ObRegisterCallbacks — Linked List Layout</text>
-<rect x="14" y="44" width="712" height="24" fill="rgba(248,81,73,0.1)" stroke="#f85149" stroke-width="1" rx="4"/>
-<text x="370" y="60" fill="#f85149" font-size="10.5" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">EMPTY LIST  —  Thread  (no Ob callbacks registered)</text>
-<rect x="14" y="76" width="340" height="80" fill="#161b22" stroke="#21262d" stroke-width="1.5" rx="4"/>
-<rect x="14" y="76" width="340" height="22" fill="rgba(88,166,255,0.18)" stroke="#58a6ff" stroke-width="0" rx="4"/>
+<rect x="14" y="44" width="792" height="24" fill="rgba(248,81,73,0.1)" stroke="#f85149" stroke-width="1" rx="4"/>
+<text x="410" y="60" fill="#f85149" font-size="10.5" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">EMPTY LIST  —  Thread  (no Ob callbacks registered)</text>
+<rect x="14" y="76" width="360" height="80" fill="#161b22" stroke="#21262d" stroke-width="1.5" rx="4"/>
+<rect x="14" y="76" width="360" height="22" fill="rgba(88,166,255,0.18)" stroke="#58a6ff" stroke-width="0" rx="4"/>
 <text x="22" y="91" fill="#58a6ff" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">_OBJECT_TYPE  @ ffff8c03`bac9f7a0</text>
-<line x1="14" y1="98" x2="354" y2="98" stroke="#21262d" stroke-width="0.5"/>
+<line x1="14" y1="98" x2="374" y2="98" stroke="#21262d" stroke-width="0.5"/>
 <text x="22" y="114" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace">+0x010  Name  =  "Thread"</text>
 <text x="22" y="130" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace">+0x0C8  CallbackList.Flink  =  ffff8c03`bac9f868</text>
 <text x="22" y="144" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace">+0x0C8  CallbackList.Blink  =  ffff8c03`bac9f868</text>
-<rect x="368" y="86" width="358" height="64" fill="rgba(248,81,73,0.1)" stroke="#f85149" stroke-width="1" rx="4"/>
-<text x="376" y="102" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace">Head addr  =  ffff8c03`bac9f7a0  +  0xC8</text>
-<text x="376" y="118" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace">             =  ffff8c03`bac9f868</text>
-<text x="376" y="136" fill="#f85149" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">Flink == head addr  →  LIST IS EMPTY  →  stop</text>
-<rect x="14" y="164" width="712" height="36" fill="rgba(227,179,65,0.18)" stroke="#e3b341" stroke-width="1" rx="3"/>
-<text x="370" y="178" fill="#e3b341" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">⚠  Do NOT dump memory at head addr when list is empty — you will read adjacent _OBJECT_TYPE fields,</text>
-<text x="370" y="192" fill="#e3b341" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">   not callback nodes. Unrelated pointers there will not resolve with  lm a  — they are not callbacks.</text>
-<rect x="14" y="216" width="712" height="24" fill="rgba(63,185,80,0.1)" stroke="#3fb950" stroke-width="1" rx="4"/>
-<text x="370" y="232" fill="#3fb950" font-size="10.5" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">NON-EMPTY LIST  —  Process  (one WdFilter callback node)</text>
-<rect x="14" y="248" width="300" height="80" fill="#161b22" stroke="#21262d" stroke-width="1.5" rx="4"/>
-<rect x="14" y="248" width="300" height="22" fill="rgba(88,166,255,0.18)" stroke="#58a6ff" stroke-width="0" rx="4"/>
-<text x="22" y="263" fill="#58a6ff" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">_OBJECT_TYPE  @ ffff8c03`bac8d0c0</text>
-<line x1="14" y1="270" x2="314" y2="270" stroke="#21262d" stroke-width="0.5"/>
-<text x="22" y="286" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace">+0x010  Name  =  "Process"</text>
-<text x="22" y="302" fill="#3fb950" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">+0x0C8  CallbackList.Flink  →  ffffa180`7454c980</text>
-<text x="22" y="316" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">  head addr = bac8d0c0+0xC8 = bac8d188  ≠ Flink</text>
-<line x1="318" y1="288" x2="354" y2="288" stroke="#3fb950" stroke-width="1.5" marker-end="url(#ar)"/>
-<rect x="356" y="238" width="370" height="154" fill="#161b22" stroke="#d2a8ff" stroke-width="1.5" rx="4"/>
-<rect x="356" y="238" width="370" height="22" fill="rgba(210,168,255,0.18)" stroke="#d2a8ff" stroke-width="0" rx="4"/>
-<text x="541" y="253" fill="#d2a8ff" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">CALLBACK_ENTRY_ITEM  @  ffffa180`7454c980</text>
-<text x="364" y="274" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">+0x000</text>
-<text x="426" y="274" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">Flink</text>
-<text x="561" y="274" fill="#e6edf3" font-size="9" font-family="JetBrains Mono,Consolas,monospace">ffff8c03`bac8d188  (= head → only 1 node)</text>
-<text x="364" y="290" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">+0x008</text>
-<text x="426" y="290" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">Blink</text>
-<text x="561" y="290" fill="#e6edf3" font-size="9" font-family="JetBrains Mono,Consolas,monospace">ffff8c03`bac8d188  (= head → only 1 node)</text>
-<text x="364" y="306" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">+0x010</text>
-<text x="426" y="306" fill="#e6edf3" font-size="9" font-family="JetBrains Mono,Consolas,monospace">Operations</text>
-<text x="561" y="306" fill="#e6edf3" font-size="9" font-family="JetBrains Mono,Consolas,monospace">00000003  (create handle + duplicate)</text>
-<rect x="358" y="310" width="366" height="16" fill="rgba(63,185,80,0.18)" stroke="#3fb950" stroke-width="0.5" rx="2"/>
-<text x="364" y="322" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">+0x014</text>
-<text x="426" y="322" fill="#3fb950" font-size="9" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">Active</text>
-<text x="561" y="322" fill="#3fb950" font-size="9" font-family="JetBrains Mono,Consolas,monospace">00000001  (enabled)  ← write 0 to disable</text>
-<text x="364" y="338" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">+0x018</text>
-<text x="426" y="338" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">CallbackRegistration</text>
-<text x="561" y="338" fill="#e6edf3" font-size="9" font-family="JetBrains Mono,Consolas,monospace">ffffa180`7454c960</text>
-<text x="364" y="354" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">+0x020</text>
-<text x="426" y="354" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">ObjectType*</text>
-<text x="561" y="354" fill="#e6edf3" font-size="9" font-family="JetBrains Mono,Consolas,monospace">ffff8c03`bac8d0c0  (back to _OBJECT_TYPE)</text>
-<rect x="358" y="358" width="366" height="16" fill="rgba(240,136,62,0.18)" stroke="#f0883e" stroke-width="0.5" rx="2"/>
-<text x="364" y="370" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">+0x028</text>
-<text x="426" y="370" fill="#f0883e" font-size="9" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">PreOperation</text>
-<text x="561" y="370" fill="#f0883e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">fffff805`42ee2ea0  → WdFilter</text>
-<text x="364" y="386" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">+0x030</text>
-<text x="426" y="386" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">PostOperation</text>
-<text x="561" y="386" fill="#e6edf3" font-size="9" font-family="JetBrains Mono,Consolas,monospace">NULL</text>
-<text x="370" y="390" fill="#8b949e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Stop walking: when node.Flink == type_addr + 0xC8 (the list head), you have visited all nodes</text>
+<rect x="388" y="84" width="418" height="64" fill="rgba(248,81,73,0.1)" stroke="#f85149" stroke-width="1" rx="4"/>
+<text x="396" y="100" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace">Head addr  =  ffff8c03`bac9f7a0  +  0xC8  =  ffff8c03`bac9f868</text>
+<text x="396" y="116" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace">Flink  =  ffff8c03`bac9f868  ==  head addr</text>
+<text x="396" y="134" fill="#f85149" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">LIST IS EMPTY  →  stop, no callbacks here</text>
+<rect x="14" y="164" width="792" height="36" fill="rgba(227,179,65,0.18)" stroke="#e3b341" stroke-width="1" rx="3"/>
+<text x="410" y="178" fill="#e3b341" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">⚠  Do NOT dump memory at head addr when list is empty — you read adjacent _OBJECT_TYPE fields, not nodes.</text>
+<text x="410" y="192" fill="#e3b341" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">   Those pointers are unrelated structure data; lm a will return nothing because they are not callbacks.</text>
+<rect x="14" y="214" width="792" height="24" fill="rgba(63,185,80,0.1)" stroke="#3fb950" stroke-width="1" rx="4"/>
+<text x="410" y="230" fill="#3fb950" font-size="10.5" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">NON-EMPTY LIST  —  Process  (one WdFilter callback node)</text>
+<rect x="14" y="246" width="268" height="80" fill="#161b22" stroke="#21262d" stroke-width="1.5" rx="4"/>
+<rect x="14" y="246" width="268" height="22" fill="rgba(88,166,255,0.18)" stroke="#58a6ff" stroke-width="0" rx="4"/>
+<text x="22" y="261" fill="#58a6ff" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">_OBJECT_TYPE @ bac8d0c0</text>
+<line x1="14" y1="268" x2="282" y2="268" stroke="#21262d" stroke-width="0.5"/>
+<text x="22" y="284" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace">+0x010  Name = "Process"</text>
+<text x="22" y="300" fill="#3fb950" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">+0x0C8  Flink  →  ffffa180`7454c980</text>
+<text x="22" y="314" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">  head = bac8d0c0+0xC8 = bac8d188 ≠ Flink</text>
+<line x1="286" y1="286" x2="318" y2="286" stroke="#3fb950" stroke-width="1.5" marker-end="url(#ar)"/>
+<rect x="320" y="236" width="486" height="162" fill="#161b22" stroke="#d2a8ff" stroke-width="1.5" rx="4"/>
+<rect x="320" y="236" width="486" height="22" fill="rgba(210,168,255,0.18)" stroke="#d2a8ff" stroke-width="0" rx="4"/>
+<text x="563" y="251" fill="#d2a8ff" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">CALLBACK_ENTRY_ITEM  @  ffffa180`7454c980</text>
+<text x="328" y="272" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">+0x000</text>
+<text x="392" y="272" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">Flink           </text>
+<text x="528" y="272" fill="#e6edf3" font-size="9" font-family="JetBrains Mono,Consolas,monospace">bac8d188  (= head addr  →  only 1 node in list)</text>
+<text x="328" y="289" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">+0x008</text>
+<text x="392" y="289" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">Blink           </text>
+<text x="528" y="289" fill="#e6edf3" font-size="9" font-family="JetBrains Mono,Consolas,monospace">bac8d188  (= head addr  →  only 1 node in list)</text>
+<text x="328" y="306" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">+0x010</text>
+<text x="392" y="306" fill="#e6edf3" font-size="9" font-family="JetBrains Mono,Consolas,monospace">Operations      </text>
+<text x="528" y="306" fill="#e6edf3" font-size="9" font-family="JetBrains Mono,Consolas,monospace">00000003  (create handle + duplicate)</text>
+<rect x="322" y="310" width="482" height="16" fill="rgba(63,185,80,0.18)" stroke="#3fb950" stroke-width="0.5" rx="2"/>
+<text x="328" y="323" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">+0x014</text>
+<text x="392" y="323" fill="#3fb950" font-size="9" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">Active          </text>
+<text x="528" y="323" fill="#3fb950" font-size="9" font-family="JetBrains Mono,Consolas,monospace">00000001  (enabled)  ← eb node+0x14 0  to disable</text>
+<text x="328" y="340" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">+0x018</text>
+<text x="392" y="340" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">CallbackReg.*   </text>
+<text x="528" y="340" fill="#e6edf3" font-size="9" font-family="JetBrains Mono,Consolas,monospace">ffffa180`7454c960</text>
+<text x="328" y="357" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">+0x020</text>
+<text x="392" y="357" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">ObjectType*     </text>
+<text x="528" y="357" fill="#e6edf3" font-size="9" font-family="JetBrains Mono,Consolas,monospace">ffff8c03`bac8d0c0  (back to _OBJECT_TYPE)</text>
+<rect x="322" y="361" width="482" height="16" fill="rgba(240,136,62,0.18)" stroke="#f0883e" stroke-width="0.5" rx="2"/>
+<text x="328" y="374" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">+0x028</text>
+<text x="392" y="374" fill="#f0883e" font-size="9" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">PreOperation    </text>
+<text x="528" y="374" fill="#f0883e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">fffff805`42ee2ea0  →  WdFilter.sys</text>
+<text x="328" y="391" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">+0x030</text>
+<text x="392" y="391" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">PostOperation   </text>
+<text x="528" y="391" fill="#e6edf3" font-size="9" font-family="JetBrains Mono,Consolas,monospace">NULL</text>
+<text x="410" y="412" fill="#8b949e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Stop walking: when node.Flink == type_addr+0xC8 (list head), all nodes visited</text>
+<text x="410" y="426" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Ob callbacks need two separate passes: Process type (index 7) and Thread type (index 8)</text>
 </svg>
