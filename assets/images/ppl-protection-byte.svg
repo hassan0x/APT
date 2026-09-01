@@ -19,8 +19,8 @@
 <text x="482" y="82" fill="#3fb950" font-size="13" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">Type</text>
 <text x="482" y="98" fill="#3fb950" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">bits 2–0  (3 bits)</text>
 <text x="320" y="134" fill="#e6edf3" font-size="12" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">MsMpEng.exe  ·  Level = 0x31  =  <tspan fill="#58a6ff">0011</tspan> <tspan fill="#f0883e">0</tspan> <tspan fill="#3fb950">001</tspan></text>
-<text x="172" y="158" fill="#58a6ff" font-size="11" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Signer=3 → Antimalware</text>
-<text x="482" y="158" fill="#3fb950" font-size="11" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Type=1 → PPL (Light)</text>
-<text x="320" y="182" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Formula:  Level = (Signer &lt;&lt; 4) | Type   →   (3 &lt;&lt; 4) | 1 = 0x31</text>
+<text x="172" y="158" fill="#58a6ff" font-size="11" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Signer=3 => Antimalware</text>
+<text x="482" y="158" fill="#3fb950" font-size="11" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Type=1 => PPL (Light)</text>
+<text x="320" y="182" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Formula:  Level = (Signer &lt;&lt; 4) | Type   =>   (3 &lt;&lt; 4) | 1 = 0x31</text>
 <text x="320" y="198" fill="#f85149" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Write 0x00 to this byte to remove all protection</text>
 </svg>

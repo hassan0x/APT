@@ -17,12 +17,12 @@
 <rect x="20" y="198" width="300" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
 <text x="28" y="215" fill="#8b949e" font-size="11" font-family="JetBrains Mono,Consolas,monospace">  ...                       </text>
 <rect x="20" y="224" width="300" height="26" fill="rgba(248,81,73,0.18)" stroke="#f85149" stroke-width="1.5" rx="4"/>
-<text x="28" y="241" fill="#f85149" font-size="11" font-family="JetBrains Mono,Consolas,monospace">+0x6FA  Protection  →  0x31</text>
+<text x="28" y="241" fill="#f85149" font-size="11" font-family="JetBrains Mono,Consolas,monospace">+0x6FA  Protection  =>  0x31</text>
 <rect x="20" y="250" width="300" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
 <text x="28" y="267" fill="#8b949e" font-size="11" font-family="JetBrains Mono,Consolas,monospace">  ...                       </text>
 <rect x="20" y="276" width="300" height="26" fill="none" stroke="#21262d" stroke-width="0.5" rx="4"/>
 <text x="28" y="293" fill="#8b949e" font-size="11" font-family="JetBrains Mono,Consolas,monospace">+0x900  (structure end)    </text>
-<line x1="322" y1="237" x2="370" y2="237" stroke="#f85149" stroke-width="1.5" marker-end="url(#ra)"/>
+<line x1="322" y1="237" x2="368" y2="237" stroke="#f85149" stroke-width="1.5" marker-end="url(#ra)"/>
 <rect x="372" y="201" width="148" height="72" fill="rgba(248,81,73,0.18)" stroke="#f85149" stroke-width="1.5" rx="4"/>
 <text x="446" y="219" fill="#f85149" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">single byte</text>
 <text x="446" y="235" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">Signer = 3 (Antimalware)</text>
