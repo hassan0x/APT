@@ -32,5 +32,5 @@
   <text x="320" y="276" text-anchor="middle" fill="#e3b341" font-size="11" font-weight="bold" font-family='Segoe UI, Inter, sans-serif'>Sanity: kread32(kbase) &amp; 0xFFFF == 0x5A4D</text>
   <text x="320" y="292" text-anchor="middle" fill="#8b949e"   font-size="10" font-family='Segoe UI, Inter, sans-serif'>MZ header at kbase confirms RTCore64 reads kernel memory correctly</text>
 
-  <text x="320" y="308" text-anchor="middle" fill="#8b949e" font-size="9" font-family='Segoe UI, Inter, sans-serif'>All symbols addressed as  kbase + RVA  (Win10 build 18363 values used in examples)</text>
+  <text x="320" y="322" text-anchor="middle" fill="#8b949e" font-size="9" font-family='Segoe UI, Inter, sans-serif'>All symbols addressed as  kbase + RVA  (Win10 build 18363 values used in examples)</text>
 </svg>
