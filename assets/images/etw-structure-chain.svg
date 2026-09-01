@@ -6,27 +6,27 @@
 <text x="74" y="62" fill="#58a6ff" font-size="12" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">EtwpDebuggerData[3]</text>
 <text x="74" y="76" fill="#8b949e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace">nt! kernel symbol  ·  index 3 = host silo</text>
 <text x="74" y="90" fill="#8b949e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace">gg nt!EtwpDebuggerData  then  poi(@rax+0x18)</text>
-<line x1="320" y1="98" x2="320" y2="64" stroke="#8b949e" stroke-width="1.5" marker-end="url(#da)"/>
+<line x1="320" y1="98" x2="320" y2="116" stroke="#8b949e" stroke-width="1.5" marker-end="url(#da)"/>
 <rect x="60" y="118" width="520" height="52" fill="rgba(88,166,255,0.18)" stroke="#58a6ff" stroke-width="1.5" rx="4"/>
 <text x="74" y="136" fill="#58a6ff" font-size="12" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">_ETW_SILODRIVERSTATE</text>
 <text x="74" y="150" fill="#8b949e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace">+0x1c8  EtwpLoggerContext  (session pointer array)</text>
 <text x="74" y="164" fill="#8b949e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace">+0x1d0  EtwpGuidHashTable  (64-bucket provider table)</text>
-<line x1="320" y1="172" x2="320" y2="138" stroke="#8b949e" stroke-width="1.5" marker-end="url(#da)"/>
+<line x1="320" y1="172" x2="320" y2="190" stroke="#8b949e" stroke-width="1.5" marker-end="url(#da)"/>
 <rect x="60" y="192" width="520" height="52" fill="rgba(240,136,62,0.18)" stroke="#f0883e" stroke-width="1.5" rx="4"/>
 <text x="74" y="210" fill="#f0883e" font-size="12" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">_ETW_HASH_BUCKET[29]</text>
 <text x="74" y="224" fill="#8b949e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace">Bucket index = (GUID XOR hash) &amp; 0x3F = 0x1D = 29</text>
 <text x="74" y="238" fill="#8b949e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace">Offset = 29 × sizeof(_ETW_HASH_BUCKET) = 29 × 0x38 = 0x658</text>
-<line x1="320" y1="246" x2="320" y2="212" stroke="#8b949e" stroke-width="1.5" marker-end="url(#da)"/>
+<line x1="320" y1="246" x2="320" y2="264" stroke="#8b949e" stroke-width="1.5" marker-end="url(#da)"/>
 <rect x="60" y="266" width="520" height="52" fill="rgba(227,179,65,0.18)" stroke="#e3b341" stroke-width="1.5" rx="4"/>
 <text x="74" y="284" fill="#e3b341" font-size="12" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">_ETW_GUID_ENTRY</text>
 <text x="74" y="298" fill="#8b949e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace">+0x028 Guid  ·  +0x060 ProviderEnableInfo (aggregate)</text>
 <text x="74" y="312" fill="#8b949e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace">+0x080 EnableInfo[8]  ·  +0x188 SiloState</text>
-<line x1="320" y1="320" x2="320" y2="286" stroke="#8b949e" stroke-width="1.5" marker-end="url(#da)"/>
+<line x1="320" y1="320" x2="320" y2="338" stroke="#8b949e" stroke-width="1.5" marker-end="url(#da)"/>
 <rect x="60" y="340" width="520" height="52" fill="rgba(63,185,80,0.18)" stroke="#3fb950" stroke-width="1.5" rx="4"/>
 <text x="74" y="358" fill="#3fb950" font-size="12" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">_TRACE_ENABLE_INFO  ×8</text>
 <text x="74" y="372" fill="#8b949e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace">+0x000 IsEnabled  ·  +0x01c LoggerId  -- patch IsEnabled=0</text>
 <text x="74" y="386" fill="#8b949e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace">One slot per subscribed session (up to 8 consumers)</text>
-<line x1="320" y1="394" x2="320" y2="360" stroke="#8b949e" stroke-width="1.5" marker-end="url(#da)"/>
+<line x1="320" y1="394" x2="320" y2="412" stroke="#8b949e" stroke-width="1.5" marker-end="url(#da)"/>
 <rect x="60" y="414" width="520" height="52" fill="rgba(210,168,255,0.18)" stroke="#d2a8ff" stroke-width="1.5" rx="4"/>
 <text x="74" y="432" fill="#d2a8ff" font-size="12" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">_WMI_LOGGER_CONTEXT</text>
 <text x="74" y="446" fill="#8b949e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace">LoggerName = "DefenderApiLogger"  ·  LoggerId = 6</text>
