@@ -438,11 +438,11 @@ After this runs, `OpenProcess(PROCESS_ALL_ACCESS, ...)` on MsMpEng succeeds. The
 
 Every RVA used above (`0x5723A0`, `0x503E20`, `0x429E08`, etc.) is correct for **Windows 10 build 18363 x64**. These values change with every cumulative update and are different on Windows 11.
 
-For a tool that must run across multiple builds, there are two approaches.
+For a tool that must run across multiple builds, parse the on-disk ntoskrnl export table.
 
 ---
 
-### Method 1 — Parse the On-Disk ntoskrnl Export Table
+### Parsing the On-Disk ntoskrnl Export Table
 
 The PE export directory of `ntoskrnl.exe` on disk is identical to what the loader maps in memory — the only difference is the image base. Reading it from `%SystemRoot%\System32` requires no elevated privilege beyond normal file read access.
 
@@ -519,78 +519,6 @@ Symbols that are exported and therefore safe to resolve this way:
 | `EtwpDebuggerData` | ETW-TI provider navigation |
 | `ObTypeIndexTable` | Object type table for ObCallbacks |
 | `CmCallbackListHead` | Registry callback list |
-
----
-
-### Method 2 — Pattern-Scan the Loaded Kernel Image
-
-Some symbols are not exported. `PspProcessNotifyRoutine` for example is exported on older builds but not on all Windows 11 versions. For unexported targets, you locate them by scanning for a unique byte sequence near the target inside the live kernel image.
-
-The idea: find a nearby *exported* function that references your target, disassemble the first few bytes to find a `mov rax, [rip+X]` or `lea rcx, [rip+X]` instruction, and extract the displacement to compute the target's address.
-
-```c
-/*
- * Scan [scanStart, scanStart+scanLen) for the byte pattern.
- * Returns the VA of the first match, or 0.
- *
- * Uses kread32 to read 4 bytes at a time from kernel memory.
- */
-DWORD64 PatternScan(DWORD64 scanStart, SIZE_T scanLen,
-                    const BYTE *pattern, SIZE_T patLen)
-{
-    for (SIZE_T i = 0; i + patLen <= scanLen; i++) {
-        BOOL match = TRUE;
-        for (SIZE_T j = 0; j < patLen && match; j += 4) {
-            DWORD chunk = kread32(scanStart + i + j);
-            DWORD expected = 0;
-            memcpy(&expected, pattern + j,
-                   min((SIZE_T)4, patLen - j));
-            if (chunk != expected) match = FALSE;
-        }
-        if (match) return scanStart + i;
-    }
-    return 0;
-}
-
-/*
- * Example: locate PspCreateProcessNotifyRoutine on a build where it
- * is not exported. We know PsSetCreateProcessNotifyRoutine (exported)
- * contains a LEA or MOV referencing it within its first 32 bytes.
- *
- * Signature bytes (Win10 20H2 example): 4C 8D 05 ?? ?? ?? ??
- *   LEA r8, [PspCreateProcessNotifyRoutine]
- */
-DWORD GetExportRVA(const char*, const char*);  /* from Method 1 */
-
-DWORD64 rva  = GetExportRVA(ntoskrnlPath, "PsSetCreateProcessNotifyRoutine");
-DWORD64 fnVA = kbase + rva;
-
-BYTE sig[] = { 0x4C, 0x8D, 0x05 };   /* LEA r8, [rip+disp32] */
-DWORD64 hit = PatternScan(fnVA, 64, sig, sizeof(sig));
-
-if (hit) {
-    /* RIP-relative: displacement is the 4 bytes after the 3-byte opcode */
-    DWORD disp = kread32(hit + 3);
-    DWORD64 target = hit + 7 + (INT32)disp;   /* hit + instr_len + disp */
-    printf("[+] PspCreateProcessNotifyRoutine = 0x%016llX\n", target);
-}
-```
-
-The displacement extraction `hit + 7 + (INT32)disp` follows standard RIP-relative addressing: the RIP value used is the address of the *next* instruction (current address + 7 for a 3-byte opcode + 4-byte displacement), and the signed 32-bit displacement is added to it.
-
----
-
-### Which Method to Use
-
-| | Export Parsing | Pattern Scan |
-|---|---|---|
-| **Works on** | Exported symbols only | Any symbol with a stable nearby reference |
-| **Reliability** | High — export table is stable across minor updates | Medium — byte patterns can change with compiler/optimization updates |
-| **No kernel read needed** | Yes — reads the file from disk | No — requires live kernel read via RTCore |
-| **Complexity** | Low — straightforward PE walk | High — requires disassembly knowledge per target |
-| **Detectable** | File read of ntoskrnl.exe | Repeated sequential kread32 calls across large kernel range |
-
-**Use export parsing first.** All the symbols used in this post are exported. Pattern scanning is a fallback for unexported internals — use it only when you have confirmed the target is not in the export table, and always validate the result against a known-good build before trusting it.
 
 ---
 
