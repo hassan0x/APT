@@ -165,6 +165,14 @@ tr:hover td { background-color: #161b22; }
 
 hr { border: none; border-top: 1px solid #21262d !important; margin: 2rem 0; }
 
+.post-content img {
+  border: 1px solid #21262d;
+  border-radius: 8px;
+  display: block;
+  max-width: 100%;
+  margin: 1.5rem auto;
+}
+
 .site-footer {
   background-color: #0d1117 !important;
   border-top: 1px solid #21262d !important;
