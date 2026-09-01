@@ -1,6 +1,6 @@
 ---
 title: "Protected Process Light (PPL) — A WinDbg Deep Dive"
-date: 2026-08-23
+date: 2026-08-24
 categories: [Windows Internals, Deep Dive]
 tags: [ppl, protected-process, eprocess, kernel, windbg, defender]
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Kernel Callbacks — How EDRs See Every Process, Thread, and Image"
-date: 2026-08-23
+date: 2026-08-22
 categories: [Windows Internals, Kernel]
 tags: [kernel, callbacks, windbg, windows, edr]
 ---
