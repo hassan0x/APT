@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="540" height="340" viewBox="0 0 540 340">
-<rect x="0" y="0" width="540" height="340" fill="#0f1f38" stroke="none" stroke-width="0" rx="8"/>
+<rect x="0" y="0" width="540" height="340" fill="#161b22" stroke="none" stroke-width="0" rx="8"/>
 <text x="270" y="26" fill="#e6edf3" font-size="13" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">_EPROCESS Structure — Key Fields</text>
 <defs><marker id="ra" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#f85149"/></marker></defs>
 <rect x="20" y="44" width="300" height="24" fill="rgba(88,166,255,0.18)" stroke="#21262d" stroke-width="1.5" rx="4"/>

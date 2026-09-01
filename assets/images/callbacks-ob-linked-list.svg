@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="820" height="436" viewBox="0 0 820 436">
-<rect x="0" y="0" width="820" height="436" fill="#0f1f38" stroke="none" stroke-width="0" rx="8"/>
+<rect x="0" y="0" width="820" height="436" fill="#161b22" stroke="none" stroke-width="0" rx="8"/>
 <text x="410" y="26" fill="#e6edf3" font-size="13" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">ObRegisterCallbacks — Linked List Layout</text>
 <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8b949e"/></marker></defs>
 <rect x="14" y="44" width="792" height="24" fill="rgba(248,81,73,0.1)" stroke="#f85149" stroke-width="1" rx="4"/>
 <text x="410" y="60" fill="#f85149" font-size="10.5" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">EMPTY LIST  —  Thread  (no Ob callbacks registered)</text>
-<rect x="14" y="76" width="360" height="80" fill="#192d44" stroke="#21262d" stroke-width="1.5" rx="4"/>
+<rect x="14" y="76" width="360" height="80" fill="#1c2333" stroke="#21262d" stroke-width="1.5" rx="4"/>
 <rect x="14" y="76" width="360" height="22" fill="rgba(88,166,255,0.18)" stroke="#58a6ff" stroke-width="0" rx="4"/>
 <text x="22" y="91" fill="#58a6ff" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">_OBJECT_TYPE  @ ffff8c03`bac9f7a0</text>
 <line x1="14" y1="98" x2="374" y2="98" stroke="#21262d" stroke-width="0.5"/>
@@ -20,7 +20,7 @@
 <text x="410" y="192" fill="#e3b341" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">   Those pointers are unrelated structure data; lm a will return nothing because they are not callbacks.</text>
 <rect x="14" y="214" width="792" height="24" fill="rgba(63,185,80,0.1)" stroke="#3fb950" stroke-width="1" rx="4"/>
 <text x="410" y="230" fill="#3fb950" font-size="10.5" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">NON-EMPTY LIST  —  Process  (one WdFilter callback node)</text>
-<rect x="14" y="246" width="268" height="80" fill="#192d44" stroke="#21262d" stroke-width="1.5" rx="4"/>
+<rect x="14" y="246" width="268" height="80" fill="#1c2333" stroke="#21262d" stroke-width="1.5" rx="4"/>
 <rect x="14" y="246" width="268" height="22" fill="rgba(88,166,255,0.18)" stroke="#58a6ff" stroke-width="0" rx="4"/>
 <text x="22" y="261" fill="#58a6ff" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">_OBJECT_TYPE @ bac8d0c0</text>
 <line x1="14" y1="268" x2="282" y2="268" stroke="#21262d" stroke-width="0.5"/>
@@ -28,7 +28,7 @@
 <text x="22" y="300" fill="#3fb950" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">+0x0C8  Flink  =>  ffffa180`7454c980</text>
 <text x="22" y="314" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">  head = bac8d0c0+0xC8 = bac8d188 != Flink</text>
 <line x1="286" y1="286" x2="318" y2="286" stroke="#3fb950" stroke-width="1.5" marker-end="url(#ar)"/>
-<rect x="320" y="236" width="486" height="162" fill="#192d44" stroke="#d2a8ff" stroke-width="1.5" rx="4"/>
+<rect x="320" y="236" width="486" height="162" fill="#1c2333" stroke="#d2a8ff" stroke-width="1.5" rx="4"/>
 <rect x="320" y="236" width="486" height="22" fill="rgba(210,168,255,0.18)" stroke="#d2a8ff" stroke-width="0" rx="4"/>
 <text x="563" y="251" fill="#d2a8ff" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">CALLBACK_ENTRY_ITEM  @  ffffa180`7454c980</text>
 <text x="328" y="272" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">+0x000</text>

@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="660" height="330" viewBox="0 0 660 330">
-  <rect width="660" height="330" fill="#0f1f38" rx="8"/>
+  <rect width="660" height="330" fill="#161b22" rx="8"/>
 
   <!-- Title -->
   <text x="330" y="28" text-anchor="middle" fill="#e6edf3" font-size="13" font-weight="bold" font-family="Segoe UI,Inter,sans-serif">RTCORE_MEM Structure Layout</text>
   <text x="330" y="46" text-anchor="middle" fill="#8b949e" font-size="10" font-family="Segoe UI,Inter,sans-serif">#pragma pack(push, 1)  ·  48 bytes total  ·  same buffer for both IOCTLs</text>
 
   <!-- Header row (rect first, then text on top) -->
-  <rect x="16" y="56" width="628" height="26" fill="#192d44" rx="3"/>
+  <rect x="16" y="56" width="628" height="26" fill="#1c2333" rx="3"/>
   <text x="24"  y="73" fill="#8b949e" font-size="10" font-weight="bold" font-family="Segoe UI,Inter,sans-serif">OFFSET</text>
   <text x="82"  y="73" fill="#8b949e" font-size="10" font-weight="bold" font-family="Segoe UI,Inter,sans-serif">SIZE</text>
   <text x="136" y="73" fill="#8b949e" font-size="10" font-weight="bold" font-family="Segoe UI,Inter,sans-serif">FIELD</text>
@@ -14,7 +14,7 @@
   <line x1="16" y1="82" x2="644" y2="82" stroke="#30363d" stroke-width="1"/>
 
   <!-- Row 1: pad0 -->
-  <rect x="16" y="83" width="628" height="30" fill="#0f1f38" rx="0"/>
+  <rect x="16" y="83" width="628" height="30" fill="#161b22" rx="0"/>
   <text x="24"  y="103" fill="#8b949e" font-size="10.5" font-family="JetBrains Mono,Consolas,monospace">+0x00</text>
   <text x="82"  y="103" fill="#8b949e" font-size="10"   font-family="JetBrains Mono,Consolas,monospace">8 B</text>
   <text x="136" y="103" fill="#8b949e" font-size="10.5" font-weight="bold" font-family="JetBrains Mono,Consolas,monospace">pad0[8]</text>
@@ -22,7 +22,7 @@
   <line x1="16" y1="113" x2="644" y2="113" stroke="#1e3050" stroke-width="1"/>
 
   <!-- Row 2: Address -->
-  <rect x="16" y="114" width="628" height="30" fill="#192d44" rx="0"/>
+  <rect x="16" y="114" width="628" height="30" fill="#1c2333" rx="0"/>
   <text x="24"  y="134" fill="#8b949e" font-size="10.5" font-family="JetBrains Mono,Consolas,monospace">+0x08</text>
   <text x="82"  y="134" fill="#8b949e" font-size="10"   font-family="JetBrains Mono,Consolas,monospace">8 B</text>
   <text x="136" y="134" fill="#58a6ff" font-size="10.5" font-weight="bold" font-family="JetBrains Mono,Consolas,monospace">Address</text>
@@ -30,7 +30,7 @@
   <line x1="16" y1="144" x2="644" y2="144" stroke="#1e3050" stroke-width="1"/>
 
   <!-- Row 3: pad1 -->
-  <rect x="16" y="145" width="628" height="30" fill="#0f1f38" rx="0"/>
+  <rect x="16" y="145" width="628" height="30" fill="#161b22" rx="0"/>
   <text x="24"  y="165" fill="#8b949e" font-size="10.5" font-family="JetBrains Mono,Consolas,monospace">+0x10</text>
   <text x="82"  y="165" fill="#8b949e" font-size="10"   font-family="JetBrains Mono,Consolas,monospace">8 B</text>
   <text x="136" y="165" fill="#8b949e" font-size="10.5" font-weight="bold" font-family="JetBrains Mono,Consolas,monospace">pad1[8]</text>
@@ -38,7 +38,7 @@
   <line x1="16" y1="175" x2="644" y2="175" stroke="#1e3050" stroke-width="1"/>
 
   <!-- Row 4: Size -->
-  <rect x="16" y="176" width="628" height="30" fill="#192d44" rx="0"/>
+  <rect x="16" y="176" width="628" height="30" fill="#1c2333" rx="0"/>
   <text x="24"  y="196" fill="#8b949e" font-size="10.5" font-family="JetBrains Mono,Consolas,monospace">+0x18</text>
   <text x="82"  y="196" fill="#8b949e" font-size="10"   font-family="JetBrains Mono,Consolas,monospace">4 B</text>
   <text x="136" y="196" fill="#e3b341" font-size="10.5" font-weight="bold" font-family="JetBrains Mono,Consolas,monospace">Size</text>
@@ -46,7 +46,7 @@
   <line x1="16" y1="206" x2="644" y2="206" stroke="#1e3050" stroke-width="1"/>
 
   <!-- Row 5: Value -->
-  <rect x="16" y="207" width="628" height="30" fill="#0f1f38" rx="0"/>
+  <rect x="16" y="207" width="628" height="30" fill="#161b22" rx="0"/>
   <text x="24"  y="227" fill="#8b949e" font-size="10.5" font-family="JetBrains Mono,Consolas,monospace">+0x1C</text>
   <text x="82"  y="227" fill="#8b949e" font-size="10"   font-family="JetBrains Mono,Consolas,monospace">4 B</text>
   <text x="136" y="227" fill="#3fb950" font-size="10.5" font-weight="bold" font-family="JetBrains Mono,Consolas,monospace">Value</text>
@@ -54,7 +54,7 @@
   <line x1="16" y1="237" x2="644" y2="237" stroke="#1e3050" stroke-width="1"/>
 
   <!-- Row 6: pad2 -->
-  <rect x="16" y="238" width="628" height="30" fill="#192d44" rx="0"/>
+  <rect x="16" y="238" width="628" height="30" fill="#1c2333" rx="0"/>
   <text x="24"  y="258" fill="#8b949e" font-size="10.5" font-family="JetBrains Mono,Consolas,monospace">+0x20</text>
   <text x="82"  y="258" fill="#8b949e" font-size="10"   font-family="JetBrains Mono,Consolas,monospace">16 B</text>
   <text x="136" y="258" fill="#8b949e" font-size="10.5" font-weight="bold" font-family="JetBrains Mono,Consolas,monospace">pad2[16]</text>
