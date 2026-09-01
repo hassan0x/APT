@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="740" height="240" viewBox="0 0 740 240">
-<rect x="0" y="0" width="740" height="240" fill="#0d1117" stroke="none" stroke-width="0" rx="8"/>
+<rect x="0" y="0" width="740" height="240" fill="#0f1f38" stroke="none" stroke-width="0" rx="8"/>
 <text x="370" y="26" fill="#e6edf3" font-size="13" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">PspCreateProcessNotifyRoutine — Array to Function</text>
 <defs><marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8b949e"/></marker></defs>
-<rect x="16" y="50" width="110" height="160" fill="#161b22" stroke="#21262d" stroke-width="1.5" rx="4"/>
+<rect x="16" y="50" width="110" height="160" fill="#192d44" stroke="#21262d" stroke-width="1.5" rx="4"/>
 <rect x="16" y="50" width="110" height="24" fill="rgba(88,166,255,0.18)" stroke="#21262d" stroke-width="1.5" rx="4"/>
 <text x="71" y="66" fill="#58a6ff" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">Array[64]</text>
 <text x="71" y="92" fill="#e6edf3" font-size="9" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">slot[0]  e4dfb52f</text>
@@ -15,7 +15,7 @@
 <text x="71" y="194" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">-- null = stop</text>
 <text x="132" y="122" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">&amp; ~0xF</text>
 <line x1="130" y1="130" x2="176" y2="130" stroke="#f0883e" stroke-width="1.5" marker-end="url(#ar3)"/>
-<rect x="178" y="70" width="170" height="86" fill="#161b22" stroke="#f0883e" stroke-width="1.5" rx="4"/>
+<rect x="178" y="70" width="170" height="86" fill="#192d44" stroke="#f0883e" stroke-width="1.5" rx="4"/>
 <rect x="178" y="70" width="170" height="22" fill="rgba(240,136,62,0.18)" stroke="#f0883e" stroke-width="0" rx="4"/>
 <text x="263" y="85" fill="#f0883e" font-size="9.5" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">_EX_CALLBACK_ROUTINE_BLOCK</text>
 <text x="188" y="108" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace">+0x00  RundownProtect</text>
@@ -23,14 +23,14 @@
 <text x="188" y="128" fill="#3fb950" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold">+0x08  Function  --</text>
 <text x="188" y="146" fill="#8b949e" font-size="10" font-family="JetBrains Mono,Consolas,monospace">+0x10  Context</text>
 <line x1="352" y1="113" x2="398" y2="113" stroke="#3fb950" stroke-width="1.5" marker-end="url(#ar3)"/>
-<rect x="400" y="80" width="150" height="60" fill="#161b22" stroke="#3fb950" stroke-width="1.5" rx="4"/>
+<rect x="400" y="80" width="150" height="60" fill="#192d44" stroke="#3fb950" stroke-width="1.5" rx="4"/>
 <rect x="400" y="80" width="150" height="22" fill="rgba(63,185,80,0.18)" stroke="#3fb950" stroke-width="0" rx="4"/>
 <text x="475" y="95" fill="#3fb950" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">Function Address</text>
 <text x="475" y="118" fill="#e6edf3" font-size="10" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">fffff804`42fdaa60</text>
 <text x="475" y="132" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">(in WdFilter range)</text>
 <text x="556" y="102" fill="#8b949e" font-size="9" font-family="JetBrains Mono,Consolas,monospace">lm a</text>
 <line x1="554" y1="110" x2="600" y2="110" stroke="#8b949e" stroke-width="1.5" marker-end="url(#ar3)"/>
-<rect x="602" y="80" width="116" height="60" fill="#161b22" stroke="#58a6ff" stroke-width="1.5" rx="4"/>
+<rect x="602" y="80" width="116" height="60" fill="#192d44" stroke="#58a6ff" stroke-width="1.5" rx="4"/>
 <rect x="602" y="80" width="116" height="22" fill="rgba(88,166,255,0.18)" stroke="#58a6ff" stroke-width="0" rx="4"/>
 <text x="660" y="95" fill="#58a6ff" font-size="10" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">Driver</text>
 <text x="660" y="116" fill="#e6edf3" font-size="11" font-family="JetBrains Mono,Consolas,monospace" text-anchor="middle">WdFilter.sys</text>

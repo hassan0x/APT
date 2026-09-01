@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="640" height="506" viewBox="0 0 640 506">
-<rect x="0" y="0" width="640" height="506" fill="#0d1117" stroke="none" stroke-width="0" rx="8"/>
+<rect x="0" y="0" width="640" height="506" fill="#0f1f38" stroke="none" stroke-width="0" rx="8"/>
 <text x="320" y="26" fill="#e6edf3" font-size="13" font-family="JetBrains Mono,Consolas,monospace" font-weight="bold" text-anchor="middle">ETW-TI — Kernel Structure Navigation Chain</text>
 <defs><marker id="da" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8b949e"/></marker></defs>
 <rect x="60" y="44" width="520" height="52" fill="rgba(88,166,255,0.18)" stroke="#58a6ff" stroke-width="1.5" rx="4"/>
