@@ -20,69 +20,74 @@ body {
   background-color: var(--bg) !important;
   color: var(--text-body) !important;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
-  font-size: 16.5px;
+  font-size: 16px;
   line-height: 1.75;
   -webkit-font-smoothing: antialiased;
   overflow-y: scroll;
 }
 
+.wrapper { max-width: 780px; }
+
 .site-header {
-  background-color: rgba(13, 17, 23, 0.92) !important;
+  background-color: var(--bg) !important;
   border-top: none !important;
   border-bottom: 1px solid var(--border) !important;
   position: sticky;
   top: 0;
   z-index: 100;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-.wrapper {
-  max-width: 720px;
 }
 
 .site-header .wrapper {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   min-height: 56px;
 }
 
 .site-title, .site-title:visited {
+  float: none !important;
   color: var(--text) !important;
-  font-weight: 650 !important;
-  font-size: 0.95rem !important;
-  letter-spacing: -0.01em;
+  font-weight: 600 !important;
+  font-size: 1.05rem !important;
   text-decoration: none !important;
 }
 
 .site-title:hover { color: var(--link) !important; }
 
+.site-nav {
+  float: none !important;
+  line-height: 1 !important;
+}
+
 .site-nav .page-link {
   color: var(--muted) !important;
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   font-weight: 500;
 }
 
 .site-nav .page-link:hover { color: var(--text) !important; }
 
+@media screen and (min-width: 600px) {
+  .site-nav .nav-trigger,
+  .site-nav label[for="nav-trigger"] {
+    display: none;
+  }
+
+  .site-nav .trigger {
+    display: block;
+  }
+
+  .site-nav .page-link {
+    display: inline-block;
+    margin-left: 1.25rem;
+    padding: 0;
+  }
+}
+
 .page-content {
   background-color: var(--bg);
-  padding-top: 2.25rem;
+  padding-top: 2.5rem;
   padding-bottom: 4rem;
-}
-
-.home-intro {
-  margin: 0 0 2.5rem;
-  padding-bottom: 1.75rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.home-lead {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.95rem;
-  line-height: 1.6;
-  max-width: 36em;
 }
 
 .post-list {
@@ -92,7 +97,7 @@ body {
 }
 
 .post-list > li {
-  padding: 1.35rem 0;
+  padding: 1.5rem 0;
   margin-bottom: 0 !important;
   border-bottom: 1px solid var(--border);
 }
@@ -100,13 +105,16 @@ body {
 .post-list > li:first-child { padding-top: 0; }
 .post-list > li:last-child { border-bottom: none; }
 
-.post-list .post-meta {
-  display: block;
-  margin-bottom: 0.35rem;
+.post-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
 }
 
 .post-list h3 {
   margin: 0;
+  flex: 1;
   line-height: 1.35;
 }
 
@@ -121,11 +129,11 @@ body {
 .post-link:hover { color: var(--link) !important; }
 
 .post-summary {
-  margin: 0.4rem 0 0;
+  margin: 0.35rem 0 0;
   color: var(--muted);
   font-size: 0.92rem;
   line-height: 1.55;
-  max-width: 40em;
+  max-width: 42em;
 }
 
 .post-meta {
@@ -133,6 +141,8 @@ body {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.75rem;
   letter-spacing: 0.02em;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .post-title {
@@ -275,15 +285,37 @@ hr { border: none; border-top: 1px solid var(--border) !important; margin: 2.25r
   border-top: 1px solid var(--border) !important;
   color: var(--muted) !important;
   font-size: 0.8rem;
-  padding-top: 1.5rem;
+  padding-top: 1.25rem;
   padding-bottom: 1.5rem;
+}
+
+.site-footer .footer-heading,
+.site-footer .footer-col-1,
+.site-footer .footer-col-2 {
+  display: none;
+}
+
+.site-footer .footer-col-wrapper {
+  margin-left: 0 !important;
+}
+
+.site-footer .footer-col-3 {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  float: none !important;
+  color: var(--muted) !important;
 }
 
 .site-footer a { color: var(--muted) !important; }
 .site-footer a:hover { color: var(--link) !important; }
-.footer-col-wrapper { color: var(--muted) !important; }
 
 @media (max-width: 600px) {
   .post-title { font-size: 1.45rem !important; }
+  .post-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
   .wrapper { padding-right: 1.1rem; padding-left: 1.1rem; }
 }
