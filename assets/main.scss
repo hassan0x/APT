@@ -35,13 +35,14 @@ body {
 /* ── Header ───────────────────────────────────────────────────────────── */
 
 .site-header {
-  background-color: var(--bg) !important;
+  background-color: #0d1117 !important;
   border-top: none !important;
-  border-bottom: 1px solid var(--border) !important;
+  border-bottom: 1px solid #21262d !important;
   min-height: 0 !important;
   position: sticky;
   top: 0;
   z-index: 100;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .header-inner {
