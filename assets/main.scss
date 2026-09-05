@@ -31,7 +31,10 @@ body {
 }
 
 .wrapper {
+  box-sizing: border-box;
   max-width: 820px;
+  margin-left: auto;
+  margin-right: auto;
   padding-left: 2rem !important;
   padding-right: 2rem !important;
 }
@@ -50,11 +53,6 @@ body {
 }
 
 .header-inner {
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 820px;
-  margin: 0 auto;
-  padding: 0 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
