@@ -3,6 +3,7 @@ title: "Kernel Callbacks — How EDRs See Every Process, Thread, and Image"
 date: 2026-08-22
 categories: [Windows Internals, Kernel]
 tags: [kernel, callbacks, windbg, windows, edr]
+summary: How EDRs see process, thread, and image events from the kernel.
 ---
 
 Before an EDR can block anything, it has to know something happened. In user-mode, EDRs hook NTDLL syscall stubs. But those hooks are trivially bypassed — load a clean copy of ntdll from disk and the hooks disappear. The second line of defense lives in the kernel: **notify callbacks**. This post explains what they are, the exact kernel structures that store them, and how to enumerate and disable each type using WinDbg.

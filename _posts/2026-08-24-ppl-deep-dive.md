@@ -3,6 +3,7 @@ title: "Protected Process Light (PPL) — A WinDbg Deep Dive"
 date: 2026-08-24
 categories: [Windows Internals, Deep Dive]
 tags: [ppl, protected-process, eprocess, kernel, windbg, defender]
+summary: Why Defender and lsass cannot be opened — and how PPL works.
 ---
 
 Windows Defender, lsass, csrss — these processes cannot be opened or killed even by SYSTEM. The mechanism is called **Protected Process Light (PPL)**. This post takes the four WinDbg commands needed to strip PPL and fully explains what each one does and why it works.

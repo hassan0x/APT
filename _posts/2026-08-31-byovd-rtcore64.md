@@ -3,6 +3,7 @@ title: "BYOVD — Bring Your Own Vulnerable Driver with RTCore64"
 date: 2026-08-31
 categories: [Windows Internals, Offensive]
 tags: [byovd, rtcore64, kernel, driver, edr-evasion, windows]
+summary: Arbitrary kernel read/write through a signed MSI driver.
 ---
 
 Windows requires all kernel-mode code to carry a valid digital signature from Microsoft. That policy is supposed to mean only legitimate, vetted drivers can run in ring 0. BYOVD turns that requirement against itself: instead of writing your own unsigned driver, you ship a *legitimate, signed* driver that was written by someone else — one that happens to contain a vulnerability that lets you read and write arbitrary kernel memory. This post explains how the technique works, how RTCore64 exposes it, and walks through three complete working examples built on top of it.
